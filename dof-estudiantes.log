@@ -1,0 +1,865 @@
+2026-08-07 11:12:48 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-07 11:12:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=07
+2026-08-07 11:12:49 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:12:49 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=07
+2026-08-07 11:12:50 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:12:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=07
+2026-08-07 11:12:51 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:12:51 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=06
+2026-08-07 11:12:56 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:12:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=06
+2026-08-07 11:12:57 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:12:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=06
+2026-08-07 11:13:04 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=05
+2026-08-07 11:13:04 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=05
+2026-08-07 11:13:05 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=05
+2026-08-07 11:13:05 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=04
+2026-08-07 11:13:06 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=04
+2026-08-07 11:13:07 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=04
+2026-08-07 11:13:08 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=03
+2026-08-07 11:13:09 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=03
+2026-08-07 11:13:10 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=03
+2026-08-07 11:13:11 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:13:11 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 66
+2026-08-07 11:13:11 [INFO] [Fase 1 [DOF Federal]] Evaluando 66 titulos con IA...
+2026-08-07 11:13:36 [INFO] [Fase 1 [DOF Federal]] Descartados: 29 | Pasan a Fase 2: 37
+2026-08-07 11:13:36 [INFO] [Fase 2] Analizando 37 publicaciones en profundidad...
+2026-08-07 11:13:36 [INFO] [Fase 2 1/37] DOF Federal — Resolución que modifica las Disposiciones de carácter g...
+2026-08-07 11:13:51 [INFO] [Fase 2 2/37] DOF Federal — Acuerdo por el que se emite la Declaratoria del Polo de...
+2026-08-07 11:14:03 [INFO] [Fase 2 3/37] DOF Federal — Acuerdo número 08/07/26 por el que se modifica el diver...
+2026-08-07 11:14:13 [INFO] [Fase 2 4/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:14:26 [INFO] [Fase 2 5/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:14:38 [INFO] [Fase 2 6/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:14:49 [INFO] [Fase 2 7/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:14:59 [INFO] [Fase 2 8/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:15:14 [INFO] [Fase 2 9/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:15:27 [INFO] [Fase 2 10/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:15:41 [INFO] [Fase 2 11/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:15:55 [INFO] [Fase 2 12/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:16:07 [INFO] [Fase 2 13/37] DOF Federal — Acuerdo SE/III-26/05,R del Comité Técnico del Consejo N...
+2026-08-07 11:16:18 [INFO] [Fase 2 14/37] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 11:16:30 [INFO] [Fase 2 15/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:16:47 [INFO] [Fase 2 16/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:16:58 [INFO] [Fase 2 17/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:17:09 [INFO] [Fase 2 18/37] DOF Federal — Acta de Comparecencia de la Comisión de Ordenación y Es...
+2026-08-07 11:17:20 [INFO] [Fase 2 19/37] DOF Federal — Contrato Ley de la Industria Textil del Ramo de la Seda...
+2026-08-07 11:17:32 [INFO] [Fase 2 20/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:17:44 [INFO] [Fase 2 21/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:17:56 [INFO] [Fase 2 22/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:18:09 [INFO] [Fase 2 23/37] DOF Federal — Acuerdo por el que se adiciona un conjunto de Indicador...
+2026-08-07 11:18:18 [INFO] [Fase 2 24/37] DOF Federal — Reforma al Reglamento Orgánico de la Suprema Corte de J...
+2026-08-07 11:18:30 [INFO] [Fase 2 25/37] DOF Federal — Decreto por el que se determina la información adiciona...
+2026-08-07 11:18:41 [INFO] [Fase 2 26/37] DOF Federal — Acuerdo por el que se establece la meta nacional de eli...
+2026-08-07 11:18:51 [INFO] [Fase 2 27/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:19:05 [INFO] [Fase 2 28/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:19:16 [INFO] [Fase 2 29/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:19:28 [INFO] [Fase 2 30/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:19:40 [INFO] [Fase 2 31/37] DOF Federal — Acuerdo por el que se establecen los Lineamientos para ...
+2026-08-07 11:19:48 [INFO] [Fase 2 32/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:19:58 [INFO] [Fase 2 33/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:20:11 [INFO] [Fase 2 34/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:20:25 [INFO] [Fase 2 35/37] DOF Federal — Modificaciones al Programa Anual de Auditorías para la ...
+2026-08-07 11:20:35 [INFO] [Fase 2 36/37] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 11:20:48 [INFO] [Fase 2 37/37] DOF Federal — Aviso por el que se hace del conocimiento del público e...
+2026-08-07 11:20:59 [INFO] [Fase 2] Alertas confirmadas: 30
+2026-08-07 11:20:59 [INFO] Preparando correo para estudiante...
+2026-08-07 11:20:59 [WARNING] Por favor configura tu correo en dof-estudiantes-config.json
+2026-08-07 11:20:59 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-07 11:26:10 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-07 11:26:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=07
+2026-08-07 11:26:11 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=07
+2026-08-07 11:26:12 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=07
+2026-08-07 11:26:13 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=06
+2026-08-07 11:26:13 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=06
+2026-08-07 11:26:14 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=06
+2026-08-07 11:26:15 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=05
+2026-08-07 11:26:15 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=05
+2026-08-07 11:26:16 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=05
+2026-08-07 11:26:16 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=04
+2026-08-07 11:26:17 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=04
+2026-08-07 11:26:17 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=04
+2026-08-07 11:26:18 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=03
+2026-08-07 11:26:18 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=03
+2026-08-07 11:26:19 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:19 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=03
+2026-08-07 11:26:20 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 11:26:20 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 66
+2026-08-07 11:26:21 [INFO] [Fase 1 [DOF Federal]] Evaluando 66 titulos con IA...
+2026-08-07 11:26:44 [INFO] [Fase 1 [DOF Federal]] Descartados: 29 | Pasan a Fase 2: 37
+2026-08-07 11:26:44 [INFO] [Fase 2] Analizando 37 publicaciones en profundidad...
+2026-08-07 11:26:45 [INFO] [Fase 2 1/37] DOF Federal — Resolución que modifica las Disposiciones de carácter g...
+2026-08-07 11:27:02 [INFO] [Fase 2 2/37] DOF Federal — Acuerdo por el que se emite la Declaratoria del Polo de...
+2026-08-07 11:27:14 [INFO] [Fase 2 3/37] DOF Federal — Acuerdo número 08/07/26 por el que se modifica el diver...
+2026-08-07 11:27:25 [INFO] [Fase 2 4/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:27:41 [INFO] [Fase 2 5/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:27:53 [INFO] [Fase 2 6/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:28:05 [INFO] [Fase 2 7/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:28:16 [INFO] [Fase 2 8/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:28:29 [INFO] [Fase 2 9/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:28:41 [INFO] [Fase 2 10/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:28:54 [INFO] [Fase 2 11/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:29:09 [INFO] [Fase 2 12/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:29:21 [INFO] [Fase 2 13/37] DOF Federal — Acuerdo SE/III-26/05,R del Comité Técnico del Consejo N...
+2026-08-07 11:29:32 [INFO] [Fase 2 14/37] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 11:29:42 [INFO] [Fase 2 15/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:30:04 [INFO] [Fase 2 16/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:30:17 [INFO] [Fase 2 17/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:30:28 [INFO] [Fase 2 18/37] DOF Federal — Acta de Comparecencia de la Comisión de Ordenación y Es...
+2026-08-07 11:30:40 [INFO] [Fase 2 19/37] DOF Federal — Contrato Ley de la Industria Textil del Ramo de la Seda...
+2026-08-07 11:30:52 [INFO] [Fase 2 20/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:31:03 [INFO] [Fase 2 21/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:31:14 [INFO] [Fase 2 22/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:31:26 [INFO] [Fase 2 23/37] DOF Federal — Acuerdo por el que se adiciona un conjunto de Indicador...
+2026-08-07 11:31:38 [INFO] [Fase 2 24/37] DOF Federal — Reforma al Reglamento Orgánico de la Suprema Corte de J...
+2026-08-07 11:31:49 [INFO] [Fase 2 25/37] DOF Federal — Decreto por el que se determina la información adiciona...
+2026-08-07 11:32:01 [INFO] [Fase 2 26/37] DOF Federal — Acuerdo por el que se establece la meta nacional de eli...
+2026-08-07 11:32:12 [INFO] [Fase 2 27/37] DOF Federal — Tercer Convenio Modificatorio al Convenio Específico de...
+2026-08-07 11:32:29 [INFO] [Fase 2 28/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:32:41 [INFO] [Fase 2 29/37] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 11:32:52 [INFO] [Fase 2 30/37] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 11:33:03 [INFO] [Fase 2 31/37] DOF Federal — Acuerdo por el que se establecen los Lineamientos para ...
+2026-08-07 11:33:20 [INFO] [Fase 2 32/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:33:32 [INFO] [Fase 2 33/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:33:45 [INFO] [Fase 2 34/37] DOF Federal — Convenio de Coordinación para la transferencia de recur...
+2026-08-07 11:33:59 [INFO] [Fase 2 35/37] DOF Federal — Modificaciones al Programa Anual de Auditorías para la ...
+2026-08-07 11:34:08 [INFO] [Fase 2 36/37] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 11:34:21 [INFO] [Fase 2 37/37] DOF Federal — Aviso por el que se hace del conocimiento del público e...
+2026-08-07 11:34:33 [INFO] [Fase 2] Alertas confirmadas: 30
+2026-08-07 11:34:33 [INFO] Preparando correo para estudiante...
+2026-08-07 11:34:33 [WARNING] Por favor configura tu correo en dof-estudiantes-config.json
+2026-08-07 11:34:33 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-07 13:15:43 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-07 13:15:43 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=07
+2026-08-07 13:15:44 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:44 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=07
+2026-08-07 13:15:45 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:45 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=07
+2026-08-07 13:15:46 [INFO] [DOF FEDERAL] 28 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:46 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=06
+2026-08-07 13:15:46 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:46 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=06
+2026-08-07 13:15:47 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:47 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=06
+2026-08-07 13:15:48 [INFO] [DOF FEDERAL] 15 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=05
+2026-08-07 13:15:48 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=05
+2026-08-07 13:15:49 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:49 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=05
+2026-08-07 13:15:50 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=04
+2026-08-07 13:15:52 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:52 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=04
+2026-08-07 13:15:53 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=04
+2026-08-07 13:15:53 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=03
+2026-08-07 13:15:54 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=03
+2026-08-07 13:15:55 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 13:15:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=03
+2026-08-07 13:16:01 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-07 13:16:01 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 66
+2026-08-07 13:16:02 [INFO] [Fase 1 [DOF Federal]] Evaluando 66 titulos con IA...
+2026-08-07 13:16:26 [INFO] [Fase 1 [DOF Federal]] Descartados: 45 | Pasan a Fase 2: 21
+2026-08-07 13:16:26 [INFO] [Fase 2] Analizando 21 publicaciones en profundidad...
+2026-08-07 13:16:27 [INFO] [Fase 2 1/21] DOF Federal — Resolución que modifica las Disposiciones de carácter g...
+2026-08-07 13:16:41 [INFO] [Fase 2 2/21] DOF Federal — Acuerdo por el que se emite la Declaratoria del Polo de...
+2026-08-07 13:16:53 [INFO] [Fase 2 3/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:17:07 [INFO] [Fase 2 4/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:17:21 [INFO] [Fase 2 5/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:17:32 [INFO] [Fase 2 6/21] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 13:17:46 [INFO] [Fase 2 7/21] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 13:17:57 [INFO] [Fase 2 8/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:18:12 [INFO] [Fase 2 9/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:18:24 [INFO] [Fase 2 10/21] DOF Federal — Acta de Comparecencia de la Comisión de Ordenación y Es...
+2026-08-07 13:18:39 [INFO] [Fase 2 11/21] DOF Federal — Contrato Ley de la Industria Textil del Ramo de la Seda...
+2026-08-07 13:18:51 [INFO] [Fase 2 12/21] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 13:19:03 [INFO] [Fase 2 13/21] DOF Federal — Acuerdo por el que se adiciona un conjunto de Indicador...
+2026-08-07 13:19:12 [INFO] [Fase 2 14/21] DOF Federal — Reforma al Reglamento Orgánico de la Suprema Corte de J...
+2026-08-07 13:19:25 [INFO] [Fase 2 15/21] DOF Federal — Decreto por el que se determina la información adiciona...
+2026-08-07 13:19:37 [INFO] [Fase 2 16/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:19:49 [INFO] [Fase 2 17/21] DOF Federal — Convenio de Coordinación para el otorgamiento del subsi...
+2026-08-07 13:20:02 [INFO] [Fase 2 18/21] DOF Federal — Convenio de Coordinación y Adhesión que celebran la Sec...
+2026-08-07 13:20:14 [INFO] [Fase 2 19/21] DOF Federal — Acuerdo por el que se establecen los Lineamientos para ...
+2026-08-07 13:20:23 [INFO] [Fase 2 20/21] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-07 13:20:37 [INFO] [Fase 2 21/21] DOF Federal — Aviso por el que se hace del conocimiento del público e...
+2026-08-07 13:20:49 [INFO] [Fase 2] Alertas confirmadas: 20
+2026-08-07 13:20:49 [INFO] Preparando correo para estudiante...
+2026-08-07 13:20:49 [WARNING] Por favor configura tu correo en dof-estudiantes-config.json
+2026-08-07 13:20:49 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-24 21:03:04 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-24 21:03:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-24 21:03:06 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-24 21:03:07 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-24 21:03:08 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-24 21:03:08 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-24 21:03:09 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-24 21:03:10 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-24 21:03:11 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-24 21:03:12 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-24 21:03:13 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-24 21:03:14 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-24 21:03:14 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-24 21:03:15 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=18
+2026-08-24 21:03:16 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=18
+2026-08-24 21:03:17 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=18
+2026-08-24 21:03:18 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:03:18 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 73
+2026-08-24 21:03:20 [INFO] [Fase 1 [DOF Federal]] Evaluando 73 titulos con IA...
+2026-08-24 21:03:51 [INFO] [Fase 1 [DOF Federal]] Descartados: 48 | Pasan a Fase 2: 25
+2026-08-24 21:03:51 [INFO] [Fase 2] Analizando 25 publicaciones en profundidad...
+2026-08-24 21:03:52 [INFO] [Fase 2 1/25] DOF Federal — Acuerdo por el que se establece la obligatoriedad de la...
+2026-08-24 21:04:07 [INFO] [Fase 2 2/25] DOF Federal — Acuerdo por el que se establece la segunda etapa de acc...
+2026-08-24 21:04:19 [INFO] [Fase 2 3/25] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:04:31 [INFO] [Fase 2 4/25] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:04:42 [INFO] [Fase 2 5/25] DOF Federal — Resolución del Consejo General del Instituto Nacional E...
+2026-08-24 21:04:56 [INFO] [Fase 2 6/25] DOF Federal — Acuerdo por el que se dan a conocer los porcentajes, lo...
+2026-08-24 21:05:08 [INFO] [Fase 2 7/25] DOF Federal — Acuerdo por el cual se dan a conocer los montos de los ...
+2026-08-24 21:05:19 [INFO] [Fase 2 8/25] DOF Federal — Acuerdo por el cual se dan a conocer los montos de los ...
+2026-08-24 21:05:28 [INFO] [Fase 2 9/25] DOF Federal — Acuerdo por el que se delegan facultades a los servidor...
+2026-08-24 21:05:40 [INFO] [Fase 2 10/25] DOF Federal — Acuerdo por el que se establece la veda para la pesca c...
+2026-08-24 21:05:50 [INFO] [Fase 2 11/25] DOF Federal — Decreto por el que se declara de utilidad pública y se ...
+2026-08-24 21:06:02 [INFO] [Fase 2 12/25] DOF Federal — Acuerdo Secretarial Núm. 199/2026 por el que se crea el...
+2026-08-24 21:06:15 [INFO] [Fase 2 13/25] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-24 21:06:27 [INFO] [Fase 2 14/25] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:06:38 [INFO] [Fase 2 15/25] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:06:47 [INFO] [Fase 2 16/25] DOF Federal — Acuerdo por el que se reforman y adicionan diversas dis...
+2026-08-24 21:06:59 [INFO] [Fase 2 17/25] DOF Federal — Acuerdo por el que se dan a conocer los estímulos fisca...
+2026-08-24 21:07:12 [INFO] [Fase 2 18/25] DOF Federal — Circular obligatoria para los permisionarios de los ser...
+2026-08-24 21:07:22 [INFO] [Fase 2 19/25] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-24 21:07:34 [INFO] [Fase 2 20/25] DOF Federal — Acuerdo por el que se actualiza el Compendio Nacional d...
+2026-08-24 21:07:49 [INFO] [Fase 2 21/25] DOF Federal — Acuerdo por el que se establecen acciones de simplifica...
+2026-08-24 21:08:00 [INFO] [Fase 2 22/25] DOF Federal — Disposiciones Generales en materia de adquisiciones, ar...
+2026-08-24 21:08:14 [INFO] [Fase 2 23/25] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:08:24 [INFO] [Fase 2 24/25] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:08:36 [INFO] [Fase 2 25/25] DOF Federal — Decreto por el que se expropia por causa de utilidad pú...
+2026-08-24 21:08:46 [INFO] [Fase 2] Alertas confirmadas: 20
+2026-08-24 21:08:46 [INFO] Preparando correo para estudiante...
+2026-08-24 21:08:46 [INFO] Modo pruebas: Se ha guardado una copia del correo en C:\Users\jimen\.gemini\antigravity\scratch\DOF-Estudiantes\correo_prueba.html
+2026-08-24 21:08:53 [ERROR] Error al enviar correo: (535, b'5.7.139 Authentication unsuccessful, basic authentication is disabled. [BN9PR03CA0688.namprd03.prod.outlook.com 2026-08-25T02:08:53.645Z 08DF00DAF5676402]')
+2026-08-24 21:08:53 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-24 21:18:20 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-24 21:18:20 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-24 21:18:21 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-24 21:18:22 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:22 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-24 21:18:22 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:22 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-24 21:18:23 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:23 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-24 21:18:24 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:24 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-24 21:18:25 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:25 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-24 21:18:26 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:26 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-24 21:18:27 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:27 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-24 21:18:28 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:28 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-24 21:18:29 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:29 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-24 21:18:29 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:29 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-24 21:18:30 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:30 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=18
+2026-08-24 21:18:31 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:31 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=18
+2026-08-24 21:18:32 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:32 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=18
+2026-08-24 21:18:33 [INFO] [DOF FEDERAL] 1 publicaciones encontradas en esta edicion.
+2026-08-24 21:18:33 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 73
+2026-08-24 21:18:34 [INFO] [Fase 1 [DOF Federal]] Evaluando 73 titulos con IA...
+2026-08-24 21:19:01 [INFO] [Fase 1 [DOF Federal]] Descartados: 46 | Pasan a Fase 2: 27
+2026-08-24 21:19:01 [INFO] [Fase 2] Analizando 27 publicaciones en profundidad...
+2026-08-24 21:19:03 [INFO] [Fase 2 1/27] DOF Federal — Acuerdo por el que se establece la obligatoriedad de la...
+2026-08-24 21:19:17 [INFO] [Fase 2 2/27] DOF Federal — Acuerdo por el que se establece la segunda etapa de acc...
+2026-08-24 21:19:28 [INFO] [Fase 2 3/27] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:19:38 [INFO] [Fase 2 4/27] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:19:49 [INFO] [Fase 2 5/27] DOF Federal — Resolución del Consejo General del Instituto Nacional E...
+2026-08-24 21:20:02 [INFO] [Fase 2 6/27] DOF Federal — Sentencia dictada en el juicio agrario 382/1997, relati...
+2026-08-24 21:20:14 [INFO] [Fase 2 7/27] DOF Federal — Acuerdo por el que se dan a conocer los porcentajes, lo...
+2026-08-24 21:20:27 [INFO] [Fase 2 8/27] DOF Federal — Acuerdo por el cual se dan a conocer los montos de los ...
+2026-08-24 21:20:37 [INFO] [Fase 2 9/27] DOF Federal — Acuerdo por el cual se dan a conocer los montos de los ...
+2026-08-24 21:20:47 [INFO] [Fase 2 10/27] DOF Federal — Acuerdo por el que se delegan facultades a los servidor...
+2026-08-24 21:20:58 [INFO] [Fase 2 11/27] DOF Federal — Acuerdo por el que se establece la veda para la pesca c...
+2026-08-24 21:21:09 [INFO] [Fase 2 12/27] DOF Federal — Decreto por el que se declara de utilidad pública y se ...
+2026-08-24 21:21:21 [INFO] [Fase 2 13/27] DOF Federal — Acuerdo Secretarial Núm. 199/2026 por el que se crea el...
+2026-08-24 21:21:38 [INFO] [Fase 2 14/27] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-24 21:21:48 [INFO] [Fase 2 15/27] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:22:00 [INFO] [Fase 2 16/27] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:22:10 [INFO] [Fase 2 17/27] DOF Federal — Cancelación de la Autorización Definitiva número cuatro...
+2026-08-24 21:22:17 [INFO] [Fase 2 18/27] DOF Federal — Cancelación de la Autorización Definitiva número veinti...
+2026-08-24 21:22:23 [INFO] [Fase 2 19/27] DOF Federal — Acuerdo por el que se reforman y adicionan diversas dis...
+2026-08-24 21:22:35 [INFO] [Fase 2 20/27] DOF Federal — Acuerdo por el que se dan a conocer los estímulos fisca...
+2026-08-24 21:22:47 [INFO] [Fase 2 21/27] DOF Federal — Circular obligatoria para los permisionarios de los ser...
+2026-08-24 21:22:59 [INFO] [Fase 2 22/27] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-24 21:23:09 [INFO] [Fase 2 23/27] DOF Federal — Acuerdo por el que se establecen acciones de simplifica...
+2026-08-24 21:23:20 [INFO] [Fase 2 24/27] DOF Federal — Disposiciones Generales en materia de adquisiciones, ar...
+2026-08-24 21:23:32 [INFO] [Fase 2 25/27] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-24 21:23:42 [INFO] [Fase 2 26/27] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-24 21:23:53 [INFO] [Fase 2 27/27] DOF Federal — Decreto por el que se expropia por causa de utilidad pú...
+2026-08-24 21:24:03 [INFO] [Fase 2] Alertas confirmadas: 21
+2026-08-24 21:24:03 [INFO] Preparando resumen para estudiante...
+2026-08-24 21:24:03 [INFO] Resumen guardado exitosamente en: C:\Users\jimen\.gemini\antigravity\scratch\DOF-Estudiantes\Resumenes_Semanales\Resumen_DOF_2026-08-24.html
+2026-08-24 21:24:03 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 09:56:48 [INFO] Dashboard actualizado en: C:\Users\jimen\.gemini\antigravity\scratch\DOF-Estudiantes\Resumenes_Semanales\index.html
+2026-08-25 10:02:08 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:02:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:02:09 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:02:10 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:02:11 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:02:12 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:02:13 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:02:14 [INFO] [DOF FEDERAL] 19 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:02:15 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:02:16 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:02:17 [INFO] [DOF FEDERAL] 6 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:02:18 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:02:19 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:19 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:02:20 [INFO] [DOF FEDERAL] 21 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:20 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:02:21 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:02:22 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:22 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:02:23 [INFO] [DOF FEDERAL] 26 publicaciones encontradas en esta edicion.
+2026-08-25 10:02:23 [INFO] [DOF FEDERAL] Total de publicaciones unicas en la semana: 98
+2026-08-25 10:02:23 [INFO] [Fase 1 [DOF Federal]] Evaluando 98 titulos con IA...
+2026-08-25 10:02:43 [INFO] [Fase 1 [DOF Federal]] Descartados: 67 | Pasan a Fase 2: 31
+2026-08-25 10:02:43 [INFO] [Fase 2] Analizando 31 publicaciones en profundidad...
+2026-08-25 10:02:44 [INFO] [Fase 2 1/31] DOF Federal — Primer Convenio Modificatorio al Convenio de Coordinaci...
+2026-08-25 10:02:56 [INFO] [Fase 2 2/31] DOF Federal — Declaratoria de Modificación de la Zona Metropolitana d...
+2026-08-25 10:03:08 [INFO] [Fase 2 3/31] DOF Federal — Acuerdo por el que se modifican las Reglas de Operación...
+2026-08-25 10:03:17 [INFO] [Fase 2 4/31] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-25 10:03:28 [INFO] [Fase 2 5/31] DOF Federal — Acuerdo General del Pleno del Órgano de Administración ...
+2026-08-25 10:03:38 [INFO] [Fase 2 6/31] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-25 10:03:49 [INFO] [Fase 2 7/31] DOF Federal — Acuerdo por el que se establece la obligatoriedad de la...
+2026-08-25 10:04:03 [INFO] [Fase 2 8/31] DOF Federal — Acuerdo por el que se establece la segunda etapa de acc...
+2026-08-25 10:04:13 [INFO] [Fase 2 9/31] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-25 10:04:23 [INFO] [Fase 2 10/31] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-25 10:04:34 [INFO] [Fase 2 11/31] DOF Federal — Resolución del Consejo General del Instituto Nacional E...
+2026-08-25 10:04:43 [INFO] [Fase 2 12/31] DOF Federal — Acuerdo por el que se delegan facultades a los servidor...
+2026-08-25 10:04:53 [INFO] [Fase 2 13/31] DOF Federal — Acuerdo por el que se establece la veda para la pesca c...
+2026-08-25 10:05:04 [INFO] [Fase 2 14/31] DOF Federal — Acuerdo por el que se habilitan días y horas para las u...
+2026-08-25 10:05:15 [INFO] [Fase 2 15/31] DOF Federal — Acuerdo Secretarial Núm. 199/2026 por el que se crea el...
+2026-08-25 10:05:28 [INFO] [Fase 2 16/31] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-25 10:06:04 [INFO] [Fase 2 17/31] DOF Federal — Circular por la que se comunica a las dependencias y en...
+2026-08-25 10:06:16 [INFO] [Fase 2 18/31] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-25 10:06:26 [INFO] [Fase 2 19/31] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-25 10:06:37 [INFO] [Fase 2 20/31] DOF Federal — Cancelación de la Autorización Definitiva número cuatro...
+2026-08-25 10:06:45 [INFO] [Fase 2 21/31] DOF Federal — Cancelación de la Autorización Definitiva número veinti...
+2026-08-25 10:06:56 [INFO] [Fase 2 22/31] DOF Federal — Acuerdo por el que se reforman y adicionan diversas dis...
+2026-08-25 10:07:04 [INFO] [Fase 2 23/31] DOF Federal — Circular obligatoria para los permisionarios de los ser...
+2026-08-25 10:07:17 [INFO] [Fase 2 24/31] DOF Federal — Circular SABG/420/OICSICT/AR/473/2026 por la que se com...
+2026-08-25 10:07:28 [INFO] [Fase 2 25/31] DOF Federal — Circular SABG/420/OICSICT/AR/476/2026 por la que se com...
+2026-08-25 10:07:39 [INFO] [Fase 2 26/31] DOF Federal — Circular SABG/420/OICSICT/AR/479/2026 por la que se com...
+2026-08-25 10:07:51 [INFO] [Fase 2 27/31] DOF Federal — Circular SABG/420/OICSICT/AR/482/2026 por la que se com...
+2026-08-25 10:08:07 [INFO] [Fase 2 28/31] DOF Federal — Acuerdo por el que se establecen acciones de simplifica...
+2026-08-25 10:08:23 [INFO] [Fase 2 29/31] DOF Federal — Disposiciones Generales en materia de adquisiciones, ar...
+2026-08-25 10:08:34 [INFO] [Fase 2 30/31] DOF Federal — Sentencia dictada por el Tribunal Pleno de la Suprema C...
+2026-08-25 10:08:44 [INFO] [Fase 2 31/31] DOF Federal — Acuerdo del Consejo General del Instituto Nacional Elec...
+2026-08-25 10:08:54 [INFO] [Fase 2] Alertas confirmadas: 28
+2026-08-25 10:08:54 [INFO] Preparando reporte HTML...
+2026-08-25 10:08:54 [INFO] Reporte guardado exitosamente en: C:\Users\jimen\.gemini\antigravity\scratch\DOF-Estudiantes\Resumenes_Semanales\Resumen_DOF_2026-08-25.html
+2026-08-25 10:08:54 [INFO] Dashboard actualizado en: C:\Users\jimen\.gemini\antigravity\scratch\DOF-Estudiantes\Resumenes_Semanales\index.html
+2026-08-25 10:08:54 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:12:21 [INFO] Dashboard actualizado.
+2026-08-25 10:14:08 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:14:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:14:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:14:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:14:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:14:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:14:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:14:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:14:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:14:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:14:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:14:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:14:19 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:14:20 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:14:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:14:22 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:14:23 [INFO] [Fase 1] Evaluando 98 titulos con IA...
+2026-08-25 10:14:55 [INFO] [Fase 1] Pasan a Fase 2: 7
+2026-08-25 10:14:55 [INFO] [Fase 2] Analizando 7 textos en profundidad...
+2026-08-25 10:16:10 [INFO] Dashboard actualizado.
+2026-08-25 10:16:10 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:25:01 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:25:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:25:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:25:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:25:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:25:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:25:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:25:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:25:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:25:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:25:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:25:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:25:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:25:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:25:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:25:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:25:17 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 10:25:51 [INFO] [Fase 1] Pasan a Fase 2: 7
+2026-08-25 10:25:51 [INFO] [Fase 2] Analizando 7 textos en profundidad...
+2026-08-25 10:27:02 [INFO] Dashboard actualizado.
+2026-08-25 10:27:02 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:29:25 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:29:25 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:29:26 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:29:27 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:29:28 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:29:29 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:29:30 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:29:31 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:29:32 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:29:33 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:29:33 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:29:34 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:29:35 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:29:37 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:29:38 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:29:39 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:29:40 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 10:30:28 [INFO] [Fase 1] Pasan a Fase 2: 1
+2026-08-25 10:30:28 [INFO] [Fase 2] Analizando 1 textos en profundidad...
+2026-08-25 10:30:39 [INFO] Dashboard actualizado.
+2026-08-25 10:30:39 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:37:49 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:37:49 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:37:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:37:51 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:37:52 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:37:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:37:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:37:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:37:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:37:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:37:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:37:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:37:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:38:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:38:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:38:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:38:04 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 10:38:54 [INFO] [Fase 1] Pasan a Fase 2: 7
+2026-08-25 10:38:54 [INFO] [Fase 2] Analizando 7 textos en profundidad...
+2026-08-25 10:40:29 [INFO] Dashboard actualizado.
+2026-08-25 10:40:29 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:43:51 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:43:51 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:43:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:43:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:43:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:43:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:43:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:43:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:43:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:43:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:44:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:44:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:44:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:44:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:44:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:44:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:44:06 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 10:44:57 [INFO] [Fase 1] Pasan a Fase 2: 5
+2026-08-25 10:44:57 [INFO] [Fase 2] Analizando 5 textos en profundidad...
+2026-08-25 10:46:07 [INFO] Dashboard actualizado.
+2026-08-25 10:46:07 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 10:57:02 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 10:57:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 10:57:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 10:57:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 10:57:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 10:57:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 10:57:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 10:57:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 10:57:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 10:57:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 10:57:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 10:57:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 10:57:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 10:57:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 10:57:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 10:57:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 10:57:17 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 10:58:07 [INFO] [Fase 1] Pasan a Fase 2: 5
+2026-08-25 10:58:07 [INFO] [Fase 2] Analizando 5 textos en profundidad...
+2026-08-25 10:59:20 [INFO] Dashboard actualizado.
+2026-08-25 10:59:20 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 12:13:06 [INFO] Dashboard actualizado.
+2026-08-25 12:16:02 [INFO] Dashboard actualizado.
+2026-08-25 12:26:53 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 12:26:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 12:26:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 12:26:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 12:26:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 12:26:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 12:26:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 12:27:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 12:27:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 12:27:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 12:27:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 12:27:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 12:27:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 12:27:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 12:27:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 12:27:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 12:27:09 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 12:28:04 [INFO] [Fase 1] Pasan a Fase 2: 5
+2026-08-25 12:28:04 [INFO] [Fase 2] Analizando 5 textos en profundidad...
+2026-08-25 12:29:21 [INFO] Dashboard actualizado.
+2026-08-25 12:29:21 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-25 12:32:54 [INFO] Dashboard actualizado.
+2026-08-25 12:34:47 [INFO] Dashboard actualizado.
+2026-08-25 12:38:34 [INFO] Dashboard actualizado.
+2026-08-25 18:42:54 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-25 18:42:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=25
+2026-08-25 18:42:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-25 18:42:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=25
+2026-08-25 18:42:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=24
+2026-08-25 18:42:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=24
+2026-08-25 18:42:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=24
+2026-08-25 18:42:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=21
+2026-08-25 18:42:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=21
+2026-08-25 18:43:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=21
+2026-08-25 18:43:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=20
+2026-08-25 18:43:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=20
+2026-08-25 18:43:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=20
+2026-08-25 18:43:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=19
+2026-08-25 18:43:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=19
+2026-08-25 18:43:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=19
+2026-08-25 18:43:06 [INFO] [Fase 1] Clasificando 98 documentos...
+2026-08-25 18:43:59 [INFO] [Fase 1] Pasan a Fase 2: 5
+2026-08-25 18:43:59 [INFO] [Fase 2] Analizando 5 textos en profundidad...
+2026-08-25 18:45:06 [INFO] Dashboard actualizado.
+2026-08-25 18:45:06 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-26 09:51:03 [INFO] Dashboard actualizado.
+2026-08-26 09:53:09 [INFO] Dashboard actualizado.
+2026-08-26 10:05:46 [INFO] Dashboard actualizado.
+2026-08-26 10:08:16 [INFO] Dashboard actualizado.
+2026-08-26 10:13:07 [INFO] Dashboard actualizado.
+2026-08-26 10:16:02 [INFO] Dashboard actualizado.
+2026-08-26 10:19:07 [INFO] Dashboard actualizado.
+2026-08-26 10:22:07 [INFO] Dashboard actualizado.
+2026-08-26 10:31:55 [INFO] Dashboard actualizado.
+2026-08-26 10:33:37 [INFO] Dashboard actualizado.
+2026-08-26 10:38:17 [INFO] Dashboard actualizado.
+2026-08-26 10:39:51 [INFO] Dashboard actualizado.
+2026-08-26 10:41:49 [INFO] Dashboard actualizado.
+2026-08-26 10:44:57 [INFO] Dashboard actualizado.
+2026-08-26 10:47:31 [INFO] Dashboard actualizado.
+2026-08-26 10:49:53 [INFO] Dashboard actualizado.
+2026-08-26 10:56:47 [INFO] Dashboard actualizado.
+2026-08-26 11:01:59 [INFO] Dashboard actualizado.
+2026-08-26 11:09:16 [INFO] Dashboard actualizado.
+2026-08-26 11:13:17 [INFO] Dashboard actualizado.
+2026-08-26 19:15:18 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-26 19:15:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=26
+2026-08-26 19:15:19 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=26
+2026-08-26 19:15:20 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=26
+2026-08-26 19:15:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=25
+2026-08-26 19:15:25 [INFO] [Fase 1] Clasificando 50 documentos...
+2026-08-26 19:15:58 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-08-26 19:15:58 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-08-26 19:16:37 [INFO] Dashboard actualizado.
+2026-08-26 19:16:37 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-26 19:30:03 [INFO] Dashboard actualizado.
+2026-08-26 19:33:19 [INFO] Dashboard actualizado.
+2026-08-26 19:36:38 [INFO] Dashboard actualizado.
+2026-08-26 19:38:29 [INFO] Dashboard actualizado.
+2026-08-26 19:41:35 [INFO] Dashboard actualizado.
+2026-08-26 19:47:29 [INFO] Dashboard actualizado.
+2026-08-26 20:08:50 [INFO] Dashboard actualizado.
+2026-08-27 19:25:53 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-27 19:25:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=27
+2026-08-27 19:25:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=27
+2026-08-27 19:25:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=27
+2026-08-27 19:25:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=26
+2026-08-27 19:26:00 [INFO] [Fase 1] Clasificando 42 documentos...
+2026-08-27 19:26:26 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-08-27 19:26:26 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-08-27 19:27:03 [INFO] Dashboard actualizado.
+2026-08-27 19:27:03 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-27 20:00:00 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-27 20:00:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=27
+2026-08-28 12:12:10 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-28 12:12:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=28
+2026-08-28 12:12:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=28
+2026-08-28 12:12:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=28
+2026-08-28 12:12:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=27
+2026-08-28 12:12:15 [INFO] [Fase 1] Clasificando 39 documentos...
+2026-08-28 12:12:41 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-08-28 12:12:41 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-08-28 12:13:29 [INFO] Dashboard actualizado.
+2026-08-28 12:13:29 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-08-31 12:51:47 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-08-31 12:51:47 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=08&day=31
+2026-08-31 12:51:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=31
+2026-08-31 12:51:49 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=08&day=31
+2026-08-31 12:51:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=08&day=28
+2026-08-31 12:51:52 [INFO] [Fase 1] Clasificando 24 documentos...
+2026-08-31 12:52:34 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-08-31 12:52:34 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-08-31 12:53:10 [INFO] Dashboard actualizado.
+2026-08-31 12:53:10 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-02 09:18:54 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-02 09:18:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=02
+2026-09-02 09:18:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=02
+2026-09-02 09:18:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=02
+2026-09-02 09:19:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=01
+2026-09-02 09:19:06 [INFO] [Fase 1] Clasificando 40 documentos...
+2026-09-02 09:19:34 [INFO] [Fase 1] Pasan a Fase 2: 2
+2026-09-02 09:19:34 [INFO] [Fase 2] Analizando 2 textos en profundidad...
+2026-09-02 09:20:22 [INFO] Dashboard actualizado.
+2026-09-02 09:20:22 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-03 20:40:24 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-03 20:40:24 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=03
+2026-09-03 20:40:24 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=03
+2026-09-03 20:40:24 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=03
+2026-09-03 20:40:24 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=02
+2026-09-07 21:13:27 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-07 21:13:27 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=07
+2026-09-07 21:13:28 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=07
+2026-09-07 21:13:28 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=07
+2026-09-07 21:13:29 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=04
+2026-09-07 21:13:31 [INFO] [Fase 1] Clasificando 25 documentos...
+2026-09-07 21:13:51 [INFO] [Fase 1] Pasan a Fase 2: 1
+2026-09-07 21:13:51 [INFO] [Fase 2] Analizando 1 textos en profundidad...
+2026-09-07 21:14:11 [INFO] Dashboard actualizado.
+2026-09-07 21:14:11 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-09 11:01:09 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-09 11:01:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=09
+2026-09-09 11:01:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=09
+2026-09-09 11:01:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=09
+2026-09-09 11:01:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=08
+2026-09-09 11:01:18 [INFO] [Fase 1] Clasificando 31 documentos...
+2026-09-09 11:01:46 [INFO] [Fase 1] Pasan a Fase 2: 2
+2026-09-09 11:01:46 [INFO] [Fase 2] Analizando 2 textos en profundidad...
+2026-09-09 11:02:16 [INFO] Dashboard actualizado.
+2026-09-09 11:02:16 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-09 13:24:31 [INFO] Dashboard actualizado.
+2026-09-09 13:30:17 [INFO] Dashboard actualizado.
+2026-09-09 13:45:37 [INFO] Dashboard actualizado.
+2026-09-09 13:50:16 [INFO] Dashboard actualizado.
+2026-09-09 13:57:39 [INFO] Dashboard actualizado.
+2026-09-09 14:02:11 [INFO] Dashboard actualizado.
+2026-09-09 18:17:08 [INFO] Dashboard actualizado.
+2026-09-09 18:32:57 [INFO] Dashboard actualizado.
+2026-09-09 18:33:08 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-09 18:33:08 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=09
+2026-09-09 18:33:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=09
+2026-09-09 18:33:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=09
+2026-09-09 18:33:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=08
+2026-09-09 18:33:12 [INFO] [Fase 1] Clasificando 31 documentos...
+2026-09-09 18:33:40 [INFO] [Fase 1] Pasan a Fase 2: 13
+2026-09-09 18:33:40 [INFO] [Fase 2] Analizando 13 textos en profundidad...
+2026-09-09 18:36:00 [INFO] Dashboard actualizado.
+2026-09-09 18:36:00 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-09 18:40:05 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-09 18:40:05 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=09
+2026-09-09 18:40:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=09
+2026-09-09 18:40:06 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=09
+2026-09-09 18:40:07 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=08
+2026-09-09 18:40:09 [INFO] [Fase 1] Clasificando 31 documentos...
+2026-09-09 18:40:26 [INFO] [Fase 1] Pasan a Fase 2: 7
+2026-09-09 18:40:26 [INFO] [Fase 2] Analizando 7 textos en profundidad...
+2026-09-09 18:41:41 [INFO] Dashboard actualizado.
+2026-09-09 18:41:41 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-09 19:11:28 [INFO] Dashboard actualizado.
+2026-09-21 20:51:02 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-21 20:51:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=21
+2026-09-21 20:51:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=21
+2026-09-21 20:51:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=21
+2026-09-21 20:51:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=18
+2026-09-21 20:51:05 [INFO] [Fase 1] Clasificando 4 documentos...
+2026-09-21 20:51:13 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-09-21 20:51:13 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-09-21 20:51:41 [INFO] Dashboard actualizado.
+2026-09-21 20:51:41 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-22 13:26:35 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-22 13:26:35 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=22
+2026-09-22 13:26:39 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=22
+2026-09-22 13:26:46 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=22
+2026-09-22 13:26:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=21
+2026-09-22 13:26:59 [INFO] [Fase 1] Clasificando 10 documentos...
+2026-09-22 13:27:08 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-09-22 13:27:08 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-09-22 13:28:24 [INFO] Dashboard actualizado.
+2026-09-22 13:28:24 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-25 09:57:23 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-25 09:57:23 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=25
+2026-09-25 09:57:25 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=25
+2026-09-25 09:57:26 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=25
+2026-09-25 09:57:27 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=24
+2026-09-25 09:57:33 [INFO] [Fase 1] Clasificando 42 documentos...
+2026-09-25 09:57:55 [INFO] [Fase 1] Pasan a Fase 2: 15
+2026-09-25 09:57:55 [INFO] [Fase 2] Analizando 15 textos en profundidad...
+2026-09-25 10:02:46 [INFO] Dashboard actualizado.
+2026-09-25 10:02:46 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-25 10:14:59 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-25 10:14:59 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=25
+2026-09-25 10:15:01 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=25
+2026-09-25 10:15:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=25
+2026-09-25 10:15:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=24
+2026-09-25 10:15:05 [INFO] [Fase 1] Clasificando 42 documentos...
+2026-09-25 10:15:25 [ERROR] [Fase 1] Error en procesamiento: unhashable type: 'dict'
+2026-09-25 10:15:25 [INFO] [Fase 2] Analizando 42 textos en profundidad...
+2026-09-25 10:26:03 [INFO] Dashboard actualizado.
+2026-09-25 10:26:03 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-09-30 20:27:09 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-09-30 20:27:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=09&day=30
+2026-09-30 20:27:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=30
+2026-09-30 20:27:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=09&day=30
+2026-09-30 20:27:10 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=09&day=29
+2026-09-30 20:27:12 [INFO] [Fase 1] Clasificando 17 documentos...
+2026-09-30 20:27:33 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-09-30 20:27:33 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-09-30 20:28:07 [INFO] Dashboard actualizado.
+2026-09-30 20:28:07 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-08 09:17:09 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-08 09:17:09 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=08
+2026-10-08 09:17:11 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-08 09:17:12 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=08
+2026-10-08 09:17:13 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=07
+2026-10-08 09:17:15 [INFO] [Fase 1] Clasificando 20 documentos...
+2026-10-08 09:17:27 [INFO] [Fase 1] Pasan a Fase 2: 4
+2026-10-08 09:17:27 [INFO] [Fase 2] Analizando 4 textos en profundidad...
+2026-10-08 09:20:14 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-08 09:20:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=08
+2026-10-08 09:20:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-08 09:20:18 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=08
+2026-10-08 09:20:19 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=07
+2026-10-08 09:20:21 [INFO] [Fase 1] Clasificando 20 documentos...
+2026-10-08 09:20:33 [INFO] [Fase 1] Pasan a Fase 2: 4
+2026-10-08 09:20:33 [INFO] [Fase 2] Analizando 4 textos en profundidad...
+2026-10-08 09:21:26 [INFO] Dashboard actualizado.
+2026-10-08 09:21:26 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-08 19:52:28 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-08 19:52:28 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=08
+2026-10-08 19:52:29 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-08 19:52:30 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=08
+2026-10-08 19:52:31 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=07
+2026-10-08 19:52:33 [INFO] [Fase 1] Clasificando 20 documentos...
+2026-10-08 19:52:47 [INFO] [Fase 1] Pasan a Fase 2: 5
+2026-10-08 19:52:47 [INFO] [Fase 2] Analizando 5 textos en profundidad...
+2026-10-08 19:53:59 [INFO] Dashboard actualizado.
+2026-10-08 19:53:59 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-08 20:22:44 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-08 20:22:44 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=08
+2026-10-08 20:22:45 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-08 20:22:46 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=08
+2026-10-08 20:22:47 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=07
+2026-10-08 20:22:48 [INFO] [Fase 1] Clasificando 20 documentos...
+2026-10-08 20:23:01 [INFO] [Fase 1] Pasan a Fase 2: 4
+2026-10-08 20:23:01 [INFO] [Fase 2] Analizando 4 textos en profundidad...
+2026-10-08 20:23:48 [INFO] Dashboard actualizado.
+2026-10-08 20:23:48 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-09 09:41:32 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-09 09:41:32 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=09
+2026-10-09 09:41:34 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=09
+2026-10-09 09:41:36 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=09
+2026-10-09 09:41:37 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-09 09:41:39 [INFO] [Fase 1] Clasificando 38 documentos...
+2026-10-09 09:42:06 [INFO] [Fase 1] Pasan a Fase 2: 6
+2026-10-09 09:42:06 [INFO] [Fase 2] Analizando 6 textos en profundidad...
+2026-10-09 09:43:27 [INFO] Dashboard actualizado.
+2026-10-09 09:43:27 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-09 12:09:58 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-09 12:09:58 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=09
+2026-10-09 12:10:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=09
+2026-10-09 12:10:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=09
+2026-10-09 12:10:04 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-09 12:10:07 [INFO] [Fase 1] Clasificando 38 documentos...
+2026-10-09 12:10:34 [INFO] [Fase 1] Pasan a Fase 2: 6
+2026-10-09 12:10:34 [INFO] [Fase 2] Analizando 6 textos en profundidad...
+2026-10-09 12:11:50 [INFO] Dashboard actualizado.
+2026-10-09 12:11:50 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-09 12:12:55 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-09 12:12:55 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=09
+2026-10-09 12:12:56 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=09
+2026-10-09 12:12:57 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=09
+2026-10-09 12:24:48 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-09 12:24:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=09
+2026-10-09 12:24:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=09
+2026-10-09 12:24:52 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=09
+2026-10-09 12:24:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=08
+2026-10-09 12:24:57 [INFO] [Fase 1] Clasificando 38 documentos...
+2026-10-12 09:12:50 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-12 09:12:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=12
+2026-10-12 09:12:52 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=12
+2026-10-12 09:12:53 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=12
+2026-10-12 09:12:54 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=09
+2026-10-12 09:12:56 [INFO] [Fase 1] Clasificando 15 documentos...
+2026-10-12 09:13:08 [INFO] [Fase 1] Pasan a Fase 2: 3
+2026-10-12 09:13:08 [INFO] [Fase 2] Analizando 3 textos en profundidad...
+2026-10-12 09:14:06 [INFO] Dashboard actualizado.
+2026-10-12 09:14:06 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-10-12 09:44:09 [INFO] Dashboard actualizado.
+2026-10-12 10:50:06 [INFO] Dashboard actualizado.
+2026-10-12 11:18:57 [INFO] Dashboard actualizado.
+2026-10-12 17:04:47 [INFO] Dashboard actualizado.
+2026-10-12 17:14:03 [INFO] Dashboard actualizado.
+2026-10-13 18:18:20 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-13 18:18:20 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=13
+2026-10-13 18:18:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=13
+2026-10-13 18:18:21 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index.php?year=2026&month=10&day=13
+2026-10-13 18:18:22 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_113.php?year=2026&month=10&day=12
+2026-10-13 18:18:23 [INFO] [Fase 1] Clasificando 27 documentos...
+2026-10-13 18:18:24 [ERROR] [Fase 1] Error en procesamiento: 403 PERMISSION_DENIED. {'error': {'code': 403, 'message': 'Your API key was reported as leaked. Please use another API key.', 'status': 'PERMISSION_DENIED'}}
+2026-10-13 18:18:24 [INFO] [Fase 2] Analizando 27 textos en profundidad...
+2026-10-13 18:18:53 [INFO] Dashboard actualizado.
+2026-10-13 18:18:53 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
