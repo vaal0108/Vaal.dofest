@@ -1,0 +1,40 @@
+name: Actualizar DOF Diario
+
+on:
+  schedule:
+    # Se ejecuta a las 15:00 UTC (10:00 AM hora de México/Centro) de Lunes a Viernes
+    - cron: '0 15 * * 1-5'
+  workflow_dispatch: # Permite ejecutarlo manualmente cuando quieras
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Clonar el repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Ejecutar el script (Generar DOF)
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: |
+        python dof-estudiantes.py
+
+    - name: Subir los cambios a GitHub
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Actualizacion automatica del DOF" && git push)
