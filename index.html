@@ -2,13 +2,1605 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=Resumenes_Semanales/index.html">
-    <title>DOF Estudiantes - Redirigiendo...</title>
-    <script>
-        window.location.href = "Resumenes_Semanales/index.html";
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOF Monitor - Monitoreo de DOF y POE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: url('cursor/roundynormal.cur'), auto !important; }
+        
+        .pixel-art {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            image-rendering: pixelated;
+            vertical-align: middle;
+        }
+        .icon-star { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdElEQVR4nNWSSw6AIAxEOw2X8f6H8TglUWuQ/jCunAUE6BuGD1EuKdaJM1j22oQLmCoTpo9quuNC7VwDbUTjvhG2s4Pn7hlegEnQxkEQ1UDZJUp0nOg1EMFjZGf+5pDAlTncfwALH2PnEp8JyD/WrNW6P6kDjVkmlUQItCIAAAAASUVORK5CYII='); }
+        .icon-mail { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYElEQVR4nOWRQQ7AIAgEd4n//zINiTbEIlgvPXQvijATEoGvw37qKU+DVc94khBfvAFHZFxsix2JzfiNxTcryQw/BJkkgkNBJFnBlha+TpLsl9qyU4D3duiz5WTO48+5ACLhJxUzj6CjAAAAAElFTkSuQmCC'); }
+        .icon-music { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAW0lEQVR4nGNkwA/+4xBnhDFYCBjA8D9zC6rO6T4ofCZCBuDTTJIBjBDNcKeT5QIoYKTUAIbBZQALifFP0ID/yHGPLdrwGfAfPdGQ4wIMgOQKjDSATfA/AfnhCABLtQ/rxeyyjAAAAABJRU5ErkJggg=='); }
+        .icon-bow { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR4nO1SQQ6AMAgD4r+8+2DvvgyzOB2Dippd7WVJ1zI6IBoE11MBd4dOy4XQdWvMMmdFglaC4hDokzlEUHdZO/GFQ6dyZXGG0wRfNTHF8qhIZi6YXohTiO0YtMt+Iv6TBZnBKLt4tgiP7gGDmX/ZRPpBtAN6wDiJ/D2ftgAAAABJRU5ErkJggg=='); }
+        .icon-battery { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVR4nGNgoBAw4hD/T6xaRmyajc4aYQieMz6HVT0TMZpBACqO4TIWbIqhtmEzgIEoA9A1YDMQlxdIBkwMFAIWXBL4nD24woCFJl4wwhHn2ADWpEyi+gEGAM5xGFO0y+ueAAAAAElFTkSuQmCC'); }
+        .icon-clock { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdElEQVR4nGNgoBAw4hD/T6xaRmwa28+9xlBYaSSKVQ8jsmZsGnEYBNfHhEszSCGSrXAAVfcf3QCsgBgXMRHrdFyuYGKgELDgk0QOA1yuZMGlmVhvMYGiBFtoExuVTCTpxOECBlJcgZ6QqJqUMQxCA7jUUgYAzE4nHD8rGUkAAAAASUVORK5CYII='); }
+        
+        a, button, summary, input, .menu-bar span, .footer-box, .report-card, .acc-title, .back-link, .btn-win, .btn-green, .xp-button, .btn-close, .btn-min {
+            cursor: url('cursor/roundyhand.cur'), pointer !important;
+        }
+
+        .cursor-bubble {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(173, 216, 230, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999999;
+            box-shadow: inset 0 0 4px rgba(255,255,255,0.8);
+            animation: floatBubble 0.8s ease-out forwards;
+        }
+        @keyframes floatBubble {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -60px) scale(1.5); opacity: 0; }
+        }
+        
+        body {
+            font-family: 'Tahoma', 'Verdana', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: url('https://i.imgur.com/U7RICZA.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .corner-gif {
+            position: fixed;
+            bottom: 5px;
+            left: 5px;
+            z-index: 1000;
+            max-width: 150px;
+            height: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+        .corner-gif:hover {
+            transform: translateY(-10px);
+        }
+        .corner-gif-right {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            z-index: 1000;
+            max-width: 150px;
+            height: auto;
+            transition: transform 0.2s ease-in-out;
+        }
+        .corner-gif-right:hover {
+            transform: translateY(-10px);
+        }
+        .floating-jellyfish {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 58px;
+            height: auto;
+            image-rendering: pixelated;
+            pointer-events: none;
+            z-index: 9998;
+            filter: drop-shadow(0 0 8px rgba(80, 210, 255, 0.55));
+            will-change: transform;
+            transform-origin: 50% 38%;
+        }
+        
+        /* XP Window Frame */
+        .window-frame {
+            /* zoom removed */
+            width: 850px;
+            max-width: 100%;
+            background: #ece9d8;
+            border: 2px solid #0055ea;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Title Bar */
+        .title-bar {
+            background: linear-gradient(180deg, #0058ee 0%, #3593ff 8%, #288eff 40%, #127dff 88%, #0366e8 100%);
+            padding: 4px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #000;
+        }
+        .title-bar-text {
+            color: white;
+            font-family: 'VT323', monospace;
+            font-size: 24px;
+            text-shadow: 1px 1px #000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .title-bar-controls {
+            display: flex;
+            gap: 4px;
+        }
+        .btn-win {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: inset -1px -1px 2px rgba(0,0,0,0.5), inset 1px 1px 2px rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial;
+        }
+        .btn-close { background: linear-gradient(180deg, #e3685e, #c33a30); border-color: #f7a8a1; }
+        .btn-min { background: linear-gradient(180deg, #74aef1, #367bd8); border-color: #a4cff7; }
+        
+        /* Menu Bar */
+        .menu-bar {
+            background: #ece9d8;
+            padding: 2px 10px;
+            border-bottom: 1px solid #aca899;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            display: flex;
+            gap: 15px;
+        }
+        .menu-bar span { cursor: pointer; padding: 2px 6px; }
+        .menu-bar span:hover { background: #316ac5; color: white; }
+        
+        /* Address Bar Area */
+        .address-bar-container {
+            background: #ece9d8;
+            padding: 6px 10px;
+            border-bottom: 1px solid #aca899;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+        }
+        .address-bar {
+            flex: 1;
+            background: white;
+            border: 1px solid #7f9db9;
+            padding: 3px 6px;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 1px 1px 2px #ccc;
+        }
+        
+        /* Main Content Split */
+        .content-area {
+            display: flex;
+            background: white;
+            height: 500px;
+        }
+        
+        /* Sidebar (Left) */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(180deg, #7baaff 0%, #b8d4ff 100%);
+            border-right: 2px solid #5a8bdc;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        .sidebar-title {
+            font-family: 'VT323', monospace;
+            font-size: 40px;
+            color: #fffaaa;
+            text-shadow: 2px 2px #ff88d0;
+            text-align: center;
+            line-height: 1;
+        }
+        .sidebar-subtitle {
+            background: rgba(255,255,255,0.4);
+            border: 2px solid white;
+            border-radius: 12px;
+            padding: 4px 15px;
+            font-size: 14px;
+            color: #0055ea;
+            font-weight: bold;
+        }
+        
+        /* Cute Box */
+        .cute-box {
+            background: #fff;
+            border: 3px solid #ffb2e2;
+            border-radius: 15px;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 2px 2px 0px #ff88d0;
+        }
+        
+        .cute-calendar td {
+            text-align: center;
+            padding: 2px;
+            border-radius: 4px;
+        }
+        .cute-calendar td.cal-day-empty {
+            color: #555;
+            border: 1px solid transparent;
+        }
+        .cute-calendar td.has-report {
+            background: #fff5fa;
+            border: 1px solid #ffb2e2;
+            cursor: url('cursor/roundyhand.cur'), pointer !important;
+            transition: all 0.15s ease-in-out;
+        }
+        .cute-calendar td.has-report:hover {
+            background: #ffe0f0 !important;
+            border-color: #ff69b4 !important;
+            transform: scale(1.1);
+            box-shadow: 0 2px 6px rgba(255, 105, 180, 0.4);
+            z-index: 5;
+            position: relative;
+        }
+        .cal-day-link {
+            text-decoration: none;
+            color: #0055ea;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .cal-emojis {
+            font-size: 10px;
+            line-height: 1;
+            margin-top: 1px;
+            display: flex;
+            gap: 1px;
+            justify-content: center;
+        }
+        
+        .cute-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 13px;
+            color: #003399;
+            font-weight: bold;
+        }
+        .cute-list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon-pixel {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border: 2px dotted #ff88d0;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        /* Main Content (Right) */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .main-content::after {
+            content: "text text text text text text text text text text text text text";
+            position: absolute;
+            top: 60px; left: 20px; right: 20px;
+            color: #999;
+            font-size: 11px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+            word-break: break-all;
+        }
+        
+        .hello-header {
+            font-family: 'VT323', monospace;
+            font-size: 26px;
+            color: #000080;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Buttons area */
+        .button-area {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .xp-button {
+            background: linear-gradient(180deg, #f4f5f5 0%, #dfdfdf 100%);
+            border: 1px solid #707070;
+            border-radius: 3px;
+            padding: 6px 20px;
+            font-family: 'VT323', monospace;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: inset 1px 1px 1px #fff;
+            color: #000;
+        }
+        .xp-button:active {
+            background: #dfdfdf;
+            box-shadow: inset 1px 1px 2px #888;
+        }
+        .btn-green {
+            background: linear-gradient(180deg, #dcf0b2 0%, #bce070 100%);
+            border-color: #8bb82d;
+            color: #0055ea;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            padding: 8px 30px;
+            box-shadow: 2px 2px 0 #7ca429;
+        }
+        
+        /* Report Cards Y2K Style */
+        .reports-list {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .report-card {
+            background: #fdfdfd;
+            border: 2px solid #ffb2e2;
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 2px 2px 0px #ffb2e2;
+            transition: all 0.1s;
+        }
+        .report-card:hover {
+            background: #fff5fa;
+            border-color: #ff88d0;
+            box-shadow: 2px 2px 0px #ff88d0;
+            transform: translate(-1px, -1px);
+        }
+        .report-icon {
+            font-size: 24px;
+        }
+        .report-info h3 {
+            font-size: 13px;
+            color: #003399;
+            margin-bottom: 2px;
+        }
+        .report-info p {
+            font-size: 11px;
+            color: #666;
+        }
+        .badge-new {
+            background: #ff0000;
+            color: white;
+            font-size: 9px;
+            padding: 1px 4px;
+            vertical-align: middle;
+            animation: blink 1s step-start 0s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Estilos de la Vista de Reporte (dentro del dashboard) */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+            color: #0055ea;
+            text-decoration: underline;
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .back-link:hover {
+            color: #ff3399;
+        }
+        .page-header {
+            background: #fff;
+            border: 3px solid #ffb2e2;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 2px 2px 0px #ff88d0;
+        }
+        .page-header h1 {
+            font-family: 'VT323', monospace;
+            font-size: 34px;
+            color: #003399;
+            line-height: 1.1;
+        }
+        .page-header .date {
+            font-size: 14px;
+            color: #ff88d0;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            padding: 4px 15px;
+            border: 2px dotted #ffb2e2;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #fff5fa;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stat.alta { color: #ff0000; }
+        .stat.media { color: #0055ea; }
+        .accordion {
+            margin-bottom: 15px;
+            border: 2px solid #a2e8ff;
+            border-radius: 8px;
+            box-shadow: 2px 2px 0px #7baaff;
+            overflow: hidden;
+        }
+        .accordion summary {
+            padding: 10px;
+            cursor: pointer;
+            list-style: none;
+            outline: none;
+            font-size: 14px;
+        }
+        .accordion summary::-webkit-details-marker { display: none; }
+        .acc-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .acc-title-area {
+            flex: 1;
+        }
+        .pixel-circle {
+            width: 12px;
+            height: 12px;
+            margin-top: 4px;
+            box-shadow: 
+                2px 0 0 inset, -2px 0 0 inset,
+                0 -2px 0 inset, 0 2px 0 inset;
+            border: 2px solid #000;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .pixel-circle.red { background: #ff0000; }
+        .pixel-circle.blue { background: #0055ea; }
+        .acc-badge {
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+        .acc-title {
+            font-size: 13px;
+        }
+        .acc-body {
+            padding: 15px;
+            margin: 0 10px 10px 30px;
+            background: white;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+        .acc-meta {
+            background: #fdfdfd;
+            padding: 8px;
+            border: 1px dotted #ccc;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .acc-summary {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .acc-body ul {
+            padding-left: 20px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .acc-body li {
+            margin-bottom: 4px;
+        }
+        
+        /* Footer Bar */
+        .footer-bar {
+            background: linear-gradient(180deg, #5c96ff 0%, #4682ff 100%);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #fff;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            color: white;
+        }
+        .footer-box {
+            border: 2px solid #fff;
+            border-radius: 15px;
+            padding: 4px 15px;
+            color: white;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cute-face {
+            font-size: 24px;
+        }
+
+        /* Responsive Mobile Styles */
+        @media (max-width: 768px) {
+            .window-frame {
+                zoom: 1;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-bottom: 20px !important;
+                border-radius: 6px;
+            }
+            .content-area {
+                flex-direction: column !important;
+                height: auto !important;
+                max-height: none !important;
+            }
+            .sidebar {
+                width: 100% !important;
+                border-right: none !important;
+                border-top: 2px solid #5a8bdc !important;
+                order: 2 !important;
+            }
+            .main-content {
+                order: 1 !important;
+                padding: 12px !important;
+                max-height: none !important;
+            }
+            #reportView {
+                height: auto !important;
+                max-height: none !important;
+            }
+            .corner-gif, .corner-gif-right {
+                max-width: 65px !important;
+                opacity: 0.85;
+                pointer-events: none;
+            }
+            .title-bar-text { font-size: 18px !important; }
+            .menu-bar { display: none !important; }
+            body { padding: 6px !important; }
+            .button-area {
+                margin: 15px 0 !important;
+                gap: 10px !important;
+            }
+            .btn-green {
+                padding: 6px 18px !important;
+                font-size: 16px !important;
+            }
+            #flappyModal {
+                width: 95vw !important;
+                max-width: 95vw !important;
+                height: 85vh !important;
+            }
+            #flappyCanvas {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            * { cursor: auto !important; }
+            a, button, summary, input, .menu-bar span, .footer-box, .report-card, .btn-win, .btn-green, .xp-button, .cute-calendar td.has-report {
+                cursor: pointer !important;
+            }
+        }
+        
+        input, textarea {
+            cursor: text !important;
+        }
+    </style>
 </head>
 <body>
-    <p>Redirigiendo al <a href="Resumenes_Semanales/index.html">Dashboard del DOF para Estudiantes</a>...</p>
+    <div class="window-frame">
+        <div class="title-bar">
+            <div class="title-bar-text" id="mainTitleBarText">
+                <span class="pixel-art icon-star"></span> Monitoreo de DOF y POE
+            </div>
+            <div class="title-bar-controls">
+                <button class="btn-win btn-min">_</button>
+                <button class="btn-win btn-close" id="windowCloseBtn" onclick="showDashboard()">X</button>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <span onclick="showDashboard()">Inicio</span>
+            <span>Ajustes</span>
+            <span>Ventana</span>
+            <span>Ayuda</span>
+        </div>
+        <div class="address-bar-container">
+            Dirección
+            <div class="address-bar" id="addressBarText">
+                https://dof-estudiantes-BLOOMS.com
+            </div>
+            <button class="xp-button" onclick="showDashboard()">Ir</button>
+        </div>
+        
+        <div class="content-area" id="dashboardView">
+            <div class="sidebar">
+                <div class="sidebar-title">DOF MONITOR</div>
+                <div class="sidebar-subtitle">estudiantes</div>
+                
+                <div class="cute-box">
+                    <table class="cute-calendar" style="width:100%; border-collapse:collapse; font-size:12px; font-weight:bold; color:#0055ea; font-family: Tahoma, sans-serif;">
+<tr><th colspan="7" style="background:#ffb2e2; color:#fff; border-radius:5px 5px 0 0; padding:2px;">Octubre 2026</th></tr>
+<tr style="background:#f0f8ff;"><th>Do</th><th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sa</th></tr>
+<tr><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td><td class="cal-day cal-day-empty"><div>1</div></td><td class="cal-day cal-day-empty"><div>2</div></td><td class="cal-day cal-day-empty"><div>3</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>4</div></td><td class="cal-day cal-day-empty"><div>5</div></td><td class="cal-day cal-day-empty"><div>6</div></td><td class="cal-day cal-day-empty"><div>7</div></td><td class="cal-day has-report" title="Reporte del 8 de Octubre: 3 publicaciones"><a href="Resumen_DOF_2026-10-08.html" class="cal-day-link" onclick="showReport('2026-10-08'); return false;"><span>8</span><div class="cal-emojis"><div class='pixel-art icon-bow' title='Reforma Federal'></div><div class='pixel-art icon-battery' title='Quintana Roo'></div></div></a></td><td class="cal-day has-report" title="Reporte del 9 de Octubre: 4 publicaciones"><a href="Resumen_DOF_2026-10-09.html" class="cal-day-link" onclick="showReport('2026-10-09'); return false;"><span>9</span><div class="cal-emojis"><div class='pixel-art icon-battery' title='Quintana Roo'></div></div></a></td><td class="cal-day cal-day-empty"><div>10</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>11</div></td><td class="cal-day has-report" title="Reporte del 12 de Octubre: 2 publicaciones"><a href="Resumen_DOF_2026-10-12.html" class="cal-day-link" onclick="showReport('2026-10-12'); return false;"><span>12</span><div class="cal-emojis"><div class='pixel-art icon-battery' title='Quintana Roo'></div><div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div></div></a></td><td class="cal-day has-report" title="Reporte del 13 de Octubre: 0 publicaciones"><a href="Resumen_DOF_2026-10-13.html" class="cal-day-link" onclick="showReport('2026-10-13'); return false;"><span>13</span><div class="cal-emojis"><div class='pixel-art icon-star' title='Reporte disponible'></div></div></a></td><td class="cal-day has-report" title="Reporte del 14 de Octubre: 2 publicaciones"><a href="Resumen_DOF_2026-10-14.html" class="cal-day-link" onclick="showReport('2026-10-14'); return false;"><span>14</span><div class="cal-emojis"><div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div></div></a></td><td class="cal-day cal-day-empty"><div>15</div></td><td class="cal-day cal-day-empty"><div>16</div></td><td class="cal-day cal-day-empty"><div>17</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>18</div></td><td class="cal-day cal-day-empty"><div>19</div></td><td class="cal-day cal-day-empty"><div>20</div></td><td class="cal-day cal-day-empty"><div>21</div></td><td class="cal-day cal-day-empty"><div>22</div></td><td class="cal-day cal-day-empty"><div>23</div></td><td class="cal-day cal-day-empty"><div>24</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>25</div></td><td class="cal-day cal-day-empty"><div>26</div></td><td class="cal-day cal-day-empty"><div>27</div></td><td class="cal-day cal-day-empty"><div>28</div></td><td class="cal-day cal-day-empty"><div>29</div></td><td class="cal-day cal-day-empty"><div>30</div></td><td class="cal-day cal-day-empty"><div>31</div></td></tr>
+</table><div style="margin-top:8px;"></div><table class="cute-calendar" style="width:100%; border-collapse:collapse; font-size:12px; font-weight:bold; color:#0055ea; font-family: Tahoma, sans-serif;">
+<tr><th colspan="7" style="background:#ffb2e2; color:#fff; border-radius:5px 5px 0 0; padding:2px;">Septiembre 2026</th></tr>
+<tr style="background:#f0f8ff;"><th>Do</th><th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sa</th></tr>
+<tr><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td><td class="cal-day cal-day-empty"><div>1</div></td><td class="cal-day has-report" title="Reporte del 2 de Septiembre: 2 publicaciones"><a href="Resumen_DOF_2026-09-02.html" class="cal-day-link" onclick="showReport('2026-09-02'); return false;"><span>2</span><div class="cal-emojis"><div class='pixel-art icon-battery' title='Quintana Roo'></div><div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div></div></a></td><td class="cal-day cal-day-empty"><div>3</div></td><td class="cal-day cal-day-empty"><div>4</div></td><td class="cal-day cal-day-empty"><div>5</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>6</div></td><td class="cal-day has-report" title="Reporte del 7 de Septiembre: 1 publicaciones"><a href="Resumen_DOF_2026-09-07.html" class="cal-day-link" onclick="showReport('2026-09-07'); return false;"><span>7</span><div class="cal-emojis"><div class='pixel-art icon-battery' title='Quintana Roo'></div><div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div></div></a></td><td class="cal-day cal-day-empty"><div>8</div></td><td class="cal-day has-report" title="Reporte del 9 de Septiembre: 6 publicaciones"><a href="Resumen_DOF_2026-09-09.html" class="cal-day-link" onclick="showReport('2026-09-09'); return false;"><span>9</span><div class="cal-emojis"><div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div></div></a></td><td class="cal-day cal-day-empty"><div>10</div></td><td class="cal-day cal-day-empty"><div>11</div></td><td class="cal-day cal-day-empty"><div>12</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>13</div></td><td class="cal-day cal-day-empty"><div>14</div></td><td class="cal-day cal-day-empty"><div>15</div></td><td class="cal-day cal-day-empty"><div>16</div></td><td class="cal-day cal-day-empty"><div>17</div></td><td class="cal-day cal-day-empty"><div>18</div></td><td class="cal-day cal-day-empty"><div>19</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>20</div></td><td class="cal-day has-report" title="Reporte del 21 de Septiembre: 3 publicaciones"><a href="Resumen_DOF_2026-09-21.html" class="cal-day-link" onclick="showReport('2026-09-21'); return false;"><span>21</span><div class="cal-emojis"><div class='pixel-art icon-star' title='Reporte disponible'></div></div></a></td><td class="cal-day has-report" title="Reporte del 22 de Septiembre: 3 publicaciones"><a href="Resumen_DOF_2026-09-22.html" class="cal-day-link" onclick="showReport('2026-09-22'); return false;"><span>22</span><div class="cal-emojis"><div class='pixel-art icon-star' title='Reporte disponible'></div></div></a></td><td class="cal-day cal-day-empty"><div>23</div></td><td class="cal-day cal-day-empty"><div>24</div></td><td class="cal-day has-report" title="Reporte del 25 de Septiembre: 9 publicaciones"><a href="Resumen_DOF_2026-09-25.html" class="cal-day-link" onclick="showReport('2026-09-25'); return false;"><span>25</span><div class="cal-emojis"><div class='pixel-art icon-bow' title='Reforma Federal'></div></div></a></td><td class="cal-day cal-day-empty"><div>26</div></td></tr>
+<tr><td class="cal-day cal-day-empty"><div>27</div></td><td class="cal-day cal-day-empty"><div>28</div></td><td class="cal-day cal-day-empty"><div>29</div></td><td class="cal-day has-report" title="Reporte del 30 de Septiembre: 2 publicaciones"><a href="Resumen_DOF_2026-09-30.html" class="cal-day-link" onclick="showReport('2026-09-30'); return false;"><span>30</span><div class="cal-emojis"><div class='pixel-art icon-star' title='Reporte disponible'></div></div></a></td><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td><td style="border:1px solid transparent;"></td></tr>
+</table>
+                </div>
+                
+                <div class="cute-list">
+                    <div class="cute-list-item">
+                        <div class="icon-pixel"><div class="pixel-art icon-bow"></div></div>
+                        reformas federales
+                    </div>
+                    <div class="cute-list-item">
+                        <div class="icon-pixel"><div class="pixel-art icon-battery"></div></div>
+                        quintana roo
+                    </div>
+                    <div class="cute-list-item">
+                        <div class="icon-pixel"><div class="pixel-art icon-clock"></div></div>
+                        scjn & poder judicial
+                    </div>
+                    <div class="cute-list-item">
+                        <div class="icon-pixel"><div class="pixel-art icon-star"></div></div>
+                        total: 18 reportes
+                    </div>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <div class="hello-header">
+                    <span class="pixel-art icon-mail"></span> Analizador automático, se actualiza diario a las 2pm
+                </div>
+                
+                <div class="button-area">
+                    <button class="btn-green" onclick="document.getElementById('searchInput').focus()">Buscar</button>
+                    <button class="btn-green" style="filter: hue-rotate(90deg);" onclick="location.reload()">Actualizar</button>
+                </div>
+                
+                <input type="text" id="searchInput" placeholder="Buscar por fecha..." oninput="filterReports()" style="width: 100%; margin-bottom: 15px; padding: 5px; border: 2px solid #ffb2e2; border-radius: 5px; outline:none; font-family: 'VT323', monospace; font-size: 18px;">
+                
+                <div class="reports-list" id="reportsList">
+                    
+        <a href="Resumen_DOF_2026-10-14.html" class="report-card" onclick="showReport('2026-10-14'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario <span class="badge-new">NUEVO</span></h3>
+                <p class="report-date">2026-10-14</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-10-13.html" class="report-card" onclick="showReport('2026-10-13'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-10-13</p>
+                <p class="report-count">0 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-10-12.html" class="report-card" onclick="showReport('2026-10-12'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-10-12</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-10-09.html" class="report-card" onclick="showReport('2026-10-09'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-10-09</p>
+                <p class="report-count">4 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-10-08.html" class="report-card" onclick="showReport('2026-10-08'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-10-08</p>
+                <p class="report-count">3 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-30.html" class="report-card" onclick="showReport('2026-09-30'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-30</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-25.html" class="report-card" onclick="showReport('2026-09-25'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-25</p>
+                <p class="report-count">9 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-22.html" class="report-card" onclick="showReport('2026-09-22'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-22</p>
+                <p class="report-count">3 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-21.html" class="report-card" onclick="showReport('2026-09-21'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-21</p>
+                <p class="report-count">3 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-09.html" class="report-card" onclick="showReport('2026-09-09'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-09</p>
+                <p class="report-count">6 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-07.html" class="report-card" onclick="showReport('2026-09-07'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-07</p>
+                <p class="report-count">1 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-09-02.html" class="report-card" onclick="showReport('2026-09-02'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-09-02</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-31.html" class="report-card" onclick="showReport('2026-08-31'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-31</p>
+                <p class="report-count">3 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-28.html" class="report-card" onclick="showReport('2026-08-28'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-28</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-27.html" class="report-card" onclick="showReport('2026-08-27'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-27</p>
+                <p class="report-count">3 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-26.html" class="report-card" onclick="showReport('2026-08-26'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-26</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-25.html" class="report-card" onclick="showReport('2026-08-25'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-25</p>
+                <p class="report-count">2 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+        <a href="Resumen_DOF_2026-08-24.html" class="report-card" onclick="showReport('2026-08-24'); return false;">
+            <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
+            <div class="report-info">
+                <h3>Reporte Diario </h3>
+                <p class="report-date">2026-08-24</p>
+                <p class="report-count">0 publicaciones relevantes</p>
+            </div>
+        </a>
+        
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px; font-size: 11px; color: #3593ff;">
+                    CARGANDO... POR FAVOR ESPERA<br>
+                    creado por: Valeria Jimenez Tello
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-area" id="reportView" style="display:none; padding:20px; overflow-y:auto; flex:1; background:white; position:relative; flex-direction:column;">
+        </div>
+        
+        <div class="footer-bar">
+            <div class="footer-box" style="cursor:pointer;" onclick="toggleMusic()" id="musicBtn">
+                ▶ música <span class="pixel-art icon-music"></span>
+            </div>
+            <div class="footer-box" style="cursor:pointer;" onclick="openFlappy()">
+                Esperar publicación
+            </div>
+            <div class="cute-face">
+                ૮ ˶ ˆ ᴥ ˆ ˶ ა
+            </div>
+        </div>
+    </div>
+
+    <a href="https://bonaisdemole.neocities.org" target="_blank">
+        <img src="corner_gif.gif" class="corner-gif" alt="cute corner anim">
+    </a>
+    <a href="https://bonaisdemole.neocities.org" target="_blank">
+        <img src="rofa_cat.gif" class="corner-gif-right" alt="cute cat anim">
+    </a>
+    <img src="jellyfish.png" id="floatingJellyfish" class="floating-jellyfish" alt="medusa flotante">
+
+    <audio id="bgMusic" src="bg_music.mp3" loop preload="auto"></audio>
+
+    <script>
+        const REPORTS_DATA = {"2026-10-14": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">14 de octubre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 2 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 14/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Modificación a Operación de Buzones Judiciales</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal, Derecho Orgánico</span>\n</div>\n<p class=\"acc-summary\">Acuerdo del Órgano de Administración Judicial que modifica los horarios y la operación de los buzones judiciales en las oficinas de correspondencia común del Poder Judicial de la Federación.</p>\n<ul><li>Se restringe el horario de funcionamiento de los buzones judiciales para optimizar recursos.</li><li>La recepción en buzones operará de las 20:01 a las 24:00 horas en días hábiles.</li><li>Afecta directamente la forma de presentación de escritos y demandas fuera del horario de ventanilla.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5801176&amp;fecha=14/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Decreto</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 13/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Reglas del Comité de Recompensas de la FGR</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal Penal, Derecho Penal</span>\n</div>\n<p class=\"acc-summary\">Se publican las Reglas de Operación del Comité de Recompensas de la Fiscalía General de la República, estableciendo el procedimiento interno para autorizar, ofrecer y pagar recompensas en investigaciones criminales.</p>\n<ul><li>Regula la integración y funcionamiento del Comité de Recompensas de la FGR.</li><li>Define los requisitos y características que debe cumplir la información útil y veraz aportada por particulares.</li><li>Establece el procedimiento para la propuesta, autorización, seguimiento y pago de recompensas con cargo al presupuesto de la institución.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800998&amp;fecha=13/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-10-13": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">13 de octubre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 0 total</div>\n</div>\n</div>\n<div class=\"empty\">No se encontraron publicaciones jurídicas relevantes esta semana.</div>\n", "2026-10-12": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">12 de octubre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 2 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">SCJN</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 12/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">SCJN: Invalidez de cobros municipales por infraestructura de telecomunicaciones en Hidalgo</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Constitucional, Telecomunicaciones, Derecho Municipal, Hacienda Pública</span>\n</div>\n<p class=\"acc-summary\">La SCJN declaró la invalidez de cobros específicos por licencias de construcción de infraestructura de telecomunicaciones en la Ley de Ingresos del Municipio de Yahualica, Hidalgo. La sentencia reafirma la competencia exclusiva de la Federación en materia de telecomunicaciones, al considerar que la norma municipal invadía el ámbito federal.</p>\n<ul><li>Sentencia de la SCJN en Controversia Constitucional 191/2026.</li><li>Declara la invalidez de porciones del artículo 26 de la Ley de Ingresos para el Municipio de Yahualica, Hidalgo, para el Ejercicio Fiscal 2026.</li><li>Establece que los cobros municipales por licencias de construcción de antenas de telecomunicaciones invaden la competencia federal.</li><li>Reafirma la competencia federal en telecomunicaciones según los artículos 6, apartado B, 28 y 73, fracción XVII, de la Constitución Federal.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800944&amp;fecha=12/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Quintana Roo</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 09/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación de Circunscripción Territorial de Aduanas</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Aduanas, Comercio Exterior, Derecho Administrativo</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo modifica la jurisdicción territorial de varias aduanas y secciones aduaneras en México, incluyendo las de Cancún y Progreso en Quintana Roo. Busca optimizar operaciones aduaneras y facilitar el cumplimiento de obligaciones tributarias para importación y exportación de mercancías.</p>\n<ul><li>Modificación de la circunscripción territorial de aduanas y secciones aduaneras</li><li>Reasignación de municipios y secciones aduaneras en Chiapas, Tabasco, Oaxaca, Quintana Roo y Tamaulipas</li><li>Impacto directo en las Aduanas de Cancún y Progreso, afectando municipios de Quintana Roo como Tulum, Cozumel y Puerto Morelos</li><li>Objetivo: optimizar operaciones aduaneras y facilitar el cumplimiento de obligaciones tributarias</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800920&amp;fecha=09/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-10-09": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">09 de octubre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 4 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 4 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 09/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">IMPI: Suspensión de plazos por fuerza mayor</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Propiedad Industrial, Derecho Administrativo, Procedimiento Administrativo</span>\n</div>\n<p class=\"acc-summary\">El Instituto Mexicano de la Propiedad Industrial (IMPI) suspende los plazos para trámites, servicios y procedimientos administrativos el 29 de septiembre de 2026. Esta medida se toma por causa de fuerza mayor, debido a una falla en sus sistemas de pago electrónico, buscando garantizar la seguridad jurídica de los usuarios.</p>\n<ul><li>Suspensión de plazos en el IMPI</li><li>Aplica a trámites, servicios y procedimientos administrativos</li><li>Motivo: Falla en sistemas de pago electrónico el 29 de septiembre de 2026</li><li>Busca garantizar la seguridad jurídica de los usuarios</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800853&amp;fecha=09/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Reglas para Claves Vehiculares del ISAN</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Fiscal, Administrativo, Comercio</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo establece las reglas de carácter general para la tramitación, asignación e integración de claves vehiculares, requeridas por la Ley Federal del Impuesto Sobre Automóviles Nuevos (ISAN). Introduce el Sistema de Claves Vehiculares (SICLAVE) para simplificar los trámites en línea para fabricantes, ensambladoras y distribuidores, sustituyendo disposiciones previas de la Resolución Miscelánea Fiscal.</p>\n<ul><li>Establece reglas para la tramitación, asignación e integración de claves vehiculares del ISAN.</li><li>Implementa el Sistema de Claves Vehiculares (SICLAVE) para gestionar trámites en línea.</li><li>Simplifica los procedimientos para fabricantes, ensambladoras y distribuidoras de automóviles nuevos.</li><li>Sustituye el Apartado C del Anexo 15 de la Resolución Miscelánea Fiscal.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800730&amp;fecha=08/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Quintana Roo</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Convenio SECTUR-Quintana Roo: Verificación Turística</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Turismo, Cumplimiento Normativo</span>\n</div>\n<p class=\"acc-summary\">Convenio entre la Secretaría de Turismo y el Estado de Quintana Roo para coordinar y fortalecer la verificación del cumplimiento de la Ley General de Turismo y NOMs por parte de prestadores de servicios turísticos en la entidad.</p>\n<ul><li>Coordinación entre SECTUR y Quintana Roo para verificación turística</li><li>Fortalecimiento de atribuciones para verificar prestadores de servicios turísticos</li><li>Asegura el cumplimiento de la Ley General de Turismo y NOMs en Quintana Roo</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800735&amp;fecha=08/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">IMSS: Entrega de EMA y EBA por Buzón IMSS</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Seguridad Social, Derecho Laboral</span>\n</div>\n<p class=\"acc-summary\">El IMSS aprueba la simplificación administrativa para que las propuestas de cédulas de determinación de cuotas obrero patronales (EMA y EBA) se entreguen a los empleadores a través del Buzón IMSS. Esta medida facilita la consulta de dichos documentos por parte de los particulares.</p>\n<ul><li>Aprobación de la entrega de EMA y EBA a través del Buzón IMSS</li><li>Simplificación administrativa para empleadores</li><li>Acceso a propuestas de cédulas de determinación de cuotas obrero patronales</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800739&amp;fecha=08/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-10-08": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">08 de octubre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 1 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 2 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 3 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Reforma Federal</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 07/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Reforma Constitucional: Nacionalidad para Poderes Ejecutivos</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Constitucional, Derecho Electoral, Derecho de la Nacionalidad</span>\n</div>\n<p class=\"acc-summary\">Este decreto reforma los artículos 82, 116 y 122 de la Constitución Política de los Estados Unidos Mexicanos. Establece el requisito de nacionalidad mexicana única para ser Presidente, Gobernador o Jefe de Gobierno de la Ciudad de México, exigiendo la renuncia a cualquier otra nacionalidad antes del registro como candidato y prohibiendo su adquisición o invocación durante el cargo. Será aplicable a partir del proceso electoral de 2028.</p>\n<ul><li>Reforma constitucional a los artículos 82, 116 y 122</li><li>Establece requisito de nacionalidad mexicana única para Presidente, Gobernadores y Jefe de Gobierno de la CDMX</li><li>Exige renuncia a cualquier otra nacionalidad antes del registro como candidato</li><li>Prohíbe adquirir o invocar otra nacionalidad durante el ejercicio del cargo</li><li>Aplicable a partir del proceso electoral de 2028</li><li>Requiere armonización de la Ley de Nacionalidad y legislación electoral</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800617&amp;fecha=07/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 08/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Reglas para Claves Vehiculares del ISAN</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Fiscal, Administrativo, Comercio</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo establece las reglas de carácter general para la tramitación, asignación e integración de claves vehiculares, requeridas por la Ley Federal del Impuesto Sobre Automóviles Nuevos (ISAN). Introduce el Sistema de Claves Vehiculares (SICLAVE) para simplificar los trámites en línea para fabricantes, ensambladoras y distribuidores, sustituyendo disposiciones previas de la Resolución Miscelánea Fiscal.</p>\n<ul><li>Establece reglas para la tramitación, asignación e integración de claves vehiculares del ISAN.</li><li>Implementa el Sistema de Claves Vehiculares (SICLAVE) para gestionar trámites en línea.</li><li>Simplifica los procedimientos para fabricantes, ensambladoras y distribuidoras de automóviles nuevos.</li><li>Sustituye el Apartado C del Anexo 15 de la Resolución Miscelánea Fiscal.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800730&amp;fecha=08/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Quintana Roo</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 08/10/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Convenio de Coordinación SECTUR-Quintana Roo sobre Verificación Turística</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Turismo, Derecho Administrativo, Coordinación Intergubernamental</span>\n</div>\n<p class=\"acc-summary\">Este convenio de coordinación entre la Secretaría de Turismo y el Estado de Quintana Roo busca fortalecer y verificar el cumplimiento de la Ley General de Turismo y las Normas Oficiales Mexicanas en la entidad. Su objetivo es asegurar que los prestadores de servicios turísticos en Quintana Roo cumplan con la normativa aplicable.</p>\n<ul><li>Coordina la verificación de prestadores de servicios turísticos en Quintana Roo.</li><li>Involucra a la Secretaría de Turismo federal y al gobierno de Quintana Roo.</li><li>Asegura el cumplimiento de la Ley General de Turismo y NOMs en la materia.</li><li>Fortalece las atribuciones de verificación en el estado.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5800735&amp;fecha=08/10/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-30": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">30 de septiembre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 2 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 29/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Acuerdo IMPI: Suspensión de plazos</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Propiedad Industrial, Derecho Administrativo, Procedimiento Administrativo</span>\n</div>\n<p class=\"acc-summary\">El Instituto Mexicano de la Propiedad Industrial (IMPI) suspende los plazos para trámites y servicios el 23 de septiembre de 2026. La suspensión se debe a una interrupción en su red de fibra óptica por causa de fuerza mayor, buscando garantizar la seguridad jurídica de los usuarios.</p>\n<ul><li>Suspensión de plazos en el IMPI.</li><li>Aplica para trámites, servicios y procedimientos administrativos.</li><li>Motivo: Causa de fuerza mayor (corte de fibra óptica).</li><li>Fecha afectada: 23 de septiembre de 2026.</li><li>Objetivo: Garantizar la seguridad jurídica de los usuarios.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799791&amp;fecha=29/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 29/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Lineamientos Padrón Electoral y Listas Nominales INE 2026-2027</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Electoral, Administración Pública, Procesos Electorales</span>\n</div>\n<p class=\"acc-summary\">El Consejo General del INE aprueba los Lineamientos que establecen los plazos y términos para el uso y actualización del Padrón Electoral y las Listas Nominales de Electores. Estas reglas son aplicables a los procesos electorales federales y locales concurrentes de 2026-2027, así como a las elecciones extraordinarias que de ellos deriven, siendo fundamentales para la organización electoral.</p>\n<ul><li>Aprobación de Lineamientos por el Consejo General del INE</li><li>Establece plazos y términos para el uso del Padrón Electoral y Listas Nominales de Electores</li><li>Define plazos para la actualización del Padrón Electoral y cortes de la Lista Nominal</li><li>Aplica a procesos electorales federales y locales concurrentes 2026-2027</li><li>Regula elecciones extraordinarias derivadas de dichos procesos</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799802&amp;fecha=29/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-25": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">25 de septiembre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 8 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 9 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Decreto</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 25/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Decreto: Ingreso de militares extranjeros para ejercicio conjunto</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Constitucional, Defensa Nacional, Derecho Internacional Público</span>\n</div>\n<p class=\"acc-summary\">Decreto presidencial que autoriza el ingreso de 139 militares extranjeros de EE. UU. para participar en un ejercicio conjunto en Chihuahua del 20 al 30 de septiembre de 2026, conforme al Artículo 76, Fracción III de la Constitución.</p>\n<ul><li>Autorización para el ingreso de 139 militares extranjeros de EE. UU.</li><li>Participación en el 'Ejercicio Especializado Conjunto' en Chihuahua</li><li>Fundamentado en el Artículo 76, Fracción III de la Constitución Política de los Estados Unidos Mexicanos</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799577&amp;fecha=25/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 25/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Acuerdo SEMARNAT Tlaxcala: Domicilio y Plazos</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Medio Ambiente</span>\n</div>\n<p class=\"acc-summary\">La SEMARNAT informa el cambio de domicilio de su Oficina de Representación en Tlaxcala a partir del 1 de septiembre de 2026. Se declaran días inhábiles del 1 al 11 de septiembre de 2026, suspendiendo plazos procesales para trámites ante dicha oficina.</p>\n<ul><li>Cambio de domicilio de la Oficina de Representación de SEMARNAT en Tlaxcala.</li><li>Nuevo domicilio: Avenida Tlahuicole número 403, colonia Adolfo López Mateos, C.P. 90040, Tlaxcala, Tlaxcala.</li><li>Días inhábiles declarados del 1 al 11 de septiembre de 2026 para trámites ante esta oficina.</li><li>Suspensión de plazos y términos procesales durante los días inhábiles.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799584&amp;fecha=25/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 25/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación volúmenes captura pelágicos menores Pacífico</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Pesca y Acuacultura, Medio Ambiente, Regulación Económica</span>\n</div>\n<p class=\"acc-summary\">La SADER modifica el acuerdo de volúmenes de captura de pelágicos menores (sardina crinuda y macarela) en el Pacífico y Golfo de California para 2026, incrementando las cuotas de pesca con base en dictámenes técnicos.</p>\n<ul><li>Se modifican los volúmenes de captura permisibles para pelágicos menores.</li><li>Aplica a sardina crinuda y macarela en el Océano Pacífico y Golfo de California.</li><li>Las cuotas para la temporada de pesca 2026 se incrementan.</li><li>La decisión se basa en dictámenes técnicos del IMIPAS.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799588&amp;fecha=25/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 25/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Estatuto Orgánico de Pemex</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Derecho Energético, Derecho Corporativo</span>\n</div>\n<p class=\"acc-summary\">El Estatuto Orgánico de Petróleos Mexicanos (Pemex) establece la estructura, organización y funciones de esta empresa pública del Estado. Define las reglas para su Consejo de Administración y sus Comités, así como términos clave de la industria de hidrocarburos.</p>\n<ul><li>Define la estructura y organización básica de Pemex.</li><li>Establece las funciones de las distintas áreas y directivos de la empresa.</li><li>Regula el funcionamiento del Consejo de Administración y sus Comités.</li><li>Incluye un glosario extenso de términos técnicos y jurídicos relacionados con la operación de Pemex.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799602&amp;fecha=25/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Reforma Federal</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 24/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Reglamento LFDA: Medidas Tecnológicas y PSI</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho de Autor, Propiedad Intelectual, Derecho Digital</span>\n</div>\n<p class=\"acc-summary\">Este Decreto adiciona el Reglamento de la Ley Federal del Derecho de Autor, estableciendo nuevas disposiciones sobre medidas tecnológicas de protección, gestión de derechos y las responsabilidades de los Proveedores de Servicios de Internet (PSI) ante avisos y contra-avisos de infracción de derechos de autor.</p>\n<ul><li>Adición de un nuevo capítulo al Reglamento de la Ley Federal del Derecho de Autor.</li><li>Regulación de medidas tecnológicas de protección y gestión de derechos.</li><li>Establecimiento de obligaciones para Proveedores de Servicios de Internet (PSI) en avisos y contra-avisos de infracción.</li><li>Detalle de requisitos para la presentación de avisos y contra-avisos de remoción de contenido.</li><li>Fijación de plazos para la habilitación o remoción de contenido por los PSI.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799437&amp;fecha=24/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Decreto</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 24/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Decreto de expropiación para hospital IMSS-BIENESTAR en Atenco</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Agrario, Administrativo, Salud, Constitucional</span>\n</div>\n<p class=\"acc-summary\">Decreto presidencial que expropia 2.7 hectáreas del ejido Atenco, Estado de México, para la construcción y equipamiento de un Hospital General de 60 camas para el IMSS-BIENESTAR. La expropiación se declara por causa de utilidad pública, fundamentada en el derecho a la protección de la salud y el Plan Nacional de Desarrollo.</p>\n<ul><li>Expropiación de 2.7 hectáreas del ejido Atenco, Estado de México.</li><li>Destino de la superficie: Construcción y equipamiento de un Hospital General de 60 camas para IMSS-BIENESTAR.</li><li>Causa de utilidad pública: Explotación o conservación de un servicio público y creación de unidades de producción de servicios de beneficio comunitario.</li><li>Fundamento legal: Artículos 27 y 89 de la Constitución, Ley Agraria y su Reglamento.</li><li>Monto de indemnización determinado por el Indaabin: $31,688,000.00 M.N.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799438&amp;fecha=24/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 24/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación a formato de registro de actividades vulnerables</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Derecho Financiero, Prevención de Lavado de Dinero, Comercio Exterior</span>\n</div>\n<p class=\"acc-summary\">Esta resolución modifica el formato oficial para el alta y registro de quienes realizan actividades vulnerables. El cambio incorpora nuevas figuras jurídicas como fideicomisos, facilitadoras públicas y privadas, y agencias aduanales, permitiéndoles cumplir con las obligaciones de la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI) tras recientes reformas.</p>\n<ul><li>Modifica el formato oficial para el alta y registro de actividades vulnerables.</li><li>Incorpora nuevas figuras jurídicas y actividades (fideicomisos, facilitadoras públicas y privadas, agencias aduanales) al registro.</li><li>Permite a los nuevos sujetos obligados cumplir con la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI).</li><li>Ajusta los anexos 'A' y 'B' del formato para la captura de información detallada de estas nuevas entidades.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799444&amp;fecha=24/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 24/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación de formatos para actividades vulnerables</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Prevención de Lavado de Dinero, Derecho Administrativo, Derecho Financiero</span>\n</div>\n<p class=\"acc-summary\">Esta resolución modifica los formatos oficiales para los avisos e informes que deben presentar quienes realizan actividades vulnerables. Incorpora nuevas obligaciones derivadas de reformas a la Ley Antilavado, como la identificación del Beneficiario Controlador y la presentación de avisos de sospecha en 24 horas, actualizando los anexos correspondientes.</p>\n<ul><li>Actualización de formatos oficiales para avisos e informes de actividades vulnerables.</li><li>Incorporación de la obligación de identificar al Beneficiario Controlador.</li><li>Establecimiento de avisos de sospecha en 24 horas para operaciones con recursos de procedencia ilícita.</li><li>Adecuaciones por reformas a la Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI) y sus reglamentos.</li><li>Inclusión de nuevas actividades vulnerables y actualización de anexos.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799445&amp;fecha=24/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Decreto</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 25/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Decreto de expropiación ejido Matamoros, Coahuila</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Agrario, Administrativo, Urbano</span>\n</div>\n<p class=\"acc-summary\">Decreto presidencial que expropia 14 hectáreas del ejido 'Matamoros' en Coahuila para la regularización de asentamientos humanos y titulación de viviendas. Esta acción se enmarca en el 'Programa masivo de escrituración de casas' del Plan Nacional de Desarrollo 2025-2030.</p>\n<ul><li>Expropiación de 14 hectáreas del ejido 'Matamoros' en Coahuila</li><li>Destino a la regularización de la tenencia de la tierra y titulación de viviendas</li><li>A favor del Instituto Nacional del Suelo Sustentable (INSUS)</li><li>Fundamentado en la Ley Agraria y la Ley General de Asentamientos Humanos</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799578&amp;fecha=25/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-22": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">22 de septiembre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 2 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 3 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 22/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificaciones a Reglas Generales de Comercio Exterior</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Comercio Exterior, Derecho Aduanero, Regulación Fiscal, Procedimientos Administrativos</span>\n</div>\n<p class=\"acc-summary\">Esta publicación del SAT introduce la Segunda Resolución de Modificaciones a las Reglas Generales de Comercio Exterior para 2026. Reforma y adiciona diversas reglas sobre procedimientos aduaneros, requisitos para agentes aduanales, Ventanilla Digital, muestras y multas por etiquetado. Impacta directamente las operaciones de comercio exterior.</p>\n<ul><li>Modificación de Reglas Generales de Comercio Exterior (RGCE) para 2026.</li><li>Reforma el Glosario y varias reglas, y adiciona la regla 3.1.2. sobre muestras.</li><li>Impacta procedimientos para suspensión en el SEA y requisitos para agentes aduanales.</li><li>Actualiza disposiciones sobre multas por falta de etiquetado y avisos de almacenes.</li><li>Establece plazos para subsanar incumplimientos en el Registro en el Esquema de Certificación de Empresas.</li><li>Hace referencia a la Ventanilla Digital para trámites de comercio exterior.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799243&amp;fecha=22/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 22/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Acuerdo sobre uso de dispositivos digitales en escuelas del Sistema Educativo Nacional</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Educación, Derechos de la Niñez y Adolescencia, Tecnologías de la Información y Comunicación, Regulación</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo de la Secretaría de Educación Pública establece reglas para el uso responsable y seguro de dispositivos digitales personales y tecnologías de aprendizaje en todas las escuelas públicas y particulares de México. Su objetivo es proteger los derechos de niñas, niños, adolescentes y jóvenes, promoviendo un uso educativo y previniendo distracciones.</p>\n<ul><li>Establece reglas para el uso de dispositivos digitales en escuelas del Sistema Educativo Nacional.</li><li>Busca garantizar los derechos de niñas, niños, adolescentes y jóvenes en el entorno digital escolar.</li><li>Promueve el uso responsable y seguro de tecnologías de aprendizaje.</li><li>Emitido por la Secretaría de Educación Pública, fundamentado en leyes federales como la LGE y la LGDNNA.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799247&amp;fecha=22/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">NOM</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 22/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Respuestas a comentarios PROY-NOM-011-SSPC-2025 Protección Civil Eventos Masivos</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Protección Civil, Derecho Regulatorio, Seguridad Pública, Gestión de Eventos</span>\n</div>\n<p class=\"acc-summary\">Esta publicación detalla las respuestas oficiales a los comentarios recibidos sobre el Proyecto de Norma Oficial Mexicana PROY-NOM-011-SSPC-2025. Dicha NOM establecerá requisitos mínimos de protección civil para espectáculos y eventos masivos, regulando la capacidad de aforo y protocolos de seguridad. Aborda retroalimentación sobre definiciones, equipos de comunicación y cualificaciones del personal médico.</p>\n<ul><li>Publicación de respuestas a comentarios sobre el PROY-NOM-011-SSPC-2025.</li><li>El proyecto de NOM establece requisitos de protección civil para eventos masivos.</li><li>Se proponen modificaciones en definiciones, equipos de comunicación y personal de primeros auxilios.</li><li>Busca regular la capacidad de aforo y protocolos de seguridad en eventos públicos.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799241&amp;fecha=22/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-21": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">21 de septiembre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 3 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 3 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 18/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Estímulos Fiscales IEPS Combustibles</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Fiscal, Impuestos, Energía</span>\n</div>\n<p class=\"acc-summary\">La Secretaría de Hacienda y Crédito Público publica los porcentajes, montos y cuotas disminuidas del Impuesto Especial sobre Producción y Servicios (IEPS) aplicables a gasolinas y diésel.\nEstos estímulos fiscales son válidos para el periodo del 19 al 25 de septiembre de 2026.</p>\n<ul><li>Se dan a conocer los porcentajes y montos del estímulo fiscal para el IEPS en combustibles.</li><li>Se especifican las cuotas disminuidas del IEPS aplicables a gasolinas y diésel.</li><li>Vigente para el periodo del 19 al 25 de septiembre de 2026.</li><li>Emitido por la Secretaría de Hacienda y Crédito Público.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799117&amp;fecha=18/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 18/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Estímulos fiscales a gasolinas en frontera norte</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Fiscal, Comercio Exterior, Energía, Economía</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo de la Secretaría de Hacienda y Crédito Público da a conocer los montos de los estímulos fiscales aplicables a la enajenación de gasolinas en la región fronteriza con los Estados Unidos de América. Los montos varían según el tipo de gasolina, el municipio y la distancia de la línea divisoria internacional, impactando el Impuesto Especial sobre Producción y Servicios (IEPS).</p>\n<ul><li>Establece los montos de estímulos fiscales para gasolinas.</li><li>Aplica a la región fronteriza con los Estados Unidos de América.</li><li>Los montos varían por tipo de gasolina (menor o mayor a 91 octanos), municipio y distancia de la frontera.</li><li>Publicado por la Secretaría de Hacienda y Crédito Público.</li><li>Impacta el Impuesto Especial sobre Producción y Servicios (IEPS) en combustibles.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799118&amp;fecha=18/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 18/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Estímulos Fiscales Gasolina Frontera Guatemala</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Fiscal, Energía, Comercio Exterior</span>\n</div>\n<p class=\"acc-summary\">La Secretaría de Hacienda y Crédito Público da a conocer los montos de los estímulos fiscales aplicables a la enajenación de gasolinas en la región fronteriza con Guatemala. Estos estímulos benefician a municipios específicos de Campeche, Tabasco y Chiapas durante el periodo del 19 al 25 de septiembre de 2026.</p>\n<ul><li>Publicación de montos de estímulos fiscales para gasolinas.</li><li>Aplica a la enajenación de gasolinas en la frontera sur con Guatemala.</li><li>Beneficia a municipios de Campeche, Tabasco y Chiapas.</li><li>Vigente del 19 al 25 de septiembre de 2026.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5799119&amp;fecha=18/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-09": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte Diario</h1>\n<div class=\"date\">09 de septiembre de 2026</div>\n<div style=\"font-family: 'VT323', monospace; font-size: 16px; color: #666; text-align: center; margin-bottom: 10px;\">\n                    * Incluye edición Matutina y Vespertina de hoy, y Vespertina del día hábil anterior.\n                </div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 4 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 2 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 6 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 09/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación de Reglas de Solicitudes IMPI</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Propiedad Industrial, Derecho Administrativo</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo modifica las reglas para la presentación de solicitudes ante el Instituto Mexicano de la Propiedad Industrial (IMPI). Reforma artículos y formatos relacionados con trámites de propiedad industrial, como denominaciones de origen e indicaciones geográficas, buscando simplificar y mejorar la administración.</p>\n<ul><li>Modifica las reglas para la presentación de solicitudes ante el Instituto Mexicano de la Propiedad Industrial (IMPI).</li><li>Reforma los artículos 33 y 34, fracción IX, y deroga la fracción X del Acuerdo de Reglas de Solicitudes del IMPI.</li><li>Actualiza el formato IMPI-00-007 para trámites de denominaciones de origen e indicaciones geográficas y deroga el formato IMPI-00-008.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798275&amp;fecha=09/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Modificación Lineamientos Migración Eléctrica</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Energético, Derecho Administrativo, Regulación</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo de la Secretaría de Energía modifica los Lineamientos para la migración voluntaria de permisos de autoabastecimiento y cogeneración de energía eléctrica. Extiende plazos y aclara requisitos técnicos para facilitar la transición a las nuevas figuras de la Ley del Sector Eléctrico.</p>\n<ul><li>Modificación de Lineamientos para la migración de autoabastecimiento y cogeneración de energía eléctrica.</li><li>Extensión de plazos y fechas en el calendario del Procedimiento de Migración.</li><li>Precisión de requerimientos para equipos de medición y condiciones para Pruebas Mínimas en Operación.</li><li>Emitido por la Secretaría de Energía (SENER).</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798117&amp;fecha=08/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Simplificación de Trámites del Registro Público de Telecomunicaciones por la CRT</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Telecomunicaciones, Derecho Administrativo, Regulación</span>\n</div>\n<p class=\"acc-summary\">La Comisión Reguladora de Telecomunicaciones (CRT) emite un acuerdo para simplificar los trámites relacionados con el Registro Público de Telecomunicaciones. El objetivo es eliminar duplicidades, estandarizar criterios y reducir cargas administrativas, mejorando la eficiencia y transparencia para los regulados.</p>\n<ul><li>La Comisión Reguladora de Telecomunicaciones (CRT) aprueba un acuerdo de simplificación.</li><li>El acuerdo establece acciones para simplificar trámites del Registro Público de Telecomunicaciones.</li><li>Busca eliminar duplicidades, estandarizar criterios y reducir cargas administrativas y tiempos de gestión.</li><li>Se fundamenta en la Ley en Materia de Telecomunicaciones y Radiodifusión y la Ley Nacional para Eliminar Trámites Burocráticos.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798130&amp;fecha=08/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Regulatorio</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #ff0000; display: block; margin-top: 4px;\">Acuerdo IMSS: TIP Digital Obligatoria y Trámites Buzón IMSS</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Seguridad Social, Derecho Laboral, Derecho Administrativo, Tecnologías de la Información</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo del H. Consejo Técnico del IMSS aprueba la generación obligatoria de la Tarjeta de Identificación Patronal Digital (TIP Digital). También actualiza la relación de trámites y servicios disponibles en el Buzón IMSS, incluyendo el nuevo servicio para generar esta tarjeta digital. La TIP Digital sustituirá a la física en los trámites que la requieran.</p>\n<ul><li>Se aprueba la generación obligatoria de la Tarjeta de Identificación Patronal Digital (TIP Digital).</li><li>La TIP Digital se generará mediante el Buzón IMSS y sustituirá a la tarjeta física.</li><li>Se actualiza la relación de trámites y servicios disponibles en el Buzón IMSS para incluir la generación de la TIP Digital.</li><li>El acuerdo entrará en vigor 15 días naturales posteriores a su publicación en el DOF.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798132&amp;fecha=08/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">NOM</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">General 09/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">NOM SEMARNAT Residuos Mineros</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Medio Ambiente, Minería, Regulación</span>\n</div>\n<p class=\"acc-summary\">Esta Norma Oficial Mexicana establece los elementos y procedimientos para instrumentar planes de manejo de residuos mineros, actualizando la NOM-157-SEMARNAT-2009 para una gestión ambiental más eficiente.</p>\n<ul><li>Establece elementos y procedimientos para planes de manejo de residuos mineros.</li><li>Actualiza la NOM-157-SEMARNAT-2009, modificando la clasificación de residuos.</li><li>Promueve la prevención, valorización y manejo integral de residuos mineros.</li><li>Incluye un procedimiento de evaluación de la conformidad para su cumplimiento.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798261&amp;fecha=09/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span><span class=\"acc-badge\" style=\"background:#555; margin-left:5px;\">Vespertina 08/09/2026</span>\n<strong class=\"acc-title\" style=\"color: #0055ea; display: block; margin-top: 4px;\">Acuerdo OAJ: Reforma de comisiones y nombramientos</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Organización Judicial</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo General del Órgano de Administración Judicial reforma un acuerdo previo sobre la creación e integración de sus comisiones. La modificación principal es la designación de la titular de la Secretaría Ejecutiva de la Comisión de Creación y Seguimiento de Órganos Jurisdiccionales.</p>\n<ul><li>Reforma un Acuerdo General del Pleno del Órgano de Administración Judicial.</li><li>Modifica el acuerdo sobre la creación e integración de sus comisiones internas.</li><li>Designa a Jaqueline Berenice Cruz Angeles como titular de la Secretaría Ejecutiva de la Comisión de Creación y Seguimiento de Órganos Jurisdiccionales.</li><li>Entra en vigor el 2 de septiembre de 2026.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798136&amp;fecha=08/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-07": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">07 de septiembre de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 1 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 1 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Quintana Roo</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">SCJN invalida cobros alumbrado público Isla Mujeres, Q. Roo</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Constitucional, Derecho Fiscal, Derecho Municipal</span>\n</div>\n<p class=\"acc-summary\">La SCJN declaró la invalidez del artículo 115 de la Ley de Hacienda del Municipio de Isla Mujeres, Quintana Roo. Dicho artículo establecía cobros por alumbrado público basados en el consumo de energía eléctrica particular. La Corte determinó que esto vulneraba principios tributarios y constituía un impuesto federal encubierto.</p>\n<ul><li>Sentencia de la SCJN en Acción de Inconstitucionalidad 40/2025.</li><li>Declara la invalidez del artículo 115 de la Ley de Hacienda del Municipio de Isla Mujeres, Quintana Roo.</li><li>El artículo impugnado establecía cobros por servicio de alumbrado público vinculados al consumo particular de energía eléctrica.</li><li>La SCJN consideró que la norma violaba principios de legalidad, proporcionalidad y equidad tributaria, al crear un impuesto sobre el consumo de energía eléctrica, competencia federal.</li><li>La declaratoria de invalidez surtirá efectos a partir de la notificación al Congreso del Estado de Quintana Roo.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5798081&amp;fecha=07/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-09-02": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">02 de septiembre de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 1 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Quintana Roo</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">SCJN invalida requisito de edad en Ley de Discapacidad de Quintana Roo</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Constitucional, Derechos Humanos, Derecho de las Personas con Discapacidad, Derecho de la Niñez y Adolescencia</span>\n</div>\n<p class=\"acc-summary\">La Suprema Corte de Justicia de la Nación declaró la invalidez de un requisito de edad en la Ley para el Desarrollo y la Inclusión de las Personas con Discapacidad del Estado de Quintana Roo. La sentencia elimina la exigencia de ser mayor de 18 años para participar en el Parlamento de Personas con Discapacidad, garantizando la inclusión de niñas, niños y adolescentes con discapacidad. Se consideró que la limitación era inconstitucional y discriminatoria, afectando el derecho a la participación.</p>\n<ul><li>Sentencia de la SCJN en la Acción de Inconstitucionalidad 59/2025.</li><li>Declara la invalidez del artículo 51 Quinquies de la Ley para el Desarrollo y la Inclusión de las Personas con Discapacidad del Estado de Quintana Roo.</li><li>La porción invalidada exigía 'acreditar ser mayores de dieciocho años de edad' para participar en el Parlamento de Personas con Discapacidad.</li><li>La SCJN consideró el requisito inconstitucional por limitar la participación de menores de edad con discapacidad y ser contrario a los derechos de igualdad, no discriminación y participación.</li><li>La decisión busca garantizar la inclusión de niñas, niños y adolescentes con discapacidad en espacios de diálogo y expresión.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797578&amp;fecha=01/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Habilitación Juzgados Federales Matamoros Amparo Penal</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal Penal, Derecho Constitucional, Organización Judicial</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo del Órgano de Administración Judicial habilita a los Juzgados de Distrito de Procesos Penales Federales en Matamoros, Tamaulipas, para conocer también de amparo en materia penal. La medida busca optimizar recursos y aprovechar la capacidad jurisdiccional disponible, sin modificar su especialización original.</p>\n<ul><li>Habilitación de Juzgados de Distrito de Procesos Penales Federales en Matamoros, Tamaulipas.</li><li>Ampliación de su competencia para conocer de amparo en materia penal.</li><li>Decisión del Pleno del Órgano de Administración Judicial para optimizar recursos.</li><li>No modifica su especialización ni competencia actual en procesos penales federales.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797580&amp;fecha=01/09/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-31": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">31 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 3 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 3 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Reglas de Operación Autoridad Garante PJF</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Transparencia y Acceso a la Información Pública, Protección de Datos Personales, Derecho Constitucional</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo establece las reglas de operación y funcionamiento de la Autoridad Garante del Poder Judicial de la Federación. Dicha autoridad se encarga de garantizar los derechos de acceso a la información pública y protección de datos personales dentro del ámbito judicial federal.</p>\n<ul><li>Establece las Reglas de Operación y Funcionamiento de la Autoridad Garante.</li><li>La Autoridad Garante opera dentro del Poder Judicial de la Federación.</li><li>Su función es garantizar el acceso a la información y la protección de datos personales.</li><li>Se fundamenta en la Constitución y Leyes Generales de Transparencia y Datos Personales.</li><li>Regula la organización, sesiones y atribuciones de la Autoridad Garante.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797489&amp;fecha=31/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Lineamientos de Transparencia y Datos Personales PJF</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Transparencia, Acceso a la Información Pública, Protección de Datos Personales, Derecho Judicial</span>\n</div>\n<p class=\"acc-summary\">Acuerdo del Poder Judicial Federal que emite lineamientos generales sobre transparencia, acceso a la información y protección de datos personales para sus órganos internos, como el Tribunal Electoral y el Tribunal de Disciplina Judicial. Busca homologar procesos y garantizar derechos fundamentales en la materia.</p>\n<ul><li>Establece lineamientos generales de transparencia y acceso a la información para el Poder Judicial Federal.</li><li>Regula la protección y tratamiento de datos personales en posesión de los sujetos obligados del PJF.</li><li>Aplica al Tribunal Electoral, Tribunal de Disciplina Judicial y Órgano de Administración Judicial.</li><li>Define atribuciones y organización de las instancias internas para el cumplimiento de estas obligaciones.</li><li>Se fundamenta en la Constitución Política y las Leyes Generales de Transparencia y Protección de Datos Personales.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797490&amp;fecha=31/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Padrón de Sujetos Obligados del Poder Judicial Federal</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Transparencia, Protección de Datos Personales, Derecho Administrativo, Poder Judicial</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo del Poder Judicial Federal establece el padrón de sus sujetos obligados en transparencia y protección de datos personales. Incluye al Tribunal Electoral, Tribunal de Disciplina Judicial, Órgano de Administración Judicial y fideicomisos. Busca dar certeza jurídica sobre las entidades responsables de cumplir con estas leyes.</p>\n<ul><li>La Autoridad Garante del PJF emite el Padrón de Sujetos Obligados.</li><li>Define las entidades del Poder Judicial Federal responsables de transparencia y protección de datos.</li><li>Incluye al Tribunal Electoral, Tribunal de Disciplina Judicial, Órgano de Administración Judicial y fideicomisos.</li><li>Se fundamenta en la Constitución y leyes generales de transparencia y datos personales.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797492&amp;fecha=31/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-28": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">28 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 1 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Reforma Federal</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">Acuerdo INE Comisión Integridad Candidaturas</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Electoral, Derecho Constitucional, Administración Pública</span>\n</div>\n<p class=\"acc-summary\">El INE aprueba la integración de la Comisión de Verificación de Integridad en Candidaturas, cumpliendo con el Decreto que reformó la Ley General de Instituciones y Procedimientos Electorales. Esta comisión es clave para la integridad en las candidaturas electorales.</p>\n<ul><li>El Consejo General del INE aprueba la integración de la Comisión de Verificación de Integridad en Candidaturas.</li><li>Esta acción cumple con el Transitorio Segundo de un Decreto que reformó la Ley General de Instituciones y Procedimientos Electorales (LGIPE).</li><li>La reforma a la LGIPE (Art. 42, 200 Bis, Ter, Quáter) creó dicha comisión para asegurar la integridad en candidaturas.</li><li>La comisión debe estar operativa antes del inicio del Proceso Electoral 2027.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797284&amp;fecha=27/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Acuerdo de Responsabilidad Administrativa del PJF</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Administrativo, Derecho Procesal Administrativo, Organización Judicial</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo General del Órgano de Administración Judicial establece el procedimiento de responsabilidad administrativa para servidores públicos con funciones administrativas del Poder Judicial de la Federación. También regula la investigación y substanciación de faltas administrativas graves de particulares vinculados. Define las autoridades competentes y las etapas del proceso.</p>\n<ul><li>Establece el procedimiento de responsabilidad administrativa para el personal con funciones administrativas del Poder Judicial de la Federación.</li><li>Regula la investigación y substanciación de faltas administrativas graves de particulares vinculados.</li><li>Define las competencias de las autoridades investigadoras, substanciadoras y resolutoras dentro del Órgano de Administración Judicial.</li><li>Se fundamenta en la Constitución Política de los Estados Unidos Mexicanos y la Ley Orgánica del Poder Judicial de la Federación.</li><li>Es resultado de la reforma constitucional de 2024 que creó el Órgano de Administración Judicial.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797400&amp;fecha=28/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-27": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">27 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 2 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\"><div class=\"pixel-art icon-star\"></div> 3 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Reforma Federal</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">Acuerdo INE Comisión Integridad Candidaturas</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Electoral, Derecho Constitucional, Administración Pública</span>\n</div>\n<p class=\"acc-summary\">El Consejo General del INE aprueba la integración de la Comisión de Verificación de Integridad en Candidaturas como comisión permanente. Este acuerdo cumple con el decreto que reformó la Ley General de Instituciones y Procedimientos Electorales en materia de integridad en candidaturas, haciendo efectiva dicha reforma.</p>\n<ul><li>Aprobación de la integración de la Comisión de Verificación de Integridad en Candidaturas por el Consejo General del INE.</li><li>Establecimiento de la Comisión como un órgano permanente del Instituto Nacional Electoral.</li><li>Cumplimiento del Transitorio Segundo del Decreto que reformó la Ley General de Instituciones y Procedimientos Electorales.</li><li>La Comisión tiene como objetivo la verificación de la integridad en las candidaturas electorales.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797284&amp;fecha=27/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">Regulación FIREL del Poder Judicial Federal</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal, Derecho Administrativo, Tecnologías de la Información</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo General del Órgano de Administración Judicial regula la emisión, administración y uso de la Firma Electrónica Certificada (FIREL) del Poder Judicial de la Federación. Actualiza la normativa para las actuaciones electrónicas, otorgando validez jurídica a las firmas digitales en el sistema judicial federal. Es una implementación clave de la reciente reforma del Poder Judicial.</p>\n<ul><li>Regula la Firma Electrónica Certificada (FIREL) del Poder Judicial de la Federación.</li><li>Establece las bases para su emisión, administración, renovación, revocación y uso.</li><li>Actualiza la normativa de la FIREL en el marco de la reforma judicial de 2024 y la nueva Ley Orgánica del PJF.</li><li>Define la FIREL como instrumento de identificación digital con validez jurídica para actuaciones electrónicas.</li><li>Detalla las modalidades (presencial y en línea) y requisitos para la obtención de la FIREL.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797197&amp;fecha=26/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Incorporación a Interconexión Digital del PJF</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal, Organización Judicial</span>\n</div>\n<p class=\"acc-summary\">Este aviso informa sobre la incorporación de diversas autoridades federales, estatales y municipales, así como otros organismos, a los modelos de interconexión digital del Poder Judicial de la Federación. El objetivo es optimizar la comunicación y los procesos dentro del sistema de justicia, entrando en vigor el 28 de agosto de 2026.</p>\n<ul><li>Anuncio de la incorporación de diversas autoridades a los modelos de interconexión digital del Poder Judicial de la Federación.</li><li>La medida busca optimizar la comunicación y los procesos judiciales.</li><li>Incluye entidades de los tres niveles de gobierno y órganos autónomos.</li><li>Entra en vigor a partir del 28 de agosto de 2026.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797198&amp;fecha=26/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-26": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">26 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 2 media</div>\n<div class=\"stat total\">✨ 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Acuerdo FIREL Poder Judicial</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Procesal, Derecho Administrativo, Tecnologías de la Información</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo General del Órgano de Administración Judicial regula la emisión, administración y uso de la Firma Electrónica Certificada (FIREL) del Poder Judicial de la Federación. Establece las bases para la identificación y firma electrónica de actuaciones judiciales, actualizando la normativa tras la reestructuración del PJF.</p>\n<ul><li>Regula la Firma Electrónica Certificada (FIREL) del Poder Judicial de la Federación.</li><li>Establece las bases para la emisión, administración, renovación, revocación y uso de la FIREL.</li><li>Actualiza la normativa de la FIREL debido a la reestructuración del Poder Judicial de la Federación.</li><li>Detalla las modalidades (presencial y en línea) y requisitos para obtener la FIREL.</li><li>La FIREL produce los mismos efectos jurídicos que la firma autógrafa en el Sistema Electrónico del OAJ.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797197&amp;fecha=26/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Reforma a Disposiciones de Transparencia del Poder Judicial Federal</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Transparencia, Acceso a la Información Pública, Protección de Datos Personales, Derecho Judicial</span>\n</div>\n<p class=\"acc-summary\">Este acuerdo del Órgano de Administración Judicial reforma sus disposiciones sobre transparencia y protección de datos personales. Actualiza la denominación y funciones de la Autoridad Garante del Poder Judicial de la Federación en estas materias, permitiéndole publicar acuerdos de interés general en el DOF.</p>\n<ul><li>Reforma el Acuerdo General del Órgano de Administración Judicial sobre transparencia y protección de datos personales.</li><li>Actualiza la denominación y funciones de la Autoridad Garante del Tribunal Electoral, Tribunal de Disciplina Judicial y Órgano de Administración Judicial.</li><li>Establece a la Autoridad Garante como la máxima autoridad en transparencia para dichos órganos.</li><li>Permite a la Autoridad Garante publicar acuerdos y resoluciones de interés general en el Diario Oficial de la Federación.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797042&amp;fecha=25/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-25": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">25 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 1 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 1 media</div>\n<div class=\"stat total\">✨ 2 total</div>\n</div>\n</div>\n<details class=\"accordion\" style=\"background: #fff0f0;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle red\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#ff0000;\">Quintana Roo</span>\n<strong class=\"acc-title\" style=\"color: #ff0000;\">Cancelación Autorización Cónsul Países Bajos Cancún</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #ff0000; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Derecho Internacional, Derecho Administrativo, Relaciones Exteriores</span>\n</div>\n<p class=\"acc-summary\">La Secretaría de Relaciones Exteriores canceló la autorización definitiva de Ingrid Bosman como Cónsul Honoraria de los Países Bajos en Cancún. Esta decisión se tomó porque el Gobierno de los Países Bajos dio por terminadas sus funciones, afectando su circunscripción consular en Quintana Roo y Yucatán.</p>\n<ul><li>Cancelación de autorización consular</li><li>Cónsul Honoraria del Reino de los Países Bajos</li><li>Jurisdicción en Quintana Roo y Yucatán</li><li>Decisión de la Secretaría de Relaciones Exteriores</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5796623&amp;fecha=19/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n<details class=\"accordion\" style=\"background: #f0f8ff;\">\n<summary>\n<div class=\"acc-header\">\n<div class=\"pixel-circle blue\"></div>\n<div class=\"acc-title-area\">\n<span class=\"acc-badge\" style=\"background:#0055ea;\">Poder Judicial</span>\n<strong class=\"acc-title\" style=\"color: #0055ea;\">Reforma Acuerdo OAJ Transparencia y Datos Personales</strong>\n</div>\n</div>\n</summary>\n<div class=\"acc-body\" style=\"border-left: 2px dashed #0055ea; font-family: 'VT323', monospace; font-size: 18px;\">\n<div class=\"acc-meta\">\n<span><strong>Dependencia:</strong> UNICA SECCION</span><br/>\n<span><strong>Materias:</strong> Transparencia, Acceso a la Información Pública, Protección de Datos Personales, Derecho Judicial</span>\n</div>\n<p class=\"acc-summary\">Este Acuerdo General del Pleno del Órgano de Administración Judicial reforma sus disposiciones sobre transparencia, acceso a la información pública y protección de datos personales. El cambio principal es la adecuación de la denominación de la Autoridad Garante, que supervisa estos derechos en el Tribunal Electoral, de Disciplina Judicial y el propio Órgano de Administración Judicial del Poder Judicial de la Federación.</p>\n<ul><li>Reforma un Acuerdo General del Órgano de Administración Judicial del Poder Judicial de la Federación.</li><li>Modifica disposiciones en materia de transparencia, acceso a la información pública y protección de datos personales.</li><li>Adecua la denominación de la Autoridad Garante del Tribunal Electoral, del Tribunal de Disciplina Judicial y del Órgano de Administración Judicial.</li><li>La Autoridad Garante es la máxima autoridad en transparencia para dichos órganos del Poder Judicial de la Federación.</li></ul>\n<a class=\"xp-button\" href=\"https://www.dof.gob.mx//nota_detalle.php?codigo=5797042&amp;fecha=25/08/2026\" style=\"display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;\" target=\"_blank\">Leer en el DOF →</a>\n</div>\n</details>\n", "2026-08-24": "\n<a class=\"back-link\" href=\"#inicio\" onclick=\"showDashboard(); return false;\"><span class=\"pixel-art icon-star\"></span> Regresar</a>\n<div class=\"page-header\">\n<h1>Reporte de Actualidad Jurídica</h1>\n<div class=\"date\">24 de agosto de 2026</div>\n<div class=\"stats-row\">\n<div class=\"stat alta\"><div class=\"pixel-circle red\"></div> 0 alta</div>\n<div class=\"stat media\"><div class=\"pixel-circle blue\"></div> 0 media</div>\n<div class=\"stat total\">✨ 0 total</div>\n</div>\n</div>\n<div class=\"empty\">No se encontraron publicaciones jurídicas relevantes esta semana.</div>\n"};
+        
+        function showReport(dateStr) {
+            if (!REPORTS_DATA || !REPORTS_DATA[dateStr]) {
+                window.location.href = 'Resumen_DOF_' + dateStr + '.html';
+                return;
+            }
+            const dash = document.getElementById('dashboardView');
+            const rep = document.getElementById('reportView');
+            if (dash) dash.style.display = 'none';
+            if (rep) {
+                rep.innerHTML = REPORTS_DATA[dateStr];
+                rep.style.display = 'block';
+                rep.scrollTop = 0;
+            }
+            
+            const titleEl = document.getElementById('mainTitleBarText');
+            if (titleEl) titleEl.innerHTML = '<span class="pixel-art icon-star"></span> Reporte DOF — ' + dateStr;
+            const addrEl = document.getElementById('addressBarText');
+            if (addrEl) addrEl.innerText = 'https://dof-estudiantes-BLOOMS.com/Resumen_DOF_' + dateStr + '.html';
+            
+            document.title = 'Reporte DOF — ' + dateStr;
+            if (window.location.hash !== '#reporte-' + dateStr) {
+                history.pushState(null, '', '#reporte-' + dateStr);
+            }
+        }
+
+        function showDashboard() {
+            const rep = document.getElementById('reportView');
+            const dash = document.getElementById('dashboardView');
+            if (rep) {
+                rep.style.display = 'none';
+                rep.innerHTML = '';
+            }
+            if (dash) dash.style.display = 'flex';
+            
+            const titleEl = document.getElementById('mainTitleBarText');
+            if (titleEl) titleEl.innerHTML = '<span class="pixel-art icon-star"></span> Monitoreo de DOF y POE';
+            const addrEl = document.getElementById('addressBarText');
+            if (addrEl) addrEl.innerText = 'https://dof-estudiantes-BLOOMS.com';
+            
+            document.title = 'DOF Monitor - Monitoreo de DOF y POE';
+            if (window.location.hash && window.location.hash.startsWith('#reporte-')) {
+                history.pushState(null, '', window.location.pathname + window.location.search);
+            }
+        }
+
+        window.addEventListener('popstate', () => {
+            const h = window.location.hash;
+            if (h && h.startsWith('#reporte-')) {
+                const d = h.replace('#reporte-', '');
+                if (REPORTS_DATA && REPORTS_DATA[d]) showReport(d);
+            } else {
+                showDashboard();
+            }
+        });
+
+        const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('musicBtn');
+
+        function updateMusicBtn(playing) {
+            if (!btn) return;
+            btn.innerHTML = playing ? '⏸ música <span class="pixel-art icon-music"></span>' : '▶ música <span class="pixel-art icon-music"></span>';
+        }
+
+        function playMusic() {
+            if (!audio.paused) return;
+            audio.play().then(() => {
+                updateMusicBtn(true);
+                localStorage.setItem('dof_bgm_playing', 'true');
+            }).catch(() => {
+                updateMusicBtn(false);
+                const onFirstClick = () => {
+                    document.removeEventListener('click', onFirstClick);
+                    if (localStorage.getItem('dof_bgm_playing') !== 'false') {
+                        audio.play().then(() => updateMusicBtn(true)).catch(() => {});
+                    }
+                };
+                document.addEventListener('click', onFirstClick, { once: true });
+            });
+        }
+
+        function pauseMusic() {
+            audio.pause();
+            updateMusicBtn(false);
+            localStorage.setItem('dof_bgm_playing', 'false');
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                playMusic();
+            } else {
+                pauseMusic();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const shouldPlay = localStorage.getItem('dof_bgm_playing');
+            if (shouldPlay !== 'false') {
+                playMusic();
+            } else {
+                updateMusicBtn(false);
+            }
+
+            const h = window.location.hash;
+            if (h && h.startsWith('#reporte-')) {
+                const d = h.replace('#reporte-', '');
+                if (REPORTS_DATA && REPORTS_DATA[d]) showReport(d);
+            }
+        });
+        function filterReports() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.report-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.15) return;
+            const bubble = document.createElement('div');
+            bubble.className = 'cursor-bubble';
+            bubble.style.left = e.pageX + 'px';
+            bubble.style.top = e.pageY + 'px';
+            const size = Math.random() * 8 + 4; 
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            document.body.appendChild(bubble);
+            setTimeout(() => bubble.remove(), 800);
+        });
+
+        // === MEDUSA FLOTANTE (MOVIMIENTO TIPO JELLYFISH) ===
+        (function initFloatingJellyfish() {
+            const jelly = document.getElementById('floatingJellyfish');
+            if (!jelly) return;
+
+            let jx = Math.max(60, window.innerWidth * 0.18);
+            let jy = Math.max(100, window.innerHeight * 0.65);
+            let jvx = 0.4;
+            let jvy = -0.8;
+            let targetX = window.innerWidth * 0.75;
+            let targetY = window.innerHeight * 0.25;
+            let pulseTimer = 0;
+            let pulseDuration = 135;
+            let currentAngle = 0;
+            let targetAngle = 0;
+            let lastJellyTime = performance.now();
+
+            function pickNewTarget() {
+                const pad = 70;
+                const w = Math.max(300, window.innerWidth);
+                const h = Math.max(300, window.innerHeight);
+                targetX = pad + Math.random() * (w - pad * 2);
+                targetY = pad + Math.random() * (h - pad * 2);
+            }
+
+            function spawnJellyBubble(x, y) {
+                if (document.hidden) return;
+                const b = document.createElement('div');
+                b.className = 'cursor-bubble';
+                b.style.left = (x + 26 + (Math.random() * 14 - 7)) + 'px';
+                b.style.top = (y + 48 + (Math.random() * 8 - 4)) + 'px';
+                const size = Math.random() * 6 + 4;
+                b.style.width = size + 'px';
+                b.style.height = size + 'px';
+                document.body.appendChild(b);
+                setTimeout(() => b.remove(), 800);
+            }
+
+            function animateJellyfish(now) {
+                let dt = (now - lastJellyTime) / 16.666;
+                lastJellyTime = now;
+                if (dt > 2.5 || dt <= 0 || isNaN(dt)) dt = 1.0;
+
+                pulseTimer += dt;
+                if (pulseTimer >= pulseDuration) {
+                    pulseTimer = 0;
+                    pulseDuration = 125 + Math.random() * 35;
+
+                    const dist = Math.hypot(targetX - jx, targetY - jy);
+                    if (dist < 140 || Math.random() < 0.25) {
+                        pickNewTarget();
+                    }
+
+                    const dx = targetX - jx;
+                    const dy = targetY - jy;
+                    const horizDir = Math.max(-1.6, Math.min(1.6, dx * 0.009)) + (Math.random() - 0.5) * 0.5;
+                    const vertThrust = dy < 0 ? -(1.9 + Math.random() * 0.55) : -(0.85 + Math.random() * 0.35);
+
+                    jvx += horizDir;
+                    jvy = vertThrust;
+                    targetAngle = Math.max(-25, Math.min(25, jvx * 14));
+
+                    if (Math.random() < 0.65) {
+                        spawnJellyBubble(jx, jy);
+                    }
+                }
+
+                const phase = pulseTimer / pulseDuration;
+                let scaleX = 1.0;
+                let scaleY = 1.0;
+                if (phase < 0.28) {
+                    // Contracción de la campana al impulsarse
+                    const s = Math.sin((phase / 0.28) * Math.PI);
+                    scaleX = 1.0 - 0.16 * s;
+                    scaleY = 1.0 + 0.18 * s;
+                } else if (phase < 0.68) {
+                    // Expansión suave al abrirse y planear en el agua
+                    const s2 = Math.sin(((phase - 0.28) / 0.40) * Math.PI);
+                    scaleX = 1.0 + 0.09 * s2;
+                    scaleY = 1.0 - 0.08 * s2;
+                } else {
+                    // Flotación tranquila antes del siguiente pulso
+                    const s3 = Math.sin(((phase - 0.68) / 0.32) * Math.PI);
+                    scaleX = 1.0 - 0.02 * s3;
+                    scaleY = 1.0 + 0.02 * s3;
+                }
+
+                jvx *= Math.pow(0.985, dt);
+                jvy *= Math.pow(0.975, dt);
+                jvy += 0.018 * dt;
+                if (jvy > 0.75) jvy = 0.75;
+
+                const waveX = Math.sin(now * 0.0022) * 0.25;
+                jx += (jvx + waveX) * dt;
+                jy += jvy * dt;
+
+                const maxW = Math.max(100, window.innerWidth - 70);
+                const maxH = Math.max(100, window.innerHeight - 75);
+                if (jx < 15) { jx = 15; jvx = Math.abs(jvx) * 0.8 + 0.4; targetX = window.innerWidth * 0.7; }
+                if (jx > maxW) { jx = maxW; jvx = -Math.abs(jvx) * 0.8 - 0.4; targetX = window.innerWidth * 0.3; }
+                if (jy < 15) { jy = 15; jvy = 0.4; targetY = window.innerHeight * 0.75; }
+                if (jy > maxH) { jy = maxH; jvy = -1.6; targetY = window.innerHeight * 0.25; }
+
+                const wobble = Math.sin(now * 0.003) * 4;
+                currentAngle += ((targetAngle + wobble) - currentAngle) * 0.08 * dt;
+
+                jelly.style.transform = "translate3d(" + jx.toFixed(1) + "px, " + jy.toFixed(1) + "px, 0) rotate(" + currentAngle.toFixed(1) + "deg) scale(" + scaleX.toFixed(3) + ", " + scaleY.toFixed(3) + ")";
+
+                requestAnimationFrame(animateJellyfish);
+            }
+
+            requestAnimationFrame(animateJellyfish);
+        })();
+    
+        
+        // === FLAPPY FISH (MODO TRANQUILO & FRUTIGER AERO) ===
+        let fishImg = new Image();
+        fishImg.src = '../blue-fish.webp'; 
+
+        let canvas, ctx;
+        let gameLoop = null;
+        let isGameOver = false;
+        let isGameStarted = false;
+        let lastTime = 0;
+        let frameCount = 0;
+        let score = 0;
+        let bestScore = parseInt(localStorage.getItem('flappyFishBest') || '0', 10);
+        let bubbles = [];
+        let particles = [];
+
+        function initBubbles() {
+            bubbles = [];
+            let w = canvas ? canvas.width : 376;
+            let h = canvas ? canvas.height : 446;
+            for (let i = 0; i < 16; i++) {
+                bubbles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 3.5 + 1.5,
+                    speed: Math.random() * 0.35 + 0.2,
+                    sway: Math.random() * Math.PI * 2,
+                    swaySpeed: Math.random() * 0.02 + 0.01,
+                    alpha: Math.random() * 0.35 + 0.15
+                });
+            }
+        }
+
+        function updateAndDrawBubbles(dt) {
+            for (let i = 0; i < bubbles.length; i++) {
+                let b = bubbles[i];
+                b.y -= b.speed * dt;
+                b.sway += b.swaySpeed * dt;
+                let drawX = b.x + Math.sin(b.sway) * 5;
+                if (b.y < -10) {
+                    b.y = canvas.height + 10;
+                    b.x = Math.random() * canvas.width;
+                }
+                ctx.beginPath();
+                ctx.arc(drawX, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, " + b.alpha + ")";
+                ctx.fill();
+                ctx.strokeStyle = "rgba(255, 255, 255, " + (b.alpha + 0.2) + ")";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        function addSwimParticles(x, y) {
+            for (let i = 0; i < 3; i++) {
+                particles.push({
+                    x: x + (Math.random() * 4 - 2),
+                    y: y + (Math.random() * 6 - 3),
+                    vx: -(Math.random() * 0.7 + 0.3),
+                    vy: (Math.random() - 0.5) * 0.5,
+                    r: Math.random() * 2 + 1.2,
+                    life: 1.0
+                });
+            }
+        }
+
+        function updateAndDrawParticles(dt) {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx * dt;
+                p.y += p.vy * dt;
+                p.life -= 0.028 * dt;
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 255, 255, " + (p.life * 0.5) + ")";
+                ctx.fill();
+            }
+        }
+
+        let bird = {
+            x: 55,
+            y: 160,
+            width: 48,
+            height: 34,
+            gravity: 0.16,    // Gravedad sincronizada con la nueva velocidad
+            jump: 3.5,        // Salto más reactivo
+            maxFall: 3.8,     // Caída máxima controlada
+            maxRise: -4.0,
+            velocity: 0,
+            angle: 0,
+            draw: function() {
+                ctx.save();
+                ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+                ctx.rotate(this.angle);
+                if (fishImg.complete && fishImg.naturalWidth !== 0) {
+                    ctx.drawImage(fishImg, -this.width / 2, -this.height / 2, this.width, this.height);
+                } else {
+                    ctx.fillStyle = "#38bdf8";
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, this.width / 2, this.height / 2, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            },
+            update: function(dt) {
+                this.velocity += this.gravity * dt;
+                if (this.velocity > this.maxFall) this.velocity = this.maxFall;
+                if (this.velocity < this.maxRise) this.velocity = this.maxRise;
+                this.y += this.velocity * dt;
+
+                let targetAngle = Math.max(-0.35, Math.min(0.35, this.velocity * 0.12));
+                this.angle += (targetAngle - this.angle) * (0.15 * dt);
+
+                let floorY = canvas.height - 24;
+                if (this.y + this.height >= floorY) {
+                    this.y = floorY - this.height;
+                    isGameOver = true;
+                }
+                if (this.y <= 0) {
+                    this.y = 0;
+                    this.velocity = 0;
+                }
+            },
+            flap: function() {
+                this.velocity = -this.jump;
+                addSwimParticles(this.x, this.y + this.height / 2);
+            }
+        };
+
+        let pipes = {
+            position: [],
+            width: 46,
+            gap: 148,         // Espacio equilibrado
+            dx: 1.95,         // Velocidad aumentada en 0.4 (+0.4)
+            draw: function() {
+                for (let i = 0; i < this.position.length; i++) {
+                    let p = this.position[i];
+                    let topYPos = p.y;
+                    let bottomYPos = p.y + this.gap;
+                    let floorY = canvas.height - 24;
+
+                    drawColumn(p.x, 0, this.width, topYPos, true);
+                    drawColumn(p.x, bottomYPos, this.width, floorY - bottomYPos, false);
+                }
+            },
+            update: function(dt) {
+                frameCount += dt;
+                // Cada ~115 ticks (aprox 1.9 segundos) aparece un nuevo pilar
+                if (frameCount >= 115) {
+                    frameCount = 0;
+                    let minH = 35;
+                    let maxH = canvas.height - 24 - this.gap - minH;
+                    let randY = Math.random() * (maxH - minH) + minH;
+                    this.position.push({
+                        x: canvas.width,
+                        y: randY,
+                        passed: false
+                    });
+                }
+
+                for (let i = 0; i < this.position.length; i++) {
+                    let p = this.position[i];
+                    p.x -= this.dx * dt;
+
+                    // Margen indulgente de impacto (hitbox cómodo)
+                    let hit = {
+                        x: bird.x + 8,
+                        y: bird.y + 6,
+                        w: bird.width - 16,
+                        h: bird.height - 12
+                    };
+
+                    if (hit.x + hit.w > p.x && hit.x < p.x + this.width) {
+                        if (hit.y < p.y || hit.y + hit.h > p.y + this.gap) {
+                            isGameOver = true;
+                        }
+                    }
+
+                    if (!p.passed && p.x + this.width < bird.x) {
+                        p.passed = true;
+                        score++;
+                        if (score > bestScore) {
+                            bestScore = score;
+                            localStorage.setItem('flappyFishBest', bestScore);
+                        }
+                    }
+
+                    if (p.x + this.width < -10) {
+                        this.position.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+        };
+
+        function drawColumn(x, y, w, h, isTop) {
+            if (h <= 0) return;
+            ctx.save();
+            let grad = ctx.createLinearGradient(x, 0, x + w, 0);
+            grad.addColorStop(0, '#58cca0');
+            grad.addColorStop(0.5, '#7ef0c8');
+            grad.addColorStop(1, '#3ca87e');
+            ctx.fillStyle = grad;
+            ctx.strokeStyle = '#227855';
+            ctx.lineWidth = 2;
+
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeRect(x, y, w, h);
+
+            // Reflejo satinado vertical
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+            ctx.fillRect(x + 5, y, 6, h);
+
+            // Corona/Tapa decorativa
+            let capH = 14;
+            let capOverhang = 4;
+            let capX = x - capOverhang;
+            let capW = w + (capOverhang * 2);
+            let capY = isTop ? y + h - capH : y;
+
+            if (h >= capH) {
+                let capGrad = ctx.createLinearGradient(capX, 0, capX + capW, 0);
+                capGrad.addColorStop(0, '#6ee2b6');
+                capGrad.addColorStop(0.5, '#9bf8d8');
+                capGrad.addColorStop(1, '#4ab58b');
+                ctx.fillStyle = capGrad;
+                ctx.fillRect(capX, capY, capW, capH);
+                ctx.strokeRect(capX, capY, capW, capH);
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fillRect(capX + 4, capY + 2, 6, capH - 4);
+            }
+            ctx.restore();
+        }
+
+        function drawEnvironment() {
+            let bgGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bgGrad.addColorStop(0, '#bceffa');
+            bgGrad.addColorStop(0.45, '#7ed4f5');
+            bgGrad.addColorStop(1, '#48a8dc');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            let floorH = 24;
+            let floorY = canvas.height - floorH;
+            let floorGrad = ctx.createLinearGradient(0, floorY, 0, canvas.height);
+            floorGrad.addColorStop(0, '#e8dc9f');
+            floorGrad.addColorStop(1, '#cfc17e');
+            ctx.fillStyle = floorGrad;
+            ctx.fillRect(0, floorY, canvas.width, floorH);
+            
+            ctx.strokeStyle = '#a49852';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, floorY);
+            ctx.lineTo(canvas.width, floorY);
+            ctx.stroke();
+
+            // Pequeños retoques de algas marinas en el fondo
+            ctx.fillStyle = '#48b888';
+            for (let gx = 18; gx < canvas.width; gx += 45) {
+                ctx.beginPath();
+                ctx.ellipse(gx, floorY, 5, 4, 0, 0, Math.PI);
+                ctx.fill();
+            }
+        }
+
+        function drawScoreHUD() {
+            let hudText = "PUNTOS: " + score + "   •   RÉCORD: " + bestScore;
+            ctx.save();
+            ctx.font = "22px 'VT323', monospace";
+            let textWidth = ctx.measureText(hudText).width;
+            let boxW = textWidth + 24;
+            let boxH = 28;
+            let boxX = (canvas.width - boxW) / 2;
+            let boxY = 12;
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.35)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            if (ctx.roundRect) {
+                ctx.roundRect(boxX, boxY, boxW, boxH, 8);
+            } else {
+                ctx.rect(boxX, boxY, boxW, boxH);
+            }
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(hudText, canvas.width / 2, boxY + (boxH / 2) + 1);
+            ctx.restore();
+        }
+
+        function initFlappy() {
+            canvas = document.getElementById('flappyCanvas');
+            ctx = canvas.getContext('2d');
+            initBubbles();
+        }
+
+        function openFlappy() {
+            document.getElementById('flappyModal').style.display = 'block';
+            if (!canvas) initFlappy();
+            if (!isGameStarted) {
+                drawEnvironment();
+                updateAndDrawBubbles(1.0);
+                bird.y = 160;
+                bird.velocity = 0;
+                bird.angle = 0;
+                bird.draw();
+                drawScoreHUD();
+            }
+        }
+
+        function closeFlappy() {
+            document.getElementById('flappyModal').style.display = 'none';
+            if (gameLoop) {
+                cancelAnimationFrame(gameLoop);
+                gameLoop = null;
+            }
+            isGameStarted = false;
+            document.getElementById('flappyStart').style.display = 'block';
+            document.getElementById('flappyGameOver').style.display = 'none';
+        }
+
+        function startFlappy() {
+            document.getElementById('flappyStart').style.display = 'none';
+            document.getElementById('flappyGameOver').style.display = 'none';
+
+            bird.y = 160;
+            bird.velocity = 0;
+            bird.angle = 0;
+            pipes.position = [];
+            particles = [];
+            score = 0;
+            frameCount = 0;
+            isGameOver = false;
+            isGameStarted = true;
+            lastTime = performance.now();
+
+            if (gameLoop) cancelAnimationFrame(gameLoop);
+            loop(performance.now());
+        }
+
+        function handlePlayerAction() {
+            if (document.getElementById('flappyModal').style.display === 'none') return;
+            if (!isGameStarted || isGameOver) {
+                startFlappy();
+            } else {
+                bird.flap();
+            }
+        }
+
+        function loop(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let elapsed = timestamp - lastTime;
+            lastTime = timestamp;
+
+            // Normalización delta time a 60 FPS estándar (16.666ms = 1.0)
+            let dt = elapsed / 16.666;
+            if (dt > 2.0) dt = 1.0;
+            if (dt < 0.1) dt = 1.0;
+
+            if (isGameOver) {
+                document.getElementById('flappyGameOver').style.display = 'block';
+                document.getElementById('flappyScore').innerText = "Puntos: " + score;
+                let recSpan = document.getElementById('flappyBestScore');
+                if (recSpan) recSpan.innerText = "Récord: " + bestScore;
+                let newRecordBadge = document.getElementById('flappyNewRecord');
+                if (newRecordBadge) {
+                    newRecordBadge.style.display = (score === bestScore && score > 0) ? 'block' : 'none';
+                }
+                gameLoop = null;
+                return;
+            }
+
+            drawEnvironment();
+            updateAndDrawBubbles(dt);
+            updateAndDrawParticles(dt);
+
+            pipes.draw();
+            pipes.update(dt);
+
+            bird.draw();
+            bird.update(dt);
+
+            drawScoreHUD();
+
+            gameLoop = requestAnimationFrame(loop);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('flappyModal').style.display !== 'none') {
+                if (e.code === 'Space' || e.key === ' ' || e.code === 'ArrowUp' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+                    e.preventDefault();
+                    handlePlayerAction();
+                }
+            }
+        }, {passive: false});
+
+    </script>
+
+    <!-- Flappy Bird Modal -->
+    <div id="flappyModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width: 400px; height: 500px; background:#ece9d8; border: 2px solid #0055ea; border-radius: 8px 8px 0 0; z-index: 1000; box-shadow: 2px 2px 10px rgba(0,0,0,0.5);">
+        <div class="title-bar" style="cursor: move;">
+            <div class="title-bar-text">Flappy Fish - Esperando publicación...</div>
+            <div class="title-bar-controls">
+                <button class="btn-win btn-close" onclick="closeFlappy()">X</button>
+            </div>
+        </div>
+        <div style="padding: 10px; height: calc(100% - 30px); box-sizing: border-box;">
+            <div style="border: 2px inset #fff; width: 100%; height: 100%; background: #71c5cf; position: relative; overflow: hidden;" id="gameArea">
+                <canvas id="flappyCanvas" width="376" height="446" onmousedown="handlePlayerAction()" ontouchstart="handlePlayerAction(); event.preventDefault();"></canvas>
+                
+                <div id="flappyStart" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; font-family:'VT323', monospace; color:white; text-shadow:2px 2px 0 #000; cursor:pointer; user-select:none; background:rgba(0,0,0,0.45); padding:16px 26px; border-radius:8px; border:2px solid rgba(255,255,255,0.7); box-shadow:0 6px 20px rgba(0,0,0,0.35);" onclick="handlePlayerAction()" ontouchstart="handlePlayerAction()">
+                    <div style="font-size:32px; letter-spacing:1px; margin-bottom:4px;">CLICK PARA JUGAR</div>
+                    <div style="font-size:20px; color:#fffae0;">(Presiona ESPACIO o haz click)</div>
+                </div>
+                
+                <div id="flappyGameOver" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; font-family:'VT323', monospace; color:#ff5555; text-shadow:2px 2px 0 #000; cursor:pointer; user-select:none; background:rgba(0,0,0,0.55); padding:16px 26px; border-radius:8px; border:2px solid rgba(255,255,255,0.7); box-shadow:0 8px 25px rgba(0,0,0,0.45);" onclick="handlePlayerAction()" ontouchstart="handlePlayerAction()">
+                    <div style="font-size:36px; letter-spacing:1px; margin-bottom:4px;">¡PERDISTE!</div>
+                    <div id="flappyNewRecord" style="display:none; font-size:24px; color:gold; text-shadow:2px 2px 0 #000; margin-bottom:4px;">★ ¡NUEVO RÉCORD! ★</div>
+                    <div style="font-size:28px; color:white; margin:4px 0;" id="flappyScore">Puntos: 0</div>
+                    <div style="font-size:22px; color:gold; margin-bottom:8px;" id="flappyBestScore">Récord: 0</div>
+                    <div style="font-size:22px; color:#7ef0c8;">Click para reintentar</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
