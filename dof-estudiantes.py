@@ -74,16 +74,15 @@ def fetch_dof_portada():
     hoy_str = f"{hoy.day:02d}/{hoy.month:02d}/{hoy.year}"
     if hoy.weekday() < 5:
         url_info.extend([
-            (f"https://www.dof.gob.mx/index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}", "Matutina", hoy_str),
-            (f"https://www.dof.gob.mx/index_113.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}", "Vespertina", hoy_str),
-            (f"https://www.dof.gob.mx/index.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}", "General", hoy_str),
+            (f"https://www.dof.gob.mx/index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=MAT", "Matutina", hoy_str),
+            (f"https://www.dof.gob.mx/index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=VES", "Vespertina", hoy_str),
         ])
     
     # Ayer hábil (Vespertina)
     dias_restar = 1 if hoy.weekday() not in (0, 6) else (3 if hoy.weekday() == 0 else 2)
     ayer = hoy - timedelta(days=dias_restar)
     ayer_str = f"{ayer.day:02d}/{ayer.month:02d}/{ayer.year}"
-    url_info.append((f"https://www.dof.gob.mx/index_113.php?year={ayer.year}&month={ayer.month:02d}&day={ayer.day:02d}", "Vespertina", ayer_str))
+    url_info.append((f"https://www.dof.gob.mx/index_111.php?year={ayer.year}&month={ayer.month:02d}&day={ayer.day:02d}&edicion=VES", "Vespertina", ayer_str))
 
     todas_las_publicaciones = []
     for url, edicion, fecha_pub in url_info:
