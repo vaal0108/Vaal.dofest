@@ -154,6 +154,32 @@ def obtener_gemini_client(config):
         logger.error("No se encontró GEMINI_API_KEY en variables de entorno ni en la configuración.")
     return genai.Client(api_key=api_key)
 
+def llamar_gemini_con_reintentos(client, model_name, prompt, reintentos=4):
+    fallbacks = [model_name, "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"]
+    # Eliminar duplicados manteniendo el orden
+    modelos = []
+    for m in fallbacks:
+        if m and m not in modelos:
+            modelos.append(m)
+
+    ultimo_error = None
+    for intento in range(reintentos):
+        modelo_actual = modelos[min(intento, len(modelos) - 1)]
+        try:
+            resp = client.models.generate_content(
+                model=modelo_actual,
+                contents=prompt,
+                config=types.GenerateContentConfig(temperature=0.0, response_mime_type="application/json")
+            )
+            return resp.text
+        except Exception as e:
+            ultimo_error = e
+            err_str = str(e)
+            espera = 8 * (intento + 1)
+            logger.warning(f"[IA] Intento {intento+1}/{reintentos} falló con {modelo_actual} ({err_str[:80]}...). Reintentando en {espera}s...")
+            time.sleep(espera)
+    raise ultimo_error
+
 # ==========================================
 # 4. FILTRO FASE 1 — IA SOBRE TITULOS
 # ==========================================
@@ -203,18 +229,23 @@ TITULOS:
 """
     try:
         model_name = config.get('ai_classifier', {}).get('gemini_model', 'gemini-3.5-flash-lite')
-        resp = client.models.generate_content(
-            model=model_name,
-            contents=prompt,
-            config=types.GenerateContentConfig(temperature=0.0, response_mime_type="application/json")
-        )
-        ids_aprobados  = set(json.loads(resp.text))
+        resp_text = llamar_gemini_con_reintentos(client, model_name, prompt)
+        raw_ids = json.loads(resp_text)
+        ids_aprobados = set()
+        for item in raw_ids:
+            if isinstance(item, dict) and 'id' in item:
+                ids_aprobados.add(item['id'])
+            elif isinstance(item, (int, str)):
+                try:
+                    ids_aprobados.add(int(item))
+                except:
+                    pass
         sobrevivientes = [p for i, p in enumerate(publicaciones) if i in ids_aprobados]
         logger.info(f"[Fase 1] Pasan a Fase 2: {len(sobrevivientes)}")
         return sobrevivientes
     except Exception as e:
-        logger.error(f"[Fase 1] Error en procesamiento: {e}")
-        return publicaciones
+        logger.error(f"[Fase 1] Error en procesamiento tras reintentos: {e}")
+        return []
 
 # ==========================================
 # 5. EXTRACCION
@@ -307,12 +338,8 @@ Devuelve JSON exacto:
 """
         try:
             model_name = config.get('ai_classifier', {}).get('gemini_model', 'gemini-3.5-flash-lite')
-            resp = client.models.generate_content(
-                model=model_name,
-                contents=prompt,
-                config=types.GenerateContentConfig(temperature=0.0, response_mime_type="application/json")
-            )
-            data = json.loads(resp.text)
+            resp_text = llamar_gemini_con_reintentos(client, model_name, prompt)
+            data = json.loads(resp_text)
             if isinstance(data, list): data = data[0] if data else {}
             if data.get('relevante') is True:
                 data['dependencia'] = p.get('dependencia', 'General')
@@ -320,6 +347,7 @@ Devuelve JSON exacto:
                 data['edicion']     = p.get('edicion', '')
                 data['fecha_edicion'] = p.get('fecha_edicion', '')
                 alertas.append(data)
+            time.sleep(2)
         except Exception as e:
             logger.error(f"[Fase 2] Error al procesar publicación {idx}: {e}")
 
@@ -1869,6 +1897,24 @@ def actualizar_dashboard(resumenes_dir):
 
     with open(os.path.join(resumenes_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(dashboard_html)
+    
+    root_redirect_html = """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=Resumenes_Semanales/index.html">
+    <title>DOF Estudiantes - Redirigiendo...</title>
+    <script>
+        window.location.replace("Resumenes_Semanales/index.html");
+    </script>
+</head>
+<body>
+    <p>Redirigiendo al <a href="Resumenes_Semanales/index.html">Dashboard del DOF para Estudiantes</a>...</p>
+</body>
+</html>
+"""
+    with open(os.path.join(BASE_DIR, "index.html"), "w", encoding="utf-8") as f:
+        f.write(root_redirect_html)
     logger.info("Dashboard actualizado.")
 
 def guardar_resumen_estudiante(config, alertas):
