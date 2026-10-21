@@ -941,3 +941,12 @@
 2026-10-20 15:28:51 [INFO] [Fase 1] Clasificando 15 documentos...
 2026-10-20 15:29:17 [INFO] [Fase 1] Pasan a Fase 2: 0
 2026-10-20 15:29:17 [INFO] Dashboard actualizado.
+2026-10-21 15:29:00 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-10-21 15:29:00 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=21&edicion=MAT
+2026-10-21 15:29:02 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=21&edicion=VES
+2026-10-21 15:29:03 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=10&day=20&edicion=VES
+2026-10-21 15:29:05 [INFO] [Fase 1] Clasificando 14 documentos...
+2026-10-21 15:29:07 [INFO] [Fase 1] Pasan a Fase 2: 1
+2026-10-21 15:29:07 [INFO] [Fase 2] Analizando 1 textos en profundidad...
+2026-10-21 15:29:15 [INFO] Dashboard actualizado.
+2026-10-21 15:29:15 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
