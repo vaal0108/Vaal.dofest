@@ -1138,3 +1138,12 @@
 2026-11-16 23:41:48 [ERROR] [Fase 2] Error al procesar publicación 2: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://aistudio.google.com/docs/get-started).', 'status': 'NOT_FOUND'}}
 2026-11-16 23:41:48 [INFO] Dashboard actualizado.
 2026-11-16 23:41:48 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-11-17 22:48:48 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-11-17 22:48:48 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=17&edicion=MAT
+2026-11-17 22:48:49 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=17&edicion=VES
+2026-11-17 22:48:50 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=16&edicion=VES
+2026-11-17 22:48:50 [INFO] [Fase 1] Clasificando 18 documentos...
+2026-11-17 22:48:51 [INFO] [Fase 1] Pasan a Fase 2: 1
+2026-11-17 22:48:51 [INFO] [Fase 2] Analizando 1 textos en profundidad...
+2026-11-17 22:48:55 [INFO] Dashboard actualizado.
+2026-11-17 22:48:55 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
