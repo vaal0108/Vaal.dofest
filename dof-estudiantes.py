@@ -355,19 +355,86 @@ Devuelve JSON exacto:
 # ==========================================
 # 7. GENERACIÓN DEL DASHBOARD Y REPORTES
 # ==========================================
+MESES_NOMBRES = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+
+def obtener_etiqueta_mes(mes_key):
+    try:
+        partes = mes_key.split('-')
+        y, m = int(partes[0]), int(partes[1])
+        return f"{MESES_NOMBRES[m]} {y}"
+    except Exception:
+        return mes_key
+
+def migrar_reportes_a_carpetas_mensuales(resumenes_dir):
+    """Mueve los reportes antiguos sueltos en Resumenes_Semanales/ a su carpeta mensual YYYY-MM/ y ajusta sus rutas relativas."""
+    archivos_sueltos = glob.glob(os.path.join(resumenes_dir, "Resumen_DOF_*.html"))
+    for arch in archivos_sueltos:
+        nombre_base = os.path.basename(arch)
+        fecha_str = nombre_base.replace("Resumen_DOF_", "").replace(".html", "")
+        mes_key = fecha_str[:7] if len(fecha_str) >= 7 else "Otros"
+        mes_dir = os.path.join(resumenes_dir, mes_key)
+        os.makedirs(mes_dir, exist_ok=True)
+        destino = os.path.join(mes_dir, nombre_base)
+
+        try:
+            with open(arch, 'r', encoding='utf-8') as f:
+                html_content = f.read()
+
+            # Ajustar rutas relativas para que funcionen desde la subcarpeta YYYY-MM/
+            reemplazos = [
+                ("url('cursor/", "url('../cursor/"),
+                ('href="index.html"', 'href="../index.html"'),
+                ("href='index.html'", "href='../index.html'"),
+                ('src="corner_gif.gif"', 'src="../corner_gif.gif"'),
+                ('src="rofa_cat.gif"', 'src="../rofa_cat.gif"'),
+                ('src="jellyfish.png"', 'src="../jellyfish.png"'),
+                ('src="bg_music.mp3"', 'src="../bg_music.mp3"'),
+                ("src = '../blue-fish.webp'", "src = '../../blue-fish.webp'"),
+            ]
+            for viejo, nuevo in reemplazos:
+                html_content = html_content.replace(viejo, nuevo)
+
+            with open(destino, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            os.remove(arch)
+            logger.info(f"Reporte migrado a carpeta mensual: {mes_key}/{nombre_base}")
+        except Exception as e:
+            logger.error(f"Error al migrar reporte {arch}: {e}")
+
 def actualizar_dashboard(resumenes_dir):
-    archivos = glob.glob(os.path.join(resumenes_dir, "Resumen_DOF_*.html"))
-    archivos.sort(reverse=True)
+    migrar_reportes_a_carpetas_mensuales(resumenes_dir)
+
+    archivos_sub = glob.glob(os.path.join(resumenes_dir, "*", "Resumen_DOF_*.html"))
+    archivos_raiz = glob.glob(os.path.join(resumenes_dir, "Resumen_DOF_*.html"))
+    todos_archivos = archivos_sub + archivos_raiz
+
+    # Ordenar por fecha (extraída del nombre de archivo) de más reciente a más antiguo
+    def extraer_fecha(ruta):
+        nb = os.path.basename(ruta)
+        return nb.replace("Resumen_DOF_", "").replace(".html", "")
+
+    archivos_por_fecha = {}
+    for ruta in todos_archivos:
+        f_str = extraer_fecha(ruta)
+        archivos_por_fecha[f_str] = ruta
+
+    fechas_ordenadas = sorted(archivos_por_fecha.keys(), reverse=True)
+    archivos = [archivos_por_fecha[f] for f in fechas_ordenadas]
     
     fechas_con_reporte = []
-    lista_html = ""
     alertas_por_fecha = {}
-
     reportes_dict = {}
+    reportes_urls = {}
+    grupos_por_mes = {}
+
     for idx, arch in enumerate(archivos):
         nombre_base = os.path.basename(arch)
         fecha_str = nombre_base.replace("Resumen_DOF_", "").replace(".html", "")
-        fechas_con_reporte.append({"date": fecha_str, "url": nombre_base})
+        rel_url = os.path.relpath(arch, resumenes_dir).replace("\\", "/")
+        mes_key = fecha_str[:7] if len(fecha_str) >= 7 else "Otros"
+
+        fechas_con_reporte.append({"date": fecha_str, "url": rel_url})
+        reportes_urls[fecha_str] = rel_url
         
         # Leer el reporte para contar alertas y extraer el contenido para navegación instantánea
         try:
@@ -386,11 +453,11 @@ def actualizar_dashboard(resumenes_dir):
                 n_alertas = contenido.count('<details')
                 
             alertas_por_fecha[fecha_str] = {
-                'url': nombre_base,
+                'url': rel_url,
                 'count': n_alertas,
-                '🎀': "Reforma Federal" in contenido,
-                '🔋': "Quintana Roo" in contenido,
-                '⏰': "SCJN" in contenido or "Poder Judicial" in contenido
+                '🎀': (n_alertas > 0) and ("Reforma Federal" in contenido),
+                '🔋': (n_alertas > 0) and ("Quintana Roo" in contenido),
+                '⏰': (n_alertas > 0) and ("SCJN" in contenido or "Poder Judicial" in contenido)
             }
         except:
             n_alertas = 0
@@ -398,8 +465,8 @@ def actualizar_dashboard(resumenes_dir):
         es_nuevo = idx == 0
         badge_nuevo = '<span class="badge-new">NUEVO</span>' if es_nuevo else ''
         
-        lista_html += f"""
-        <a href="{nombre_base}" class="report-card" onclick="showReport('{fecha_str}'); return false;">
+        card_html = f"""
+        <a href="{rel_url}" class="report-card" data-date="{fecha_str}" data-month="{obtener_etiqueta_mes(mes_key).lower()} {mes_key}" onclick="showReport('{fecha_str}'); return false;">
             <div class="report-icon"><div style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR4nGNkwA7+4xBnRBdgwaGQITMzE4U/ffp0rOpYiLQZXZ4Rm5P+n221BzOMqw9i1Y0mD9bLhNWa//+xYmK8AAerVq1CcBgYGMLCwhhIMiAMhwaiDVg1clzAxEAhYMEmeK7NgWgDUFIiiZZjZKyBAQBm6i2zNPw6pQAAAABJRU5ErkJggg=='); background-size:contain; width:24px; height:24px; image-rendering:pixelated; display:inline-block;"></div></div>
             <div class="report-info">
                 <h3>Reporte Diario {badge_nuevo}</h3>
@@ -407,6 +474,45 @@ def actualizar_dashboard(resumenes_dir):
                 <p class="report-count">{n_alertas} publicaciones relevantes</p>
             </div>
         </a>
+        """
+        if mes_key not in grupos_por_mes:
+            grupos_por_mes[mes_key] = {
+                'cards': [],
+                'total_reportes': 0,
+                'total_alertas': 0
+            }
+        grupos_por_mes[mes_key]['cards'].append(card_html)
+        grupos_por_mes[mes_key]['total_reportes'] += 1
+        grupos_por_mes[mes_key]['total_alertas'] += n_alertas
+
+    lista_html = ""
+    for m_idx, mes_key in enumerate(sorted(grupos_por_mes.keys(), reverse=True)):
+        info_mes = grupos_por_mes[mes_key]
+        etiqueta_mes = obtener_etiqueta_mes(mes_key)
+        open_attr = "open" if m_idx == 0 else ""
+        n_rep = info_mes['total_reportes']
+        n_pub = info_mes['total_alertas']
+        rep_label = "reporte" if n_rep == 1 else "reportes"
+        pub_label = "publicación" if n_pub == 1 else "publicaciones"
+        cards_joined = "\n".join(info_mes['cards'])
+
+        lista_html += f"""
+        <details class="month-group" data-month-key="{mes_key}" {open_attr}>
+            <summary class="month-header">
+                <div class="month-header-left">
+                    <span class="month-folder-icon">📁</span>
+                    <span class="month-title">{etiqueta_mes}</span>
+                    <span class="month-code">({mes_key})</span>
+                </div>
+                <div class="month-stats">
+                    <span class="month-badge">{n_rep} {rep_label}</span>
+                    <span class="month-badge month-badge-pubs">{n_pub} {pub_label}</span>
+                </div>
+            </summary>
+            <div class="month-cards">
+                {cards_joined}
+            </div>
+        </details>
         """
 
     import calendar
@@ -421,7 +527,7 @@ def actualizar_dashboard(resumenes_dir):
     else:
         prev_month, prev_year = month - 1, year
     
-    meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+    meses = MESES_NOMBRES
     
     def build_cal_table(cal_year, cal_month, alertas):
         month_label = f"{meses[cal_month]} {cal_year}"
@@ -437,22 +543,30 @@ def actualizar_dashboard(resumenes_dir):
                 else:
                     f_str = f"{cal_year}-{cal_month:02d}-{day:02d}"
                     if f_str in alertas:
-                        emojis = ""
-                        if alertas[f_str].get('🎀'): emojis += "<div class='pixel-art icon-bow' title='Reforma Federal'></div>"
-                        if alertas[f_str].get('🔋'): emojis += "<div class='pixel-art icon-battery' title='Quintana Roo'></div>"
-                        if alertas[f_str].get('⏰'): emojis += "<div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div>"
-                        if not emojis:
-                            emojis = "<div class='pixel-art icon-star' title='Reporte disponible'></div>"
-                        
-                        target_url = alertas[f_str].get('url', f"Resumen_DOF_{f_str}.html")
                         cnt = alertas[f_str].get('count', 0)
-                        title_info = f"Reporte del {day} de {meses[cal_month]}: {cnt} publicaciones"
+                        target_url = alertas[f_str].get('url', f"{cal_year}-{cal_month:02d}/Resumen_DOF_{f_str}.html")
                         
-                        html += f'<td class="cal-day has-report" title="{title_info}">'
-                        html += f'<a href="{target_url}" class="cal-day-link" onclick="showReport(\'{f_str}\'); return false;">'
-                        html += f'<span>{day}</span>'
-                        html += f'<div class="cal-emojis">{emojis}</div>'
-                        html += '</a></td>'
+                        if cnt > 0:
+                            emojis = ""
+                            if alertas[f_str].get('🎀'): emojis += "<div class='pixel-art icon-bow' title='Reforma Federal'></div>"
+                            if alertas[f_str].get('🔋'): emojis += "<div class='pixel-art icon-battery' title='Quintana Roo'></div>"
+                            if alertas[f_str].get('⏰'): emojis += "<div class='pixel-art icon-clock' title='SCJN / Poder Judicial'></div>"
+                            if not emojis:
+                                emojis = "<div class='pixel-art icon-star' title='Avisos relevantes'></div>"
+                            
+                            title_info = f"Reporte del {day} de {meses[cal_month]}: {cnt} publicaciones"
+                            html += f'<td class="cal-day has-report" title="{title_info}">'
+                            html += f'<a href="{target_url}" class="cal-day-link" onclick="showReport(\'{f_str}\'); return false;">'
+                            html += f'<span>{day}</span>'
+                            html += f'<div class="cal-emojis">{emojis}</div>'
+                            html += '</a></td>'
+                        else:
+                            # Monitoreado pero sin avisos: NO poner figuritas
+                            title_info = f"Reporte del {day} de {meses[cal_month]}: sin avisos relevantes"
+                            html += f'<td class="cal-day cal-day-no-avisos" title="{title_info}">'
+                            html += f'<a href="{target_url}" class="cal-day-link" onclick="showReport(\'{f_str}\'); return false;">'
+                            html += f'<span>{day}</span>'
+                            html += '</a></td>'
                     else:
                         html += f'<td class="cal-day cal-day-empty"><div>{day}</div></td>'
             html += '</tr>\n'
@@ -492,7 +606,7 @@ def actualizar_dashboard(resumenes_dir):
         .icon-battery {{ background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAWklEQVR4nGNgoBAw4hD/T6xaRmyajc4aYQieMz6HVT0TMZpBACqO4TIWbIqhtmEzgIEoA9A1YDMQlxdIBkwMFAIWXBL4nD24woCFJl4wwhHn2ADWpEyi+gEGAM5xGFO0y+ueAAAAAElFTkSuQmCC'); }}
         .icon-clock {{ background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdElEQVR4nGNgoBAw4hD/T6xaRmwa28+9xlBYaSSKVQ8jsmZsGnEYBNfHhEszSCGSrXAAVfcf3QCsgBgXMRHrdFyuYGKgELDgk0QOA1yuZMGlmVhvMYGiBFtoExuVTCTpxOECBlJcgZ6QqJqUMQxCA7jUUgYAzE4nHD8rGUkAAAAASUVORK5CYII='); }}
         
-        a, button, summary, input, .menu-bar span, .footer-box, .report-card, .acc-title, .back-link, .btn-win, .btn-green, .xp-button, .btn-close, .btn-min {{
+        a, button, summary, input, .menu-bar span, .footer-box, .report-card, .acc-title, .back-link, .btn-win, .btn-green, .xp-button, .btn-close, .btn-min, .cute-calendar td.has-report, .cute-calendar td.cal-day-no-avisos {{
             cursor: url('cursor/roundyhand.cur'), pointer !important;
         }}
 
@@ -652,7 +766,8 @@ def actualizar_dashboard(resumenes_dir):
         .content-area {{
             display: flex;
             background: white;
-            height: 500px;
+            height: 540px;
+            max-height: 80vh;
         }}
         
         /* Sidebar (Left) */
@@ -665,6 +780,29 @@ def actualizar_dashboard(resumenes_dir):
             flex-direction: column;
             gap: 15px;
             align-items: center;
+            overflow-y: auto;
+            max-height: 100%;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #ffb2e2 rgba(255, 255, 255, 0.4);
+        }}
+        .sidebar > * {{
+            flex-shrink: 0;
+        }}
+        .sidebar::-webkit-scrollbar {{
+            width: 8px;
+        }}
+        .sidebar::-webkit-scrollbar-track {{
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+        }}
+        .sidebar::-webkit-scrollbar-thumb {{
+            background: #ffb2e2;
+            border-radius: 4px;
+            border: 1px solid #ff88d0;
+        }}
+        .sidebar::-webkit-scrollbar-thumb:hover {{
+            background: #ff88d0;
         }}
         .sidebar-title {{
             font-family: 'VT323', monospace;
@@ -703,6 +841,20 @@ def actualizar_dashboard(resumenes_dir):
         .cute-calendar td.cal-day-empty {{
             color: #555;
             border: 1px solid transparent;
+        }}
+        .cute-calendar td.cal-day-no-avisos {{
+            color: #666;
+            border: 1px solid transparent;
+            transition: all 0.15s ease-in-out;
+        }}
+        .cute-calendar td.cal-day-no-avisos a {{
+            color: #666;
+            text-decoration: none;
+        }}
+        .cute-calendar td.cal-day-no-avisos:hover {{
+            background: #eef4ff;
+            border: 1px dashed #7baaff;
+            border-radius: 4px;
         }}
         .cute-calendar td.has-report {{
             background: #fff5fa;
@@ -768,6 +920,23 @@ def actualizar_dashboard(resumenes_dir):
             padding: 20px;
             overflow-y: auto;
             position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: #ffb2e2 #f0f8ff;
+        }}
+        .main-content::-webkit-scrollbar, #reportView::-webkit-scrollbar {{
+            width: 8px;
+        }}
+        .main-content::-webkit-scrollbar-track, #reportView::-webkit-scrollbar-track {{
+            background: #f0f8ff;
+            border-radius: 4px;
+        }}
+        .main-content::-webkit-scrollbar-thumb, #reportView::-webkit-scrollbar-thumb {{
+            background: #ffb2e2;
+            border-radius: 4px;
+            border: 1px solid #ff88d0;
+        }}
+        .main-content::-webkit-scrollbar-thumb:hover, #reportView::-webkit-scrollbar-thumb:hover {{
+            background: #ff88d0;
         }}
         
         .main-content::after {{
@@ -835,7 +1004,65 @@ def actualizar_dashboard(resumenes_dir):
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
+        }}
+        .month-group {{
+            border: 2px solid #7baaff;
+            border-radius: 10px;
+            background: #f5f9ff;
+            box-shadow: 2px 2px 0px #5a8bdc;
+            overflow: hidden;
+        }}
+        .month-header {{
+            background: linear-gradient(180deg, #ffb2e2 0%, #ff88d0 100%);
+            color: #fff;
+            padding: 8px 12px;
+            font-family: 'VT323', monospace;
+            font-size: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: url('cursor/roundyhand.cur'), pointer !important;
+            list-style: none;
+            user-select: none;
+            text-shadow: 1px 1px 0px #b3006b;
+        }}
+        .month-header::-webkit-details-marker {{ display: none; }}
+        .month-header-left {{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }}
+        .month-code {{
+            font-size: 16px;
+            color: #fff5fa;
+            opacity: 0.9;
+        }}
+        .month-stats {{
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }}
+        .month-badge {{
+            background: rgba(255, 255, 255, 0.9);
+            color: #003399;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            text-shadow: none;
+            border: 1px solid #ff69b4;
+        }}
+        .month-badge-pubs {{
+            background: #e6f2ff;
+            border-color: #5a8bdc;
+        }}
+        .month-cards {{
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }}
         .report-card {{
             background: #fdfdfd;
@@ -1056,6 +1283,8 @@ def actualizar_dashboard(resumenes_dir):
                 border-right: none !important;
                 border-top: 2px solid #5a8bdc !important;
                 order: 2 !important;
+                overflow-y: visible !important;
+                max-height: none !important;
             }}
             .main-content {{
                 order: 1 !important;
@@ -1095,7 +1324,7 @@ def actualizar_dashboard(resumenes_dir):
         
         @media (hover: none) and (pointer: coarse) {{
             * {{ cursor: auto !important; }}
-            a, button, summary, input, .menu-bar span, .footer-box, .report-card, .btn-win, .btn-green, .xp-button, .cute-calendar td.has-report {{
+            a, button, summary, input, .menu-bar span, .footer-box, .report-card, .btn-win, .btn-green, .xp-button, .cute-calendar td.has-report, .cute-calendar td.cal-day-no-avisos {{
                 cursor: pointer !important;
             }}
         }}
@@ -1169,7 +1398,7 @@ def actualizar_dashboard(resumenes_dir):
                     <button class="btn-green" style="filter: hue-rotate(90deg);" onclick="location.reload()">Actualizar</button>
                 </div>
                 
-                <input type="text" id="searchInput" placeholder="Buscar por fecha..." oninput="filterReports()" style="width: 100%; margin-bottom: 15px; padding: 5px; border: 2px solid #ffb2e2; border-radius: 5px; outline:none; font-family: 'VT323', monospace; font-size: 18px;">
+                <input type="text" id="searchInput" placeholder="Buscar por fecha o mes (ej. Noviembre, 2026-11)..." oninput="filterReports()" style="width: 100%; margin-bottom: 15px; padding: 5px; border: 2px solid #ffb2e2; border-radius: 5px; outline:none; font-family: 'VT323', monospace; font-size: 18px;">
                 
                 <div class="reports-list" id="reportsList">
                     {lista_html if lista_html else '<div style="color:red; font-weight:bold; text-align:center;">¡Aún no hay reportes! >_&lt;</div>'}
@@ -1210,10 +1439,12 @@ def actualizar_dashboard(resumenes_dir):
 
     <script>
         const REPORTS_DATA = {json.dumps(reportes_dict, ensure_ascii=False)};
+        const REPORTS_URLS = {json.dumps(reportes_urls, ensure_ascii=False)};
         
         function showReport(dateStr) {{
+            const relUrl = (REPORTS_URLS && REPORTS_URLS[dateStr]) ? REPORTS_URLS[dateStr] : (dateStr.slice(0, 7) + '/Resumen_DOF_' + dateStr + '.html');
             if (!REPORTS_DATA || !REPORTS_DATA[dateStr]) {{
-                window.location.href = 'Resumen_DOF_' + dateStr + '.html';
+                window.location.href = relUrl;
                 return;
             }}
             const dash = document.getElementById('dashboardView');
@@ -1228,7 +1459,7 @@ def actualizar_dashboard(resumenes_dir):
             const titleEl = document.getElementById('mainTitleBarText');
             if (titleEl) titleEl.innerHTML = '<span class="pixel-art icon-star"></span> Reporte DOF — ' + dateStr;
             const addrEl = document.getElementById('addressBarText');
-            if (addrEl) addrEl.innerText = 'https://dof-estudiantes-BLOOMS.com/Resumen_DOF_' + dateStr + '.html';
+            if (addrEl) addrEl.innerText = 'https://dof-estudiantes-BLOOMS.com/' + relUrl;
             
             document.title = 'Reporte DOF — ' + dateStr;
             if (window.location.hash !== '#reporte-' + dateStr) {{
@@ -1320,12 +1551,35 @@ def actualizar_dashboard(resumenes_dir):
             }}
         }});
         function filterReports() {{
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.report-card');
-            cards.forEach(card => {{
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(query) ? 'flex' : 'none';
-            }});
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const groups = document.querySelectorAll('.month-group');
+            if (groups.length > 0) {{
+                groups.forEach((group, idx) => {{
+                    const cards = group.querySelectorAll('.report-card');
+                    let visibleCount = 0;
+                    cards.forEach(card => {{
+                        const text = (card.textContent + ' ' + (card.dataset.month || '')).toLowerCase();
+                        const match = !query || text.includes(query);
+                        card.style.display = match ? 'flex' : 'none';
+                        if (match) visibleCount++;
+                    }});
+                    if (!query) {{
+                        group.style.display = 'block';
+                        group.open = (idx === 0);
+                    }} else if (visibleCount > 0) {{
+                        group.style.display = 'block';
+                        group.open = true;
+                    }} else {{
+                        group.style.display = 'none';
+                    }}
+                }});
+            }} else {{
+                const cards = document.querySelectorAll('.report-card');
+                cards.forEach(card => {{
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = text.includes(query) ? 'flex' : 'none';
+                }});
+            }}
         }}
 
         document.addEventListener('mousemove', function(e) {{
@@ -1916,13 +2170,15 @@ def actualizar_dashboard(resumenes_dir):
         f.write(root_redirect_html)
     logger.info("Dashboard actualizado.")
 
-def guardar_resumen_estudiante(config, alertas):
+def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=None):
     # Ordenar: Prioridad Alta primero
     orden_prioridad = {"Alta": 1, "Media": 2}
     alertas.sort(key=lambda x: orden_prioridad.get(x.get('nivel_alerta', 'Media'), 3))
     
-    fecha_larga = datetime.now().strftime('%d de %B de %Y')
-    fecha_corta = datetime.now().strftime('%Y-%m-%d')
+    if not fecha_larga:
+        fecha_larga = datetime.now().strftime('%d de %B de %Y')
+    if not fecha_corta:
+        fecha_corta = datetime.now().strftime('%Y-%m-%d')
     
     n_alta = sum(1 for a in alertas if a.get('nivel_alerta') == 'Alta')
     n_media = len(alertas) - n_alta
@@ -1986,10 +2242,10 @@ def guardar_resumen_estudiante(config, alertas):
     <style>
         @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
         
-        * {{ margin: 0; padding: 0; box-sizing: border-box; cursor: url('cursor/roundynormal.cur'), auto !important; }}
+        * {{ margin: 0; padding: 0; box-sizing: border-box; cursor: url('../cursor/roundynormal.cur'), auto !important; }}
         
         a, button, summary, .menu-bar span, .acc-title, .back-link, .btn-win, .xp-button {{
-            cursor: url('cursor/roundyhand.cur'), pointer !important;
+            cursor: url('../cursor/roundyhand.cur'), pointer !important;
         }}
 
         .cursor-bubble {{
@@ -2300,7 +2556,7 @@ def guardar_resumen_estudiante(config, alertas):
                 <span class="pixel-art icon-star"></span> Reporte DOF — {fecha_corta}
             </div>
             <div class="title-bar-controls">
-                <button class="btn-win btn-close" onclick="window.location.href='index.html'">X</button>
+                <button class="btn-win btn-close" onclick="window.location.href='../index.html'">X</button>
             </div>
         </div>
         <div class="menu-bar">
@@ -2310,7 +2566,7 @@ def guardar_resumen_estudiante(config, alertas):
         </div>
         
         <div class="content-area">
-            <a href="index.html" class="back-link"><span class="pixel-art icon-star"></span> Regresar</a>
+            <a href="../index.html" class="back-link"><span class="pixel-art icon-star"></span> Regresar</a>
             <div class="page-header">
                 <h1>Reporte Diario</h1>
                 <div class="date">{fecha_larga}</div>
@@ -2334,14 +2590,14 @@ def guardar_resumen_estudiante(config, alertas):
     </div>
     
     <a href="https://bonaisdemole.neocities.org" target="_blank">
-        <img src="corner_gif.gif" class="corner-gif" alt="cute corner anim">
+        <img src="../corner_gif.gif" class="corner-gif" alt="cute corner anim">
     </a>
     <a href="https://bonaisdemole.neocities.org" target="_blank">
-        <img src="rofa_cat.gif" class="corner-gif-right" alt="cute cat anim">
+        <img src="../rofa_cat.gif" class="corner-gif-right" alt="cute cat anim">
     </a>
-    <img src="jellyfish.png" id="floatingJellyfish" class="floating-jellyfish" alt="medusa flotante">
+    <img src="../jellyfish.png" id="floatingJellyfish" class="floating-jellyfish" alt="medusa flotante">
 
-    <audio id="bgMusic" src="bg_music.mp3" loop preload="auto"></audio>
+    <audio id="bgMusic" src="../bg_music.mp3" loop preload="auto"></audio>
     
     <script>
         const audio = document.getElementById('bgMusic');
@@ -2518,7 +2774,7 @@ def guardar_resumen_estudiante(config, alertas):
     
         
         let fishImg = new Image();
-        fishImg.src = '../blue-fish.webp'; 
+        fishImg.src = '../../blue-fish.webp'; 
 
         let canvas, ctx;
         let gameLoop;
@@ -2698,10 +2954,13 @@ def guardar_resumen_estudiante(config, alertas):
 </body>
 </html>"""
     resumenes_dir = os.path.join(BASE_DIR, "Resumenes_Semanales")
-    os.makedirs(resumenes_dir, exist_ok=True)
-    file_path = os.path.join(resumenes_dir, f"Resumen_DOF_{fecha_corta}.html")
+    mes_key = fecha_corta[:7] if len(fecha_corta) >= 7 else datetime.now().strftime('%Y-%m')
+    mes_dir = os.path.join(resumenes_dir, mes_key)
+    os.makedirs(mes_dir, exist_ok=True)
+    file_path = os.path.join(mes_dir, f"Resumen_DOF_{fecha_corta}.html")
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html)
+    logger.info(f"Resumen guardado en carpeta mensual: {mes_key}/Resumen_DOF_{fecha_corta}.html")
     actualizar_dashboard(resumenes_dir)
 
 def main():
