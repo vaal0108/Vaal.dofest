@@ -1231,3 +1231,13 @@
 2026-11-19 18:33:59 [INFO] Reporte migrado a carpeta mensual: 2026-11/Resumen_DOF_2026-11-06.html
 2026-11-19 18:33:59 [INFO] Dashboard actualizado.
 2026-11-19 18:33:59 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-11-19 22:36:14 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-11-19 22:36:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=19&edicion=MAT
+2026-11-19 22:36:16 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=19&edicion=VES
+2026-11-19 22:36:17 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=18&edicion=VES
+2026-11-19 22:36:18 [INFO] [Fase 1] Clasificando 12 documentos...
+2026-11-19 22:36:19 [INFO] [Fase 1] Pasan a Fase 2: 2
+2026-11-19 22:36:19 [INFO] [Fase 2] Analizando 2 textos en profundidad...
+2026-11-19 22:36:27 [INFO] Resumen guardado en carpeta mensual: 2026-11/Resumen_DOF_2026-11-19.html
+2026-11-19 22:36:27 [INFO] Dashboard actualizado.
+2026-11-19 22:36:27 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
