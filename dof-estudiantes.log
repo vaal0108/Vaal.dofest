@@ -1275,3 +1275,11 @@
 2026-11-24 02:02:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=MAT
 2026-11-24 02:02:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=VES
 2026-11-24 02:02:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=23&edicion=VES
+2026-11-24 14:14:43 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-11-24 14:14:43 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=MAT
+2026-11-24 14:14:44 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=VES
+2026-11-24 14:14:45 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=23&edicion=VES
+2026-11-24 14:14:46 [INFO] [Fase 1] Clasificando 24 documentos...
+2026-11-24 14:14:47 [INFO] [Fase 1] Pasan a Fase 2: 0
+2026-11-24 14:14:47 [INFO] Resumen guardado en carpeta mensual: 2026-11/Resumen_DOF_2026-11-24.html
+2026-11-24 14:14:47 [INFO] Dashboard actualizado.
