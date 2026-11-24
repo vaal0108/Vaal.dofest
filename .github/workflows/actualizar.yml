@@ -2,9 +2,14 @@ name: Actualizar DOF Diario
 
 on:
   schedule:
-    # Se ejecuta a las 15:00 UTC (10:00 AM hora de México/Centro) de Lunes a Viernes
+    # 15:00 UTC (10:00 AM Cancún/Q.Roo) y 19:00 UTC (2:00 PM Cancún/Q.Roo) de Lunes a Viernes
     - cron: '0 15 * * 1-5'
+    - cron: '0 19 * * 1-5'
   workflow_dispatch: # Permite ejecutarlo manualmente cuando quieras
+
+concurrency:
+  group: actualizar-dof
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -29,6 +34,7 @@ jobs:
     - name: Ejecutar el script (Generar DOF)
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        TZ: America/Cancun
       run: |
         python dof-estudiantes.py
 
@@ -36,5 +42,5 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add .
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Actualizacion automatica del DOF" && git push)
+        git add Resumenes_Semanales index.html
+        git diff --staged --quiet || (git commit -m "Actualizacion automatica del DOF" && git pull --rebase origin main && git push)

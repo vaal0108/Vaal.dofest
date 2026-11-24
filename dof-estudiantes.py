@@ -1,13 +1,17 @@
 import os
+import sys
 import json
+from html import escape as html_escape
 import logging
+import argparse
 import requests
 import urllib3
 import locale
 import re
 import time
 import glob
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 from google import genai
 from google.genai import types
@@ -26,6 +30,13 @@ except:
 # 1. CONFIGURACIÓN Y LOGGING
 # ==========================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def ahora_mexico():
+    tz_name = os.environ.get("TZ", "America/Cancun")
+    try:
+        return datetime.now(ZoneInfo(tz_name))
+    except Exception:
+        return datetime.now(timezone(timedelta(hours=-5)))
 
 def cargar_env():
     env_path = os.path.join(BASE_DIR, '.env')
@@ -62,39 +73,82 @@ HEADERS = {
     'Accept-Language': 'es-MX,es;q=0.9',
 }
 
+DOF_PRIMARY_BASE = "https://dof.gob.mx"
+DOF_FALLBACK_BASE = "https://www.dof.gob.mx"
+SECCIONES_GENERICAS = {
+    "UNICA SECCION", "PRIMERA SECCION", "SEGUNDA SECCION",
+    "TERCERA SECCION", "CUARTA SECCION", "QUINTA SECCION",
+}
+
+DEFAULT_FALLBACK_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite",
+    "gemini-3.8-flash",
+    "gemini-3.7-flash",
+    "gemini-3.6-flash",
+    "gemini-3.5-flash",
+]
+MODELOS_NO_DISPONIBLES = set()
+
 # ==========================================
 # 2. SCRAPING — DOF FEDERAL
 # ==========================================
-def fetch_dof_portada():
-    from datetime import timedelta
-    hoy = datetime.now()
-    url_info = []  # (url, edicion_label, fecha_label)
-    
+def _get_dof_html(path_query):
+    """Descarga una ruta del DOF priorizando https://dof.gob.mx (SSL válido) con fallback a www.dof.gob.mx."""
+    ruta = path_query.lstrip("/")
+    intentos = [
+        (f"{DOF_PRIMARY_BASE}/{ruta}", True, DOF_PRIMARY_BASE),
+        (f"{DOF_PRIMARY_BASE}/{ruta}", True, DOF_PRIMARY_BASE),
+        (f"{DOF_FALLBACK_BASE}/{ruta}", False, DOF_FALLBACK_BASE),
+    ]
+    ultimo_error = None
+    for idx, (url, verify_ssl, base_used) in enumerate(intentos):
+        try:
+            r = requests.get(url, timeout=25, headers=HEADERS, verify=verify_ssl)
+            r.raise_for_status()
+            return r.text, base_used
+        except Exception as e:
+            ultimo_error = e
+            if idx < len(intentos) - 1:
+                time.sleep(1.5)
+    raise ultimo_error
+
+
+def fetch_dof_portada(fecha_objetivo=None):
+    hoy = fecha_objetivo or ahora_mexico()
+    url_info = []  # (path_query, edicion_label, fecha_label)
+
     # Hoy (si es hábil)
     hoy_str = f"{hoy.day:02d}/{hoy.month:02d}/{hoy.year}"
     if hoy.weekday() < 5:
         url_info.extend([
-            (f"https://www.dof.gob.mx/index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=MAT", "Matutina", hoy_str),
-            (f"https://www.dof.gob.mx/index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=VES", "Vespertina", hoy_str),
+            (f"index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=MAT", "Matutina", hoy_str),
+            (f"index_111.php?year={hoy.year}&month={hoy.month:02d}&day={hoy.day:02d}&edicion=VES", "Vespertina", hoy_str),
         ])
-    
+
     # Ayer hábil (Vespertina)
     dias_restar = 1 if hoy.weekday() not in (0, 6) else (3 if hoy.weekday() == 0 else 2)
     ayer = hoy - timedelta(days=dias_restar)
     ayer_str = f"{ayer.day:02d}/{ayer.month:02d}/{ayer.year}"
-    url_info.append((f"https://www.dof.gob.mx/index_111.php?year={ayer.year}&month={ayer.month:02d}&day={ayer.day:02d}&edicion=VES", "Vespertina", ayer_str))
+    url_info.append((f"index_111.php?year={ayer.year}&month={ayer.month:02d}&day={ayer.day:02d}&edicion=VES", "Vespertina", ayer_str))
 
     todas_las_publicaciones = []
-    for url, edicion, fecha_pub in url_info:
-        logger.info(f"[DOF FEDERAL] Consultando: {url}")
+    consultas_exitosas = 0
+    errores_red = 0
+
+    for path_query, edicion, fecha_pub in url_info:
+        logger.info(f"[DOF FEDERAL] Consultando: {DOF_PRIMARY_BASE}/{path_query}")
         try:
-            r = requests.get(url, timeout=25, headers=HEADERS, verify=False)
-            r.raise_for_status()
-            
-            if "No se encontraron publicaciones" in r.text or "no se publicó" in r.text:
+            html_text, base_used = _get_dof_html(path_query)
+            consultas_exitosas += 1
+
+            if "No se encontraron publicaciones" in html_text or "no se publicó" in html_text:
+                logger.info(f"[DOF FEDERAL] Sin publicaciones en {edicion} ({fecha_pub})")
                 continue
 
-            items = _parsear_dof(BeautifulSoup(r.text, 'html.parser'))
+            items = _parsear_dof(BeautifulSoup(html_text, 'html.parser'), base_url=base_used)
+            logger.info(f"[DOF FEDERAL] {len(items)} publicaciones encontradas en {edicion} ({fecha_pub})")
             if items:
                 for it in items:
                     it['fuente'] = 'DOF Federal'
@@ -102,30 +156,58 @@ def fetch_dof_portada():
                     it['fecha_edicion'] = fecha_pub
                 todas_las_publicaciones.extend(items)
         except Exception as e:
-            pass
-            
+            errores_red += 1
+            logger.warning(f"[DOF FEDERAL] Error consultando {path_query}: {e}")
+
+    if consultas_exitosas == 0 and errores_red > 0:
+        raise RuntimeError(f"No se pudo conectar con el DOF en ninguna de las {errores_red} ediciones consultadas.")
+
     unicas = list({it['url']: it for it in todas_las_publicaciones}.values())
     return unicas
 
-def _parsear_dof(soup):
+
+def _parsear_dof(soup, base_url=DOF_PRIMARY_BASE):
     items = []
-    for a in soup.find_all("a", href=lambda h: h and "nota_detalle" in h):
-        titulo = a.text.strip()
-        if not titulo or len(titulo) < 15:
-            continue
-        href = a.get('href', '')
-        url  = f"https://www.dof.gob.mx/{href}" if not href.startswith('http') else href
-        dep  = a.find_previous('td', class_='txt_blanco')
-        items.append({
-            'titulo':      titulo,
-            'url':         url,
-            'dependencia': dep.text.strip() if dep else "General",
-        })
+    dep_actual = "General"
+    base_clean = base_url.rstrip("/")
+
+    for el in soup.find_all(["td", "a"]):
+        if el.name == "td":
+            classes = el.get("class") or []
+            txt = " ".join(el.get_text(" ", strip=True).split())
+            if not txt:
+                continue
+            if "subtitle_azul" in classes and txt.upper() not in SECCIONES_GENERICAS:
+                dep_actual = txt
+            elif "txt_blanco2" in classes and txt.upper() not in SECCIONES_GENERICAS:
+                dep_actual = txt
+        elif el.name == "a":
+            href = el.get('href') or ''
+            if "nota_detalle" not in href:
+                continue
+            titulo = " ".join(el.get_text(" ", strip=True).split())
+            if not titulo or len(titulo) < 15:
+                continue
+            url = f"{base_clean}/{href.lstrip('/')}" if not href.startswith('http') else href
+            dep_item = dep_actual
+            if dep_item == "General":
+                dep_tag = el.find_previous('td', class_='subtitle_azul') or el.find_previous('td', class_='txt_blanco2')
+                if dep_tag:
+                    cand = " ".join(dep_tag.get_text(" ", strip=True).split())
+                    if cand and cand.upper() not in SECCIONES_GENERICAS:
+                        dep_item = cand
+            items.append({
+                'titulo':      titulo,
+                'url':         url,
+                'dependencia': dep_item,
+            })
+
     if not items:
         for a in soup.find_all("a", href=True):
-            href, titulo = a.get('href', ''), a.text.strip()
+            href = a.get('href', '')
+            titulo = " ".join(a.get_text(" ", strip=True).split())
             if '/DOF/' in href and len(titulo) > 20:
-                url = f"https://www.dof.gob.mx{href}" if href.startswith('/') else href
+                url = f"{base_clean}/{href.lstrip('/')}" if not href.startswith('http') else href
                 items.append({'titulo': titulo, 'url': url, 'dependencia': 'General'})
     return list({it['url']: it for it in items}.values())
 
@@ -147,37 +229,92 @@ def pre_filtro_regex(publicaciones, config):
         filtradas.append(p)
     return filtradas
 
-def obtener_gemini_client(config):
-    api_key = os.environ.get("GEMINI_API_KEY") or config.get('ai_classifier', {}).get('gemini_api_key')
-    if not api_key:
-        logger.error("No se encontró GEMINI_API_KEY en variables de entorno ni en la configuración.")
-    return genai.Client(api_key=api_key)
 
-def llamar_gemini_con_reintentos(client, model_name, prompt, reintentos=4):
-    fallbacks = [model_name, "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"]
-    # Eliminar duplicados manteniendo el orden
+def obtener_gemini_client(config):
+    api_key = (os.environ.get("GEMINI_API_KEY") or config.get('ai_classifier', {}).get('gemini_api_key') or "").strip()
+    if not api_key:
+        raise RuntimeError("No se encontró GEMINI_API_KEY en variables de entorno ni en la configuración.")
+    timeout_sec = int(config.get('ai_classifier', {}).get('timeout', 90))
+    timeout_ms = max(20000, min(timeout_sec * 1000, 90000))
+    return genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=timeout_ms))
+
+
+def _extraer_json_limpio(resp_text):
+    txt = (resp_text or "").strip()
+    if txt.startswith("```"):
+        txt = re.sub(r"^```(?:json)?\s*", "", txt, flags=re.IGNORECASE)
+        txt = re.sub(r"\s*```$", "", txt)
+    return json.loads(txt.strip())
+
+
+def llamar_gemini_con_reintentos(client, model_name, prompt, config=None, response_schema=None, reintentos=10):
+    cfg_fallbacks = []
+    if isinstance(config, dict):
+        cfg_fallbacks = config.get('ai_classifier', {}).get('fallback_models', []) or []
+
+    candidatos = [model_name] + list(cfg_fallbacks) + list(DEFAULT_FALLBACK_MODELS)
     modelos = []
-    for m in fallbacks:
-        if m and m not in modelos:
+    for m in candidatos:
+        if m and m not in modelos and m not in MODELOS_NO_DISPONIBLES:
             modelos.append(m)
 
+    if not modelos:
+        raise RuntimeError("No quedan modelos de Gemini disponibles (todos devolvieron 404 NOT_FOUND).")
+
+    gen_cfg_kwargs = {
+        "temperature": 0.0,
+        "response_mime_type": "application/json",
+    }
+    if response_schema is not None:
+        gen_cfg_kwargs["response_schema"] = response_schema
+    gen_cfg = types.GenerateContentConfig(**gen_cfg_kwargs)
+
     ultimo_error = None
-    for intento in range(reintentos):
-        modelo_actual = modelos[min(intento, len(modelos) - 1)]
+    idx = 0
+    intentos_transitorios = 0
+
+    while modelos and intentos_transitorios < reintentos:
+        modelo_actual = modelos[idx % len(modelos)]
         try:
             resp = client.models.generate_content(
                 model=modelo_actual,
                 contents=prompt,
-                config=types.GenerateContentConfig(temperature=0.0, response_mime_type="application/json")
+                config=gen_cfg,
             )
+            if not resp.text:
+                raise RuntimeError(f"Respuesta vacía del modelo {modelo_actual}")
             return resp.text
         except Exception as e:
             ultimo_error = e
             err_str = str(e)
-            espera = 8 * (intento + 1)
-            logger.warning(f"[IA] Intento {intento+1}/{reintentos} falló con {modelo_actual} ({err_str[:80]}...). Reintentando en {espera}s...")
+            err_upper = err_str.upper()
+
+            if "400" in err_str and ("API_KEY_INVALID" in err_upper or "API KEY NOT VALID" in err_upper):
+                logger.error(f"[IA] Clave de API inválida: {err_str[:200]}")
+                raise
+            if "403" in err_str and ("PERMISSION_DENIED" in err_upper or "LEAKED" in err_upper):
+                logger.error(f"[IA] Permiso denegado / clave bloqueada: {err_str[:200]}")
+                raise
+
+            if "404" in err_str or "NOT_FOUND" in err_upper:
+                logger.warning(f"[IA] Modelo {modelo_actual} no disponible (404), descartándolo: {err_str[:120]}")
+                MODELOS_NO_DISPONIBLES.add(modelo_actual)
+                modelos = [m for m in modelos if m not in MODELOS_NO_DISPONIBLES]
+                if not modelos:
+                    break
+                idx = idx % len(modelos)
+                continue
+
+            intentos_transitorios += 1
+            espera = 3 * ((intentos_transitorios % 3) + 1)
+            logger.warning(
+                f"[IA] Intento transitorio {intentos_transitorios}/{reintentos} falló con {modelo_actual} "
+                f"({err_str[:90]}...). Rotando modelo y reintentando en {espera}s..."
+            )
+            idx = (idx + 1) % len(modelos)
             time.sleep(espera)
-    raise ultimo_error
+
+    raise ultimo_error if ultimo_error is not None else RuntimeError("No se pudo obtener respuesta de Gemini.")
 
 # ==========================================
 # 4. FILTRO FASE 1 — IA SOBRE TITULOS
@@ -194,72 +331,103 @@ def primer_filtro_ia(publicaciones, config, fuente_label=""):
 
     prompt = f"""
 Eres un jurista y profesor universitario filtrando el Diario Oficial de la Federación (DOF) EXCLUSIVAMENTE para ESTUDIANTES DE DERECHO.
-Tu objetivo es seleccionar ÚNICAMENTE publicaciones con VERDADERO VALOR O TRASCENDENCIA JURÍDICA (Constitucional, Amparo, Civil, Penal, Administrativo, Laboral, Fiscal, Mercantil, Procesal o Judicial).
-DESCARTA tajantemente todo lo que NO tenga que ver con la ciencia del Derecho (temas puramente médicos, biológicos, de salud técnica, científicos, agrícolas, industriales o de trámite administrativo).
+Tu objetivo es seleccionar en este primer filtro los documentos con VERDADERO VALOR O TRASCENDENCIA JURÍDICA (Constitucional, Amparo, Civil, Penal, Administrativo, Laboral, Fiscal, Mercantil, Electoral, Procesal o Judicial) para analizarlos a profundidad en la Fase 2.
 
-PASA ÚNICAMENTE SI CUMPLE AL MENOS UNO:
+PASA A FASE 2 SI CUMPLE AL MENOS UNO:
 1. REFORMAS FEDERALES que modifiquen Leyes, Códigos, Reglamentos o la Constitución.
-2. Sentencias de la SCJN en Acciones de Inconstitucionalidad o Controversias Constitucionales SOLO SI son sobre LEYES FEDERALES.
-3. Reformas o Acuerdos Generales del PODER JUDICIAL FEDERAL (CJF, SCJN, TEPJF, Órgano de Administración Judicial) sobre reglas procesales, plazos, competencias o litigio.
-4. Publicaciones con impacto normativo y jurídico directo sobre QUINTANA ROO.
+2. Sentencias de la SCJN (Acciones de Inconstitucionalidad, Controversias Constitucionales o declaratorias generales) sobre LEYES FEDERALES o de Quintana Roo.
+3. Acuerdos Generales, Lineamientos, Reglas o Declaratorias del PODER JUDICIAL FEDERAL (SCJN, CJF, TEPJF, Órgano de Administración Judicial, IFECOM), del TFJA o de la Fiscalía General de la República (FGR, ej. plataformas de denuncia digital o litigio como FISC@NET), así como acuerdos de días inhábiles en actos y procedimientos administrativos federales (CNBV, SABG, SAT, etc.) que afecten plazos o trámites procesales.
+4. TODA publicación con impacto normativo, jurídico o de coordinación sobre QUINTANA ROO (incluyendo Convenios Marco o específicos celebrados con el Estado de Quintana Roo o sus municipios).
 5. Publicaciones sobre PERITOS TRADUCTORES y auxiliares de administración de justicia.
-6. MODIFICACIONES SUSTANCIALES a Reglas de Carácter General de organismos reguladores (Miscelánea Fiscal, IMPI) que creen o modifiquen obligaciones jurídicas a particulares.
-7. Decretos presidenciales de trascendencia jurídica general.
+6. MODIFICACIONES a Reglas o Disposiciones de Carácter General de organismos reguladores, fiscales, financieros, de comercio exterior o electorales (ej. Miscelánea Fiscal, Reglas Generales de Comercio Exterior / RGCE, disposiciones de la CNBV/SHCP sobre mercados o proveedores de precios, IMPI, o lineamientos electorales generales del INE sobre cargos de elección popular).
+7. NORMAS OFICIALES MEXICANAS (NOM) definitivas en materia LABORAL o de seguridad y salud en los centros de trabajo (STPS), o que regulen relaciones jurídicas sustantivas.
+8. Decretos presidenciales de trascendencia jurídica general.
 
-DESCARTA ESTRICTAMENTE TODO ESTO (NO ES MATERIA DE DERECHO):
-- NORMAS OFICIALES MEXICANAS (NOM) TÉCNICAS, MÉDICAS, CLÍNICAS O SANITARIAS (ej. disposición de sangre humana, hemoderivados, insumos para la salud, instrumental médico, laboratorios, fórmulas farmacéuticas, alimentos, pesca, calibración o metrología). Un estudiante de Derecho NO estudia especificaciones técnicas ni de salud.
-- Solo admitir una NOM si regula de forma directa relaciones de Derecho sustantivo (ej. normas laborales de factores de riesgo psicosocial en centros de trabajo). Si es técnica o médica, DESCÁRTALA siempre.
-- Manuales de organización, procedimientos, servicios o estatutos orgánicos de dependencias.
-- Acuerdos de delegación de facultades internas, sectorización o cambios de sede.
-- Avisos de consulta pública, proyectos de normas (PROY-NOM) y respuestas a comentarios de normas.
-- Fijación de cuotas, volúmenes de captura (pesca), vedas, tarifas, estímulos fiscales o precios de combustibles.
-- Programas institucionales, planes de desarrollo portuario/sectorial o reglas de operación de subsidios.
-- Actualización de catálogos de medicamentos, compendios de salud y formatos administrativos.
-- Resoluciones particulares, preliminares o antidumping contra empresas.
-- Inhabilitaciones, multas, autorizaciones, revocaciones a empresas particulares.
-- Resoluciones del INE sobre partidos políticos.
-- Sentencias o leyes de un ESTADO que NO sea Quintana Roo.
-- Nombramientos, convenios de coordinación institucional, expropiaciones, licitaciones, balances o edictos.
+DESCARTA ESTRICTAMENTE EN FASE 1:
+- Avisos de solicitud de registro constitutivo de asociaciones religiosas.
+- Tipo de cambio, TIIE, tasas de interés interbancarias, UDI, INPC.
+- NORMAS OFICIALES MEXICANAS (NOM) médicas, clínicas, sanitarias, de salud, farmacéuticas, alimentos, pesca o metrología (NO laborales), actualizaciones de compendios de medicamentos/insumos para la salud, proyectos PROY-NOM y avisos de consulta pública.
+- Manuales de organización, procedimientos, operación o códigos de conducta internos de dependencias; cambios de domicilio oficial o delegación interna de facultades administrativas.
+- Licitaciones públicas, convocatorias de empleo, avisos de deslinde, nombramientos o expropiaciones aisladas.
+- Fijación de cuotas, volúmenes de captura pesquera, vedas, precios de combustibles o estímulos fiscales particulares.
+- Programas institucionales o reglas de operación de subsidios sociales/infraestructura en estados distintos a Quintana Roo.
+- Circulares de inhabilitación/sanción, multas, autorizaciones o revocaciones a empresas o proveedores particulares.
+- Convenios de coordinación o sentencias de un ESTADO que NO sea Quintana Roo.
+- Resoluciones del INE sobre un partido político específico o fiscalización individual (pero SÍ pasan lineamientos electorales de carácter general).
 
-Devuelve SOLO una lista JSON con los 'id' que PASAN. Si ninguno pasa devuelve [].
+Devuelve SOLO una lista JSON de números enteros con los 'id' que PASAN (ej. [0, 5, 17]). Si ninguno pasa devuelve [].
 
 TITULOS:
 {json.dumps(titulos, ensure_ascii=False)}
 """
-    try:
-        model_name = config.get('ai_classifier', {}).get('gemini_model', 'gemini-3.5-flash-lite')
-        resp_text = llamar_gemini_con_reintentos(client, model_name, prompt)
-        raw_ids = json.loads(resp_text)
-        ids_aprobados = set()
-        for item in raw_ids:
-            if isinstance(item, dict) and 'id' in item:
-                ids_aprobados.add(item['id'])
-            elif isinstance(item, (int, str)):
-                try:
-                    ids_aprobados.add(int(item))
-                except:
-                    pass
-        sobrevivientes = [p for i, p in enumerate(publicaciones) if i in ids_aprobados]
-        logger.info(f"[Fase 1] Pasan a Fase 2: {len(sobrevivientes)}")
-        return sobrevivientes
-    except Exception as e:
-        logger.error(f"[Fase 1] Error en procesamiento tras reintentos: {e}")
-        return []
+    model_name = config.get('ai_classifier', {}).get('gemini_model', 'gemini-3.5-flash-lite')
+    schema_ids = types.Schema(
+        type=types.Type.ARRAY,
+        items=types.Schema(type=types.Type.INTEGER),
+    )
+    resp_text = llamar_gemini_con_reintentos(
+        client, model_name, prompt, config=config, response_schema=schema_ids
+    )
+    raw_ids = _extraer_json_limpio(resp_text)
+
+    if isinstance(raw_ids, dict):
+        lista_cruda = []
+        for v in raw_ids.values():
+            if isinstance(v, list):
+                lista_cruda = v
+                break
+        raw_ids = lista_cruda
+
+    if not isinstance(raw_ids, list):
+        raise ValueError(f"[Fase 1] Respuesta JSON inesperada de Gemini: {resp_text[:200]}")
+
+    ids_aprobados = set()
+    for item in raw_ids:
+        if isinstance(item, dict) and 'id' in item:
+            try:
+                ids_aprobados.add(int(item['id']))
+            except Exception:
+                pass
+        elif isinstance(item, (int, str)):
+            try:
+                ids_aprobados.add(int(item))
+            except Exception:
+                pass
+
+    sobrevivientes = [p for i, p in enumerate(publicaciones) if i in ids_aprobados]
+    logger.info(f"[Fase 1] Pasan a Fase 2: {len(sobrevivientes)}")
+    return sobrevivientes
 
 # ==========================================
 # 5. EXTRACCION
 # ==========================================
 def extraer_contenido_nota(url, reintentos=2, max_chars=12000):
-    for intento in range(reintentos + 1):
+    url_primaria = url.replace("https://www.dof.gob.mx", DOF_PRIMARY_BASE)
+    url_alterna = url_primaria.replace(DOF_PRIMARY_BASE, DOF_FALLBACK_BASE)
+    candidatas = [(url_primaria, True), (url_primaria, True), (url_alterna, False)]
+
+    for intento in range(min(reintentos + 1, len(candidatas))):
+        target_url, verify_ssl = candidatas[intento]
         try:
-            r = requests.get(url, timeout=20, headers=HEADERS, verify=False)
+            r = requests.get(target_url, timeout=20, headers=HEADERS, verify=verify_ssl)
+            r.raise_for_status()
             soup = BeautifulSoup(r.text, 'html.parser')
-            cuerpo = soup.find('div', id='nota_detalle') or soup.find('div', class_='nota_detalle') or soup.find('article')
-            if cuerpo: return cuerpo.get_text(separator=' ', strip=True)[:max_chars]
-            return soup.get_text(separator=' ', strip=True)[:max_chars]
-        except:
+            for tag in soup(["script", "style", "noscript"]):
+                tag.decompose()
+            cuerpo = (
+                soup.find('div', id='DivDetalleNota')
+                or soup.find('div', id='nota_detalle')
+                or soup.find('div', class_='nota_detalle')
+                or soup.find('article')
+            )
+            if cuerpo:
+                return " ".join(cuerpo.get_text(separator=' ', strip=True).split())[:max_chars]
+            body = soup.find('body') or soup
+            return " ".join(body.get_text(separator=' ', strip=True).split())[:max_chars]
+        except Exception as e:
+            logger.warning(f"[Extracción] Intento {intento+1} falló para {target_url}: {e}")
             time.sleep(1)
-    return "Error"
+    return ""
 
 # ==========================================
 # 6. ANALISIS PROFUNDO — FASE 2
@@ -268,11 +436,40 @@ def analizar_profundo_uno_por_uno(sobrevivientes, config):
     if not sobrevivientes:
         return []
     logger.info(f"[Fase 2] Analizando {len(sobrevivientes)} textos en profundidad...")
-    client  = obtener_gemini_client(config)
+    client = obtener_gemini_client(config)
     alertas = []
+    errores_ia = 0
+
+    schema_fase2 = types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "titulo_corto": types.Schema(type=types.Type.STRING),
+            "relevante": types.Schema(type=types.Type.BOOLEAN),
+            "nivel_alerta": types.Schema(type=types.Type.STRING, enum=["Alta", "Media"]),
+            "etiqueta_especial": types.Schema(
+                type=types.Type.STRING,
+                enum=[
+                    "Reforma Federal", "SCJN", "Poder Judicial", "Quintana Roo",
+                    "Peritos", "Regulatorio", "NOM", "Decreto", "General"
+                ],
+            ),
+            "resumen_estudiantil": types.Schema(type=types.Type.STRING),
+            "materias_relacionadas": types.Schema(
+                type=types.Type.ARRAY, items=types.Schema(type=types.Type.STRING)
+            ),
+            "puntos_clave": types.Schema(
+                type=types.Type.ARRAY, items=types.Schema(type=types.Type.STRING)
+            ),
+        },
+        required=[
+            "titulo_corto", "relevante", "nivel_alerta", "etiqueta_especial",
+            "resumen_estudiantil", "materias_relacionadas", "puntos_clave"
+        ],
+    )
 
     for idx, p in enumerate(sobrevivientes, 1):
         texto = extraer_contenido_nota(p['url'])
+        texto_prompt = texto if texto else "(Contenido completo no disponible; evalúa con base en el título oficial y la dependencia.)"
 
         prompt = f"""
 Evalúa esta publicación del Diario Oficial (DOF) EXCLUSIVAMENTE para ESTUDIANTES DE DERECHO.
@@ -280,49 +477,46 @@ El objetivo es seleccionar únicamente publicaciones con VERDADERO VALOR FORMATI
 
 REGLAS — Marca "relevante": true si cumple AL MENOS UNO:
 1. Es una REFORMA FEDERAL que modifica una Ley, Código, Reglamento o la Constitución.
-2. Es una SENTENCIA de la SCJN SOLO SI es sobre una LEY FEDERAL. Si es sobre una ley de un estado que no es Quintana Roo, marca "relevante": false.
-3. Es un Acuerdo General del PODER JUDICIAL FEDERAL que afecte plazos procesales, competencias o reglas de litigio.
-4. Es un tema JURÍDICO específico de QUINTANA ROO.
+2. Es una SENTENCIA de la SCJN SOLO SI es sobre una LEY FEDERAL o de Quintana Roo. Si es sobre una ley de otro estado, marca "relevante": false.
+3. Es un Acuerdo, Lineamiento o Declaratoria del PODER JUDICIAL FEDERAL (SCJN, CJF, TEPJF, Órgano de Administración Judicial, IFECOM), TFJA o FGR (ej. plataformas digitales de denuncia/litigio como FISC@NET, interconexión tecnológica, plazos, competencias o reglas procesales), o un acuerdo de días inhábiles en procedimientos administrativos ante reguladores federales (CNBV, SABG, SAT).
+4. Es un tema o convenio específico de QUINTANA ROO (ej. Convenio Marco de Coordinación SEGOB–Quintana Roo o SECTUR–Quintana Roo). Los convenios con otros estados que NO son Quintana Roo llevan "relevante": false.
 5. Trata sobre PERITOS TRADUCTORES y auxiliares de la justicia.
-6. Es una MODIFICACIÓN SUSTANCIAL A REGLAS DE CARÁCTER GENERAL (ej. Resolución Miscelánea Fiscal) que crean o modifican obligaciones a particulares.
-7. Es una NORMA OFICIAL MEXICANA (NOM) ÚNICAMENTE SI regula materias de Derecho laboral o sustantivo general (ej. NOM-035 de factores de riesgo psicosocial). Si es técnica, médica o de salud, marca "relevante": false.
+6. Es una MODIFICACIÓN A REGLAS O DISPOSICIONES DE CARÁCTER GENERAL (ej. Resolución Miscelánea Fiscal, Reglas Generales de Comercio Exterior / RGCE, disposiciones CNBV/SHCP, reglas de comercio exterior, o lineamientos electorales generales del INE sobre cargos de elección) que creen o modifiquen obligaciones o trámites jurídicos relevantes.
+7. Es una NORMA OFICIAL MEXICANA (NOM) definitiva ÚNICAMENTE SI regula materias de Derecho laboral / seguridad y salud en los centros de trabajo (ej. NOM de la STPS) o Derecho sustantivo general. Si es técnica médica/sanitaria/industrial pura, marca "relevante": false.
 8. Es un DECRETO presidencial relevante jurídicamente (no administrativos menores).
 
 MARCA "relevante": false ESTRICTAMENTE SI (NO ES MATERIA DE DERECHO):
-- Son Normas Oficiales Mexicanas (NOM) técnicas, médicas, clínicas, hospitalarias, sanitarias o industriales (ej. disposición de sangre o componentes sanguíneos, insumos de salud, fármacos, laboratorios, alimentos, pesca, metrología o medio ambiente técnico). Un estudiante de Derecho NO estudia especificaciones técnicas ni de salud.
+- Son Normas Oficiales Mexicanas (NOM) médicas, clínicas, hospitalarias, sanitarias, farmacéuticas, alimentos, pesca o metrología (NO laborales).
 - Son Actualizaciones de compendios médicos (Insumos para la salud), cuadros básicos o catálogos administrativos.
-- Son Manuales de organización, operación, servicios o acuerdos de delegación de facultades internas.
-- Son Modificaciones a formatos, sistemas o plataformas informáticas.
-- Fijan estímulos fiscales, tarifas, precios de combustibles, cuotas de captura pesquera o vedas.
-- Son Programas maestros, sectoriales, institucionales o reglas de operación de programas sociales/subsidios.
+- Son Manuales de organización, operación, servicios, códigos de conducta internos o acuerdos de delegación de facultades internas.
+- Son Avisos de asociaciones religiosas, licitaciones públicas, convocatorias de empleo o nombramientos.
+- Fijan estímulos fiscales particulares, tarifas, precios de combustibles, cuotas de captura pesquera o vedas.
+- Son Programas maestros, sectoriales, institucionales o reglas de operación de programas sociales/subsidios en estados distintos a Quintana Roo.
 - Son Proyectos de normas, avisos de consulta pública (PROY-NOM) o respuestas a comentarios.
-- Son resoluciones particulares o antidumping contra empresas o países.
-- Son circulares de inhabilitación de proveedores.
-- Son autorizaciones, revocaciones a empresas particulares.
-- Son resoluciones del INE sobre partidos políticos.
-- La publicación es sobre leyes de un ESTADO que NO sea Quintana Roo.
-- Son nombramientos o convenios de coordinación institucional.
+- Son resoluciones particulares o antidumping contra empresas o países, circulares de inhabilitación de proveedores, autorizaciones/revocaciones particulares.
+- Son resoluciones del INE sobre un partido político específico o fiscalización individual.
+- La publicación es sobre leyes o convenios de un ESTADO que NO sea Quintana Roo.
 - Son tasas de interés, tipo de cambio, UDI, INPC.
 
 NIVEL DE ALERTA:
-- "Alta" SOLO para cambios jurídicos de impacto amplio y directo: reformas a la Constitución o a leyes/códigos federales, sentencias de la SCJN sobre leyes federales, o reglas generales que creen o cambien obligaciones sustantivas para particulares. Un tema relacionado con Quintana Roo o una regla fiscal no es automáticamente de alta prioridad.
-- "Media" para medidas administrativas, operativas o procedimentales que no cambien derechos u obligaciones sustantivas: convenios de coordinación, verificaciones sectoriales, entrega/consulta de documentos mediante plataformas y reglas para trámites o sistemas. También para reformas judiciales, NOM definitivas y acuerdos regulatorios de menor impacto.
-- Calibra estos casos concretos: "Reglas para Claves Vehiculares del ISAN" = Media (regula un trámite/sistema, no cambia por sí misma obligaciones tributarias sustantivas); "Convenio de Coordinación SECTUR-Quintana Roo sobre verificación turística" = Media (coordinación y verificación administrativa, no reforma normativa general); "IMSS: Entrega de EMA y EBA por Buzón IMSS" = Media (cambia el medio de consulta/entrega, no las cuotas ni las obligaciones patronales).
-- "Reforma Constitucional: Nacionalidad para Poderes Ejecutivos" = Alta (reforma directamente la Constitución y establece requisitos sustantivos para ocupar cargos públicos).
-- Si la publicación es relevante pero no satisface claramente los criterios estrictos de "Alta", asigna "Media". No eleves una alerta a "Alta" solo por mencionar Quintana Roo, al IMSS, impuestos o una regla de carácter general.
+- "Alta" SOLO para cambios jurídicos de impacto amplio y directo: reformas a la Constitución o a leyes/códigos federales, sentencias de la SCJN sobre leyes federales, o reglas generales que creen o cambien obligaciones sustantivas para particulares. Un tema relacionado con Quintana Roo o una regla fiscal/administrativa no es automáticamente de alta prioridad.
+- "Media" para medidas administrativas, operativas o procedimentales que no cambien derechos u obligaciones sustantivas: convenios de coordinación (como SEGOB/SECTUR–Quintana Roo), días inhábiles ante autoridades, interconexión tecnológica del Poder Judicial, plataformas digitales de denuncia/trámites, NOM laborales definitivas y acuerdos regulatorios de menor impacto.
+- Si la publicación es relevante pero no satisface claramente los criterios estrictos de "Alta", asigna "Media".
 
 ETIQUETA:
 - "Reforma Federal" si modifica una ley/código federal
 - "SCJN" si es sentencia de Acción de Inconstitucionalidad o Controversia Constitucional
-- "Poder Judicial" si es reforma judicial federal
+- "Poder Judicial" si es reforma, acuerdo o declaratoria del Poder Judicial Federal (SCJN, CJF, TEPJF, OAJ, IFECOM)
 - "Quintana Roo" si es específico de ese estado
 - "Peritos" si trata de peritos/traductores
-- "Regulatorio" si es miscelánea fiscal o regla general sustancial
-- "NOM" si es una Norma Oficial Mexicana definitiva
+- "Regulatorio" si es miscelánea fiscal, RGCE, CNBV/SHCP, días inhábiles o regla general
+- "NOM" si es una Norma Oficial Mexicana laboral definitiva
 - "Decreto" si es un decreto presidencial
+- "General" para otros temas jurídicos relevantes (FGR, INE general, TFJA, etc.)
 
+Dependencia: {p.get('dependencia', 'General')}
 Publicacion: {p['titulo']}
-Texto: {texto}
+Texto: {texto_prompt}
 
 Devuelve JSON exacto:
 {{
@@ -337,18 +531,27 @@ Devuelve JSON exacto:
 """
         try:
             model_name = config.get('ai_classifier', {}).get('gemini_model', 'gemini-3.5-flash-lite')
-            resp_text = llamar_gemini_con_reintentos(client, model_name, prompt)
-            data = json.loads(resp_text)
-            if isinstance(data, list): data = data[0] if data else {}
+            resp_text = llamar_gemini_con_reintentos(
+                client, model_name, prompt, config=config, response_schema=schema_fase2
+            )
+            data = _extraer_json_limpio(resp_text)
+            if isinstance(data, list):
+                data = data[0] if data else {}
             if data.get('relevante') is True:
                 data['dependencia'] = p.get('dependencia', 'General')
                 data['url']         = p['url']
                 data['edicion']     = p.get('edicion', '')
                 data['fecha_edicion'] = p.get('fecha_edicion', '')
                 alertas.append(data)
-            time.sleep(2)
+            time.sleep(1.5)
         except Exception as e:
+            errores_ia += 1
             logger.error(f"[Fase 2] Error al procesar publicación {idx}: {e}")
+
+    if len(alertas) == 0 and errores_ia > 0:
+        raise RuntimeError(
+            f"[Fase 2] Fallaron {errores_ia} de {len(sobrevivientes)} análisis en Gemini; se aborta para no guardar un reporte vacío falso."
+        )
 
     return alertas
 
@@ -516,9 +719,8 @@ def actualizar_dashboard(resumenes_dir):
         """
 
     import calendar
-    from datetime import datetime
     calendar.setfirstweekday(6)  # Sunday first
-    now = datetime.now()
+    now = ahora_mexico()
     year, month = now.year, now.month
     
     # Previous month
@@ -2170,32 +2372,119 @@ def actualizar_dashboard(resumenes_dir):
         f.write(root_redirect_html)
     logger.info("Dashboard actualizado.")
 
-def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=None):
+def _extraer_alertas_existentes(file_path):
+    """Extrae alertas existentes de un reporte HTML previo para no perder publicaciones del mismo día."""
+    if not os.path.exists(file_path):
+        return []
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            soup = BeautifulSoup(f.read(), "html.parser")
+        prev_alertas = []
+        for det in soup.find_all("details", class_="accordion"):
+            badges = det.find_all("span", class_="acc-badge")
+            etiqueta = badges[0].get_text(strip=True) if len(badges) >= 1 else "General"
+            ed_full = badges[1].get_text(strip=True) if len(badges) >= 2 else ""
+            ed_parts = ed_full.split(" ", 1) if ed_full else []
+            edicion = ed_parts[0] if ed_parts else ""
+            fecha_ed = ed_parts[1] if len(ed_parts) > 1 else ""
+
+            title_el = det.find("strong", class_="acc-title")
+            titulo_corto = title_el.get_text(strip=True) if title_el else ""
+            dot_el = det.find("div", class_="pixel-circle")
+            nivel_alerta = "Alta" if (dot_el and "red" in (dot_el.get("class") or [])) else "Media"
+
+            dependencia = "General"
+            materias = []
+            meta_el = det.find("div", class_="acc-meta")
+            if meta_el:
+                for sp in meta_el.find_all("span"):
+                    t = sp.get_text(" ", strip=True)
+                    if t.startswith("Dependencia:"):
+                        dependencia = t.replace("Dependencia:", "", 1).strip() or "General"
+                    elif t.startswith("Materias:"):
+                        raw_m = t.replace("Materias:", "", 1).strip()
+                        materias = [m.strip() for m in raw_m.split(",") if m.strip()]
+
+            sum_el = det.find("p", class_="acc-summary")
+            resumen = sum_el.get_text(" ", strip=True) if sum_el else ""
+            puntos = [li.get_text(" ", strip=True) for li in det.find_all("li")]
+            link_el = det.find("a", href=True)
+            url = link_el["href"].strip() if link_el else ""
+            if url:
+                prev_alertas.append({
+                    "titulo_corto": titulo_corto,
+                    "nivel_alerta": nivel_alerta,
+                    "etiqueta_especial": etiqueta,
+                    "edicion": edicion,
+                    "fecha_edicion": fecha_ed,
+                    "dependencia": dependencia,
+                    "materias_relacionadas": materias,
+                    "resumen_estudiantil": resumen,
+                    "puntos_clave": puntos,
+                    "url": url,
+                })
+        return prev_alertas
+    except Exception as e:
+        logger.warning(f"No se pudieron leer alertas previas de {file_path}: {e}")
+        return []
+
+
+def _normalizar_url_alerta(url):
+    return (url or "").replace("https://www.dof.gob.mx", DOF_PRIMARY_BASE).replace(".gob.mx//", ".gob.mx/").strip()
+
+
+def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=None, regenerar=False):
+    hoy_mx = ahora_mexico()
+    if not fecha_larga:
+        fecha_larga = f"{hoy_mx.day} de {MESES_NOMBRES[hoy_mx.month].lower()} de {hoy_mx.year}"
+    if not fecha_corta:
+        fecha_corta = hoy_mx.strftime('%Y-%m-%d')
+
+    resumenes_dir = os.path.join(BASE_DIR, "Resumenes_Semanales")
+    mes_key = fecha_corta[:7] if len(fecha_corta) >= 7 else hoy_mx.strftime('%Y-%m')
+    mes_dir = os.path.join(resumenes_dir, mes_key)
+    os.makedirs(mes_dir, exist_ok=True)
+    file_path = os.path.join(mes_dir, f"Resumen_DOF_{fecha_corta}.html")
+
+    if not regenerar and os.path.exists(file_path):
+        prev_alertas = _extraer_alertas_existentes(file_path)
+        if prev_alertas:
+            if not alertas:
+                logger.warning(
+                    f"Se omitió sobrescribir {mes_key}/Resumen_DOF_{fecha_corta}.html porque ya contenía "
+                    f"{len(prev_alertas)} alertas previas y la corrida actual produjo 0."
+                )
+                actualizar_dashboard(resumenes_dir)
+                return
+            urls_nuevas = {_normalizar_url_alerta(a.get('url')) for a in alertas}
+            agregadas = 0
+            for pa in prev_alertas:
+                if _normalizar_url_alerta(pa.get('url')) not in urls_nuevas:
+                    alertas.append(pa)
+                    agregadas += 1
+            if agregadas:
+                logger.info(f"Se conservaron {agregadas} alertas previas del mismo día en {fecha_corta}.")
+
     # Ordenar: Prioridad Alta primero
     orden_prioridad = {"Alta": 1, "Media": 2}
     alertas.sort(key=lambda x: orden_prioridad.get(x.get('nivel_alerta', 'Media'), 3))
-    
-    if not fecha_larga:
-        fecha_larga = datetime.now().strftime('%d de %B de %Y')
-    if not fecha_corta:
-        fecha_corta = datetime.now().strftime('%Y-%m-%d')
-    
+
     n_alta = sum(1 for a in alertas if a.get('nivel_alerta') == 'Alta')
     n_media = len(alertas) - n_alta
 
     if not alertas:
-        lista_html = '<div class="empty">No se encontraron publicaciones jurídicas relevantes esta semana.</div>'
+        lista_html = '<div class="empty">No se encontraron publicaciones jurídicas relevantes en esta edición.</div>'
     else:
         lista_html = ""
         for i, a in enumerate(alertas, 1):
-            materias = ", ".join(a.get('materias_relacionadas', []))
-            puntos = "".join([f"<li>{p}</li>" for p in a.get('puntos_clave', [])])
-            
+            materias = html_escape(", ".join(a.get('materias_relacionadas', [])))
+            puntos = "".join([f"<li>{html_escape(str(p))}</li>" for p in a.get('puntos_clave', [])])
+
             nivel = a.get('nivel_alerta', 'Media')
-            etiqueta = a.get('etiqueta_especial', 'General')
-            edicion = a.get('edicion', '')
-            fecha_ed = a.get('fecha_edicion', '')
-            
+            etiqueta = html_escape(str(a.get('etiqueta_especial', 'General')))
+            edicion = html_escape(str(a.get('edicion', '')))
+            fecha_ed = html_escape(str(a.get('fecha_edicion', '')))
+
             # Badge para mostrar "Vespertina 08/09/2026" directamente en el titulo
             badge_edicion = ""
             if edicion:
@@ -2209,7 +2498,12 @@ def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=No
                 accent = "#0055ea"
                 bg = "#f0f8ff"
                 dot_cls = "blue"
-            
+
+            titulo_corto = html_escape(str(a.get('titulo_corto', '')))
+            dependencia = html_escape(str(a.get('dependencia', 'General')))
+            resumen_est = html_escape(str(a.get('resumen_estudiantil', '')))
+            nota_url = html_escape(str(a.get('url', '#')), quote=True)
+
             lista_html += f"""
             <details class="accordion" style="background: {bg};">
               <summary>
@@ -2217,18 +2511,18 @@ def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=No
                     <div class="pixel-circle {dot_cls}"></div>
                     <div class="acc-title-area">
                         <span class="acc-badge" style="background:{accent};">{etiqueta}</span>{badge_edicion}
-                        <strong class="acc-title" style="color: {accent}; display: block; margin-top: 4px;">{a.get('titulo_corto')}</strong>
+                        <strong class="acc-title" style="color: {accent}; display: block; margin-top: 4px;">{titulo_corto}</strong>
                     </div>
                 </div>
               </summary>
               <div class="acc-body" style="border-left: 2px dashed {accent}; font-family: 'VT323', monospace; font-size: 18px;">
                 <div class="acc-meta">
-                    <span><strong>Dependencia:</strong> {a.get('dependencia')}</span><br>
+                    <span><strong>Dependencia:</strong> {dependencia}</span><br>
                     <span><strong>Materias:</strong> {materias}</span>
                 </div>
-                <p class="acc-summary">{a.get('resumen_estudiantil')}</p>
+                <p class="acc-summary">{resumen_est}</p>
                 <ul>{puntos}</ul>
-                <a href="{a.get('url')}" target="_blank" class="xp-button" style="display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;">Leer en el DOF →</a>
+                <a href="{nota_url}" target="_blank" class="xp-button" style="display:inline-block; margin-top:10px; text-decoration:none; font-family:'VT323', monospace; font-size: 16px;">Leer en el DOF →</a>
               </div>
             </details>
             """
@@ -2953,35 +3247,47 @@ def guardar_resumen_estudiante(config, alertas, fecha_corta=None, fecha_larga=No
 
 </body>
 </html>"""
-    resumenes_dir = os.path.join(BASE_DIR, "Resumenes_Semanales")
-    mes_key = fecha_corta[:7] if len(fecha_corta) >= 7 else datetime.now().strftime('%Y-%m')
-    mes_dir = os.path.join(resumenes_dir, mes_key)
-    os.makedirs(mes_dir, exist_ok=True)
-    file_path = os.path.join(mes_dir, f"Resumen_DOF_{fecha_corta}.html")
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(html)
     logger.info(f"Resumen guardado en carpeta mensual: {mes_key}/Resumen_DOF_{fecha_corta}.html")
     actualizar_dashboard(resumenes_dir)
 
 def main():
-    logger.info("=== INICIANDO MONITOREO DOF (ESTUDIANTES) ===")
+    parser = argparse.ArgumentParser(description="Monitor DOF para Estudiantes de Derecho")
+    parser.add_argument("--fecha", help="Fecha objetivo YYYY-MM-DD (por defecto: hoy hora México)")
+    parser.add_argument("--regenerar", action="store_true", help="Reemplazar el reporte de esa fecha sin fusionar con el anterior")
+    args = parser.parse_args()
+
+    fecha_dt = datetime.strptime(args.fecha, "%Y-%m-%d") if args.fecha else ahora_mexico()
+    fecha_corta = fecha_dt.strftime('%Y-%m-%d')
+    fecha_larga = f"{fecha_dt.day} de {MESES_NOMBRES[fecha_dt.month].lower()} de {fecha_dt.year}"
+
+    logger.info(f"=== INICIANDO MONITOREO DOF (ESTUDIANTES) | Fecha objetivo: {fecha_corta} ===")
     config_path = os.path.join(BASE_DIR, 'dof-estudiantes-config.json')
-    if not os.path.exists(config_path): return
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"No se encontró el archivo de configuración: {config_path}")
     with open(config_path, 'r', encoding='utf-8') as f:
         config = json.load(f)
 
-    pubs_dof = fetch_dof_portada()
-    if not pubs_dof: return
+    pubs_dof = fetch_dof_portada(fecha_objetivo=fecha_dt)
+    if not pubs_dof:
+        logger.info("No se encontraron publicaciones en el DOF para la fecha consultada.")
+        return
     pubs_dof_filtradas = pre_filtro_regex(pubs_dof, config)
     sobrevivientes = primer_filtro_ia(pubs_dof_filtradas, config, "DOF Federal")
 
     if not sobrevivientes:
-        guardar_resumen_estudiante(config, [])
+        guardar_resumen_estudiante(config, [], fecha_corta=fecha_corta, fecha_larga=fecha_larga, regenerar=args.regenerar)
+        logger.info("=== PROCESO FINALIZADO (SIN PUBLICACIONES RELEVANTES) ===")
         return
 
     analisis_final = analizar_profundo_uno_por_uno(sobrevivientes, config)
-    guardar_resumen_estudiante(config, analisis_final)
+    guardar_resumen_estudiante(config, analisis_final, fecha_corta=fecha_corta, fecha_larga=fecha_larga, regenerar=args.regenerar)
     logger.info("=== PROCESO FINALIZADO EXITOSAMENTE ===")
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logger.exception(f"Error fatal durante el monitoreo del DOF: {e}")
+        sys.exit(1)
