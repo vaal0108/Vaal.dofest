@@ -1271,3 +1271,7 @@
 2026-11-23 18:10:08 [INFO] Resumen guardado en carpeta mensual: 2026-11/Resumen_DOF_2026-11-23.html
 2026-11-23 18:10:08 [INFO] Dashboard actualizado.
 2026-11-23 18:10:08 [INFO] === PROCESO FINALIZADO EXITOSAMENTE ===
+2026-11-24 02:02:14 [INFO] === INICIANDO MONITOREO DOF (ESTUDIANTES) ===
+2026-11-24 02:02:14 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=MAT
+2026-11-24 02:02:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=24&edicion=VES
+2026-11-24 02:02:15 [INFO] [DOF FEDERAL] Consultando: https://www.dof.gob.mx/index_111.php?year=2026&month=11&day=23&edicion=VES
